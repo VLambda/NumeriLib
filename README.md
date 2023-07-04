@@ -1,1 +1,3 @@
-This sentence uses `$` delimiters to show math inline:  $\sqrt{3x-1}+(1+x)^2$
+# $_{V}M^{L}$
+
+Vedang's Math Library (aka VML) is a mathematics library to recreate the functions that are present in the TI-84 & 83 line up of calulators, and more. 
