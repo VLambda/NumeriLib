@@ -1,4 +1,3 @@
-mod basic;
-pub mod func;
+mod func;
 
-pub use basic::*;
+pub use func::*;

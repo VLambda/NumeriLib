@@ -1,4 +1,7 @@
-pub mod erf;
-mod inverf;
+mod func;
+mod gamma;
+mod beta;
 
-pub use inverf::*;
+pub use func::*;
+pub use gamma::*;
+pub use beta::*;

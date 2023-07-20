@@ -1,5 +1,4 @@
-use crate::special::func::erf::{ upper_erf, lower_erf };
-use crate::special::func::inverse_error_function;
+use crate::special::Functions;
 
 pub struct Gaussian;
 
@@ -37,19 +36,12 @@ impl Gaussian {
     /// assert_eq!(invnorm, 1.9599639845401289);
     /// ```
     /// <hr/>
-    pub fn invnorm<T>(
-        area: f64,
-        mean: impl Into<f64> + Copy,
-        sd: impl Into<f64> + Copy,
-        tail: T,
-    ) -> Result<f64, String>
-        where
-            T: AsRef<str> + Copy,
-    {
+    ///
+    pub fn invnorm<T: AsRef<str> + Copy>(area: f64, mean: impl Into<f64> + Copy, sd: impl Into<f64> + Copy, tail: T, ) -> Result<f64, String> {
         let tail_str = tail.as_ref();
 
         let function: f64 = (std::f64::consts::SQRT_2 * sd.into())
-            * (inverse_error_function(-2_f64 * area + 1_f64));
+            * (Functions::inverf(-2_f64 * area + 1_f64));
 
         let tail_val: f64 = if tail_str.eq_ignore_ascii_case("Right") {
             function + mean.into()
@@ -85,9 +77,8 @@ impl Gaussian {
     /// assert_eq!(normalpdf, 0.3520653267642995);
     /// ```
     /// <hr/>
-    pub fn normalpdf(x_value: impl Into<f64> + Copy,
-                     mean: impl Into<f64> + Copy,
-                     sd: impl Into<f64> + Copy) -> f64 {
+    ///
+    pub fn normalpdf(x_value: impl Into<f64> + Copy, mean: impl Into<f64> + Copy, sd: impl Into<f64> + Copy) -> f64 {
         (1.0 / (sd.into() * (std::f64::consts::TAU).sqrt()))
             * (std::f64::consts::E).powf((-1.0 / 2.0) * ((x_value.into() - mean.into()) / sd.into()).powi(2))
     }
@@ -110,17 +101,13 @@ impl Gaussian {
     /// assert_eq!(normalcdf, 0.20227802886072038);
     /// ```
     /// <hr/>
-    pub fn normalcdf(
-        lower: impl Into<f64> + Copy,
-        upper: impl Into<f64> + Copy,
-        mean: impl Into<f64> + Copy,
-        sd: impl Into<f64> + Copy,
-    ) -> f64 {
+    ///
+    pub fn normalcdf(lower: impl Into<f64> + Copy, upper: impl Into<f64> + Copy, mean: impl Into<f64> + Copy, sd: impl Into<f64> + Copy, ) -> f64 {
         let z1 = (lower.into() - mean.into()) / (sd.into() * std::f64::consts::SQRT_2);
         let z2 = (upper.into() - mean.into()) / (sd.into() * std::f64::consts::SQRT_2);
 
-        let low_erf = lower_erf(z1);
-        let up_erf = upper_erf(z2);
+        let low_erf = Functions::lower_erf(z1);
+        let up_erf = Functions::erf(z2);
 
         (low_erf + up_erf) / 2_f64
     }
