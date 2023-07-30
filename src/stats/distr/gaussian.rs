@@ -5,9 +5,10 @@ pub struct Gaussian;
 impl Gaussian {
     /// This function recreates the InvNorm function in the Ti-83 & 84 calculators. <br>
     /// This is not to be confused with an Inverse Gaussian Distribution though. <br>
-    /// This uses an approximation of the Inverse Error Function found at: <https://scistatcalc.blogspot.com/2013/09/numerical-estimate-of-inverse-error.html> <br>
-    /// Learn more at: <https://www.statology.org/inverse-normal-distribution/>
-    ///<hr/>
+    /// Learn more at: <a href="https://www.statology.org/inverse-normal-distribution/" target="_blank">Statology InvNorm</a> <br>
+    /// <hr/>
+    ///
+    ///
     /// # Example #1: Right Side Non-Standard Normal Distribution
     ///
     /// ```
@@ -19,7 +20,7 @@ impl Gaussian {
     /// let tail = "Right";
     ///
     /// let invnorm = Gaussian::invnorm(area, mean, sd, tail).unwrap();
-    /// assert_eq!(invnorm, 41.187729649603824);
+    /// assert_eq!(invnorm, 41.187732121301465);
     /// ```
     /// <hr/>
     /// # Example #2: Left Side Standard Normal Distribution
@@ -32,12 +33,12 @@ impl Gaussian {
     /// let sd = 1;
     /// let tail = "Left";
     ///
-    /// let invnorm = Gaussian::invnorm(area, mean, sd, tail).unwrap();
+    /// let invnorm = Gaussian::inv(area, mean, sd, tail).unwrap();
     /// assert_eq!(invnorm, 1.9599639845401289);
     /// ```
     /// <hr/>
     ///
-    pub fn invnorm<T: AsRef<str> + Copy>(area: f64, mean: impl Into<f64> + Copy, sd: impl Into<f64> + Copy, tail: T, ) -> Result<f64, String> {
+    pub fn inv<T: AsRef<str> + Copy>(area: f64, mean: impl Into<f64> + Copy, sd: impl Into<f64> + Copy, tail: T, ) -> Result<f64, String> {
         let tail_str = tail.as_ref();
 
         let function: f64 = (std::f64::consts::SQRT_2 * sd.into())
@@ -60,7 +61,7 @@ impl Gaussian {
         Ok(rounded_val)
     }
     /// Calculates a Probability Density Function (PDF) on a Normal/Gaussian distribution <br>
-    /// Learn more about Normal Distributions at: <https://wikipedia.org/wiki/Normal_distribution#Definitions>
+    /// Learn more about Normal Distributions at: <a href="https://wikipedia.org/wiki/Normal_distribution#Definitions" target="_blank">Wikipedia Normal PDF</a> <br>
     /// <hr/>
     ///
     /// # Example:
@@ -72,18 +73,18 @@ impl Gaussian {
     /// let mean = 0 as f64;
     /// let sd = 1 as f64;
     ///
-    /// let normalpdf = Gaussian::normalpdf(xvalue,mean,sd);
+    /// let normalpdf = Gaussian::pdf(xvalue,mean,sd);
     ///
     /// assert_eq!(normalpdf, 0.3520653267642995);
     /// ```
     /// <hr/>
     ///
-    pub fn normalpdf(x_value: impl Into<f64> + Copy, mean: impl Into<f64> + Copy, sd: impl Into<f64> + Copy) -> f64 {
+    pub fn pdf(x_value: impl Into<f64> + Copy, mean: impl Into<f64> + Copy, sd: impl Into<f64> + Copy) -> f64 {
         (1.0 / (sd.into() * (std::f64::consts::TAU).sqrt()))
             * (std::f64::consts::E).powf((-1.0 / 2.0) * ((x_value.into() - mean.into()) / sd.into()).powi(2))
     }
     /// Calculates Cumulative Distribution Function (CDF) on a Normal/Gaussian distribution <br>
-    /// Learn more about Normal Distributions at: <https://wikipedia.org/wiki/Normal_distribution#Definitions>
+    /// Learn more about Normal Distributions at: <a href="https://wikipedia.org/wiki/Normal_distribution#Definitions" target="_blank">Wikipedia Normal CDF</a> <br>
     /// <hr/>
     ///
     /// # Example:
@@ -96,13 +97,13 @@ impl Gaussian {
     /// let mean = 42 as f64;
     /// let sd = 3.6;
     ///
-    /// let normalcdf = Gaussian::normalcdf(lower, upper, mean, sd);
+    /// let normalcdf = Gaussian::cdf(lower, upper, mean, sd);
     ///
     /// assert_eq!(normalcdf, 0.20227802886072038);
     /// ```
     /// <hr/>
     ///
-    pub fn normalcdf(lower: impl Into<f64> + Copy, upper: impl Into<f64> + Copy, mean: impl Into<f64> + Copy, sd: impl Into<f64> + Copy, ) -> f64 {
+    pub fn cdf(lower: impl Into<f64> + Copy, upper: impl Into<f64> + Copy, mean: impl Into<f64> + Copy, sd: impl Into<f64> + Copy, ) -> f64 {
         let z1 = (lower.into() - mean.into()) / (sd.into() * std::f64::consts::SQRT_2);
         let z2 = (upper.into() - mean.into()) / (sd.into() * std::f64::consts::SQRT_2);
 

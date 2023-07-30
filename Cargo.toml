@@ -1,12 +1,12 @@
 [package]
-name = "vml"
-version = "0.0.2"
+name = "ferrate"
+version = "0.0.3"
 authors = ["vedang"]
 edition = "2021"
 license-file = "LICENSE"
-description = "Vedang's Math Library"
+description = "A Rust Math Library"
 readme = "CratesREADME.md"
-repository = "https://github.com/VLambda/vml.git"
+repository = "https://github.com/VLambda/ferrate.git"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

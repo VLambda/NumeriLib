@@ -1,10 +1,13 @@
 use crate::special::Gamma;
+use crate::extra::Extra;
+
+const EPSILON: f64 = 1e-15;
 
 pub struct Functions;
 
 impl Functions {
     /// A simple implementation of the Error Function that is used to Calculate The NormalCDF Function. <br>
-    /// Learn more about the Error Function at: <https://wikipedia.org/wiki/Error_function>
+    /// Learn more about the Error Function at: <a href="https://wikipedia.org/wiki/Error_function" target="_blank">Wikipedia Error Function</a> <br>
     /// <hr/>
     ///
     /// # Example:
@@ -25,7 +28,7 @@ impl Functions {
         error_function
     }
     /// A traditional implementation of the standard Error Function. <br>
-    /// Learn more about the Error Function at: <https://wikipedia.org/wiki/Error_function>
+    /// Learn more about the Error Function at: <a href="https://wikipedia.org/wiki/Error_function" target="_blank">Wikipedia Error Function</a> <br>
     /// <hr/>
     ///
     /// # Example:
@@ -45,7 +48,7 @@ impl Functions {
         let error_function: f64 = (2.0 / std::f64::consts::PI.sqrt()) * Functions::integral(0_f64, bound, f).unwrap();
         error_function
     }
-    /// A Rust implementation of the this approximation by Alijah Ahmed at: <https://scistatcalc.blogspot.com/2013/09/numerical-estimate-of-inverse-error.html>
+    /// A Rust implementation of the this approximation by Alijah Ahmed at: <a href="https://scistatcalc.blogspot.com/2013/09/numerical-estimate-of-inverse-error.html" target="_blank">Inverse Error Function Approximation</a> <br>
     ///
     /// # Example
     ///
@@ -96,7 +99,7 @@ impl Functions {
         res_ra - (2.0 * fx * df) / ((2.0 * df * df) - (fx * d2f))
     }
     /// Uses the definition of a derivative to calculate the derivative of a function at a specific point of a given function. <br>
-    /// Learn more about Derivatives and Differentiation at: <https://wikipedia.org/wiki/Derivative>
+    /// Learn more about Derivatives and Differentiation at: <a href="https://wikipedia.org/wiki/Derivative" target="_blank">Wikipedia Derivative</a> <br>
     /// <hr/>
     ///
     /// # Example:
@@ -112,19 +115,19 @@ impl Functions {
     /// ```
     /// <hr/>
     ///
-    pub fn derivative(f: fn(f64) -> f64, x: impl Into<f64> + Copy) -> Result<i64, f64> {
+    pub fn derivative<F: Fn(f64) -> f64>(f: F, x: impl Into<f64> + Copy) -> f64 {
         let h = 1e-7;
         let definition = ((f(x.into() + h)) - f(x.into())) / h;
 
         if definition.fract().abs() < 1e-7 {
-            Ok(definition.round() as i64)
+            definition.round()
         } else {
-            Err(definition)
+            definition
         }
     }
     /// Uses Simpson's 1/3rd Rule to calculate the integral.<br>
-    /// Learn more about Integrals at: <https://wikipedia.org/wiki/Integral> <br>
-    /// Learn more about Simpson's 1/3rd Rule at: <https://wikipedia.org/wiki/Simpson's_rule> <br>
+    /// Learn more about Integrals at: <a href="https://wikipedia.org/wiki/Integral" target="_blank">Wikipedia Integral</a> <br>
+    /// Learn more about Simpson's 1/3rd Rule at: <a href="https://wikipedia.org/wiki/Simpson's_rule" target="_blank">Wikipedia Simpson's Rule</a> <br>
     /// <hr/>
     ///
     /// # Example
@@ -165,16 +168,11 @@ impl Functions {
             return Err("Function is Divergent".to_string());
         }
 
-        let r2 = (r1 * 1e+6).round();
-
-        if ((r1 * 1e+6).floor() + 1e-6) > r2 || ((r1 * 1e+6).ceil() - 1e-6) < r2 {
-            Ok(r2 / 1e+6)
-        } else {
-            Ok(r1)
-        }
+        let approx = Extra::round(r1);
+        Ok(approx)
     }
     /// Summations in Rust. <br>
-    /// Learn more at: <https://wikipedia.org/wiki/Summation>
+    /// Learn more at: <a href="https://wikipedia.org/wiki/Summation" target="_blank">Wikipedia Summation</a> <br>
     /// <hr/>
     ///
     /// # Example #1: Constant
@@ -218,7 +216,7 @@ impl Functions {
         result
     }
     /// Calculates a Factorial by using Lanczos's Gamma Function Approximation. <br>
-    /// Learn more at: <https://wikipedia.org/wiki/Factorial>
+    /// Learn more at: <a href="https://wikipedia.org/wiki/Factorial" target="_blank">Wikipedia Factorials</a> <br>
     /// <hr/>
     ///
     /// # Example:
@@ -234,8 +232,8 @@ impl Functions {
     pub fn factorial(n: f64) -> f64 {
         Gamma::lanczos(n + 1_f64)
     }
-    /// Calculates the product of a function. a.k.a capital Pi Notation. <br>
-    /// Learn more at: <https://wikipedia.org/wiki/Product_(mathematics)#Product_of_a_sequence>
+    /// Calculates the product of a function. a.k.a Capital Pi Notation. <br>
+    /// Learn more at: <a href="https://wikipedia.org/wiki/Product_(mathematics)#Product_of_a_sequence" target="_blank">Wikipedia Capital Pi Notation</a> <br>
     /// <hr/>
     ///
     /// # Example #1: Constant
@@ -275,5 +273,43 @@ impl Functions {
             result *= f(i as f64);
         }
         result
+    }
+    /// A rust implementation of the Newton–Raphson method for finding roots.
+    /// Learn more at: <a href="https://en.wikipedia.org/wiki/Newton's_method" target="_blank">Wikipedia Newton–Raphson method</a> <br>
+    /// <hr/>
+    ///
+    ///
+    /// # Example:
+    /// ```
+    /// use vml::special::Functions;
+    ///
+    /// let x = 1.5_f64;
+    /// let function = |x: f64| x.powi(2) - 2_f64;
+    /// let newton = Functions::newmet(x, function);
+    ///
+    /// assert_eq!(newton, std::f64::consts::SQRT_2);
+    /// ```
+    /// <hr/>
+    pub fn newmet<F: Fn(f64) -> f64>(mut guess: f64, func: F) -> f64 {
+        let mut iteration = 0;
+
+        while iteration < 200 {
+            let value = func(guess);
+            let derivative_value = Functions::derivative(&func, guess);
+
+            if derivative_value.abs() < EPSILON {
+                break; // Avoid division by nearly zero
+            }
+
+            guess -= value / derivative_value;
+
+            if value.abs() < EPSILON {
+                break; // Converged to a solution
+            }
+
+            iteration += 1;
+        }
+
+        Extra::round(guess)
     }
 }
