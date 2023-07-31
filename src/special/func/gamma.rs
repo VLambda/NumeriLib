@@ -1,6 +1,6 @@
 /*  I gotta give credit where credit is due. I took the Lanczos Approximation from
-    Axect's Lanczos repo at: https://github.com/Axect/Lanczos.git
- */
+   Axect's Lanczos repo at: https://github.com/Axect/Lanczos.git
+*/
 
 use crate::special::Functions;
 
@@ -13,7 +13,7 @@ const LG5N7: [f64; 7] = [
     24.01409824118972,
     -1.2317395783752254,
     0.0012086577526594748,
-    -0.00000539702438713199
+    -0.00000539702438713199,
 ];
 
 pub struct Gamma;
@@ -31,11 +31,12 @@ impl Gamma {
     /// let n = 6_f64;
     /// let stirling = Gamma::stirling(n);
     ///
-    /// assert_eq!(stirling, 118.0191679575901);
+    /// assert_eq!(stirling, 118.01916795759013_f64);
     /// ```
     /// <hr/>
     pub fn stirling(n: f64) -> f64 {
-        (std::f64::consts::TAU * (n - 1_f64)).sqrt() * ((n - 1_f64)/std::f64::consts::E).powf(n - 1_f64)
+        (std::f64::consts::TAU * (n - 1_f64)).sqrt()
+            * ((n - 1_f64) / std::f64::consts::E).powf(n - 1_f64)
     }
     /// <hr/>
     ///
@@ -89,7 +90,9 @@ impl Gamma {
     pub fn lanczos(z: f64) -> f64 {
         let exp = Gamma::lanczosln(z).exp();
 
-        if ((exp * 1e+6).ceil() - 1e-6) < (exp * 1e+6) || ((exp * 1e+6).floor() + 1e+6) > (exp * 1e+6) {
+        if ((exp * 1e+6).ceil() - 1e-6) < (exp * 1e+6)
+            || ((exp * 1e+6).floor() + 1e+6) > (exp * 1e+6)
+        {
             ((exp * 1e+6).round()) / 1e+6
         } else {
             exp
@@ -119,7 +122,9 @@ impl Gamma {
         let mut result = 0_f64;
 
         for i in 0..99 {
-            result += (((-1_f64).powi(i) * (x).powi(i)) / ((bound + i as f64) * Functions::factorial(i as f64))) * x.powf(bound);
+            result += (((-1_f64).powi(i) * (x).powi(i))
+                / ((bound + i as f64) * Functions::factorial(i as f64)))
+                * x.powf(bound);
         }
 
         result
@@ -130,7 +135,7 @@ impl Gamma {
     ///
     ///
     /// # Example
-    /// 
+    ///
     /// ```
     /// use ferrate::special::Gamma;
     ///
