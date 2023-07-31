@@ -10,7 +10,7 @@ impl Student {
     ///
     /// # Example:
     /// ```
-    /// use vml::stats::distr::Student;
+    /// use ferrate::stats::distr::Student;
     ///
     /// let x = 0.975;
     /// let df = 6_f64;
@@ -33,13 +33,13 @@ impl Student {
     ///
     /// # Example #1:
     /// ```
-    /// use vml::stats::distr::Student;
+    /// use ferrate::stats::distr::Student;
     ///
     /// let lower = 1_f64;
     /// let upper = 1.96;
     /// let df = 6_f64;
     ///
-    /// let tcdf = Student::tcdf(lower, upper,df);
+    /// let tcdf = Student::cdf(lower, upper,df);
     ///
     /// assert_eq!(tcdf, -0.12911126566804765)
     /// ```
@@ -47,7 +47,7 @@ impl Student {
     ///
     /// # Example #2:
     /// ```
-    /// use vml::stats::distr::Student;
+    /// use ferrate::stats::distr::Student;
     ///
     /// let lower = -9e+99;
     /// let upper = 1.96;
@@ -85,12 +85,12 @@ impl Student {
     /// # Example #1:
     ///
     /// ```
-    /// use vml::stats::distr::Student;
+    /// use ferrate::stats::distr::Student;
     ///
     /// let area = 0.025_f64;
     /// let df = 63_f64;
     ///
-    /// let inverse_t = Student::invt(area, df);
+    /// let inverse_t = Student::inv(area, df);
     ///
     /// assert_eq!(inverse_t, -1.998340526962578);
     /// ```
@@ -98,7 +98,7 @@ impl Student {
     ///
     /// # Example #2:
     /// ```
-    /// use vml::stats::distr::Student;
+    /// use ferrate::stats::distr::Student;
     ///
     /// let area = 0.5_f64;
     /// let df = 96_f64;

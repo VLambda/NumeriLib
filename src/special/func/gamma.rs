@@ -26,7 +26,7 @@ impl Gamma {
     ///
     /// # Example:
     /// ```
-    /// use vml::special::Gamma;
+    /// use ferrate::special::Gamma;
     ///
     /// let n = 6_f64;
     /// let stirling = Gamma::stirling(n);
@@ -50,7 +50,7 @@ impl Gamma {
     ///
     /// # Example:
     /// ```
-    /// use vml::special::Gamma;
+    /// use ferrate::special::Gamma;
     ///
     /// let n = 6_f64;
     /// let lanczos_ln = Gamma::lanczosln(n);
@@ -78,7 +78,7 @@ impl Gamma {
     ///
     /// # Example:
     /// ```
-    /// use vml::special::Gamma;
+    /// use ferrate::special::Gamma;
     ///
     /// let n = 6_f64;
     /// let lanczos = Gamma::lanczos(n);
@@ -104,7 +104,7 @@ impl Gamma {
     /// # Example
     ///
     /// ```
-    /// use vml::special::Gamma;
+    /// use ferrate::special::Gamma;
     ///
     /// let bound = 3_f64;
     /// let x = 1_f64;
@@ -132,12 +132,12 @@ impl Gamma {
     /// # Example
     /// 
     /// ```
-    /// use vml::special::Gamma;
+    /// use ferrate::special::Gamma;
     ///
     /// let a = 3_f64;
     /// let x = 1_f64;
     ///
-    /// let gamma = Gamma::incgammac(x, a);
+    /// let gamma = Gamma::incgammac(a, x);
     ///
     /// assert_eq!(gamma, 1.8393972058572117_f64);
     /// ```
@@ -153,7 +153,7 @@ impl Gamma {
     /// # Example
     ///
     /// ```
-    /// use vml::special::Gamma;
+    /// use ferrate::special::Gamma;
     ///
     /// let bound = 5_f64;
     /// let x = 2_f64;
@@ -174,7 +174,7 @@ impl Gamma {
     /// # Example
     ///
     /// ```
-    /// use vml::special::Gamma;
+    /// use ferrate::special::Gamma;
     ///
     /// let bound = 5_f64;
     /// let x = 2_f64;

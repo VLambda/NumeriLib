@@ -12,21 +12,21 @@ impl Gaussian {
     /// # Example #1: Right Side Non-Standard Normal Distribution
     ///
     /// ```
-    /// use vml::stats::distr::Gaussian;
+    /// use ferrate::stats::distr::Gaussian;
     ///
     /// let area = 0.589255651;
     /// let mean = 42;
     /// let sd = 3.6;
     /// let tail = "Right";
     ///
-    /// let invnorm = Gaussian::invnorm(area, mean, sd, tail).unwrap();
-    /// assert_eq!(invnorm, 41.187732121301465);
+    /// let invnorm = Gaussian::inv(area, mean, sd, tail).unwrap();
+    /// assert_eq!(invnorm, 41.187729649603824);
     /// ```
     /// <hr/>
     /// # Example #2: Left Side Standard Normal Distribution
     ///
     /// ```
-    /// use vml::stats::distr::Gaussian;
+    /// use ferrate::stats::distr::Gaussian;
     ///
     /// let area = 0.975;
     /// let mean = 0;
@@ -67,7 +67,7 @@ impl Gaussian {
     /// # Example:
     ///
     /// ```
-    /// use vml::stats::distr::Gaussian;
+    /// use ferrate::stats::distr::Gaussian;
     ///
     /// let xvalue = 0.5;
     /// let mean = 0 as f64;
@@ -90,7 +90,7 @@ impl Gaussian {
     /// # Example:
     ///
     /// ```
-    /// use vml::stats::distr::Gaussian;
+    /// use ferrate::stats::distr::Gaussian;
     ///
     /// let lower = 45 as f64;
     /// let upper = 56 as f64;

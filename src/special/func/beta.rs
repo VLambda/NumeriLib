@@ -14,7 +14,7 @@ impl Beta {
     ///
     /// # Example:
     /// ```
-    /// use vml::special::Beta;
+    /// use ferrate::special::Beta;
     ///
     /// let z1 = 1_f64;
     /// let z2 = 2_f64;
@@ -33,7 +33,7 @@ impl Beta {
     ///
     /// # Example:
     /// ```
-    /// use vml::special::Beta;
+    /// use ferrate::special::Beta;
     ///
     /// let z1 = 1_f64;
     /// let z2 = 2_f64;
@@ -54,7 +54,7 @@ impl Beta {
     ///
     /// # Example:
     /// ```
-    /// use vml::special::Beta;
+    /// use ferrate::special::Beta;
     ///
     /// let x = 1_f64 / 7_f64;
     /// let z1 = 0.5;
@@ -78,7 +78,7 @@ impl Beta {
     ///
     /// # Example:
     /// ```
-    /// use vml::special::Beta;
+    /// use ferrate::special::Beta;
     ///
     /// let x = 0.8_f64;
     /// let z1 = 1_f64;
@@ -148,7 +148,7 @@ impl Beta {
     ///
     /// # Example:
     /// ```
-    /// use vml::special::Beta;
+    /// use ferrate::special::Beta;
     ///
     /// let z1 = 1_f64;
     /// let z2 = 2_f64;

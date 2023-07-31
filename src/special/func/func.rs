@@ -12,7 +12,7 @@ impl Functions {
     ///
     /// # Example:
     /// ```
-    /// use vml::special::Functions;
+    /// use ferrate::special::Functions;
     ///
     /// let bound = 4_f64;
     /// let low_erf = Functions::lower_erf(bound);
@@ -33,7 +33,7 @@ impl Functions {
     ///
     /// # Example:
     /// ```
-    /// use vml::special::Functions;
+    /// use ferrate::special::Functions;
     ///
     /// let bound = 4_f64;
     /// let low_erf = Functions::erf(bound);
@@ -53,7 +53,7 @@ impl Functions {
     /// # Example
     ///
     /// ```
-    /// use vml::special::Functions;
+    /// use ferrate::special::Functions;
     ///
     /// let x = 0.975;
     /// let inverf = Functions::inverf(x);
@@ -104,14 +104,14 @@ impl Functions {
     ///
     /// # Example:
     /// ```
-    /// use vml::special::Functions;
+    /// use ferrate::special::Functions;
     ///
     /// let function = |x: f64| x.powi(2);
     /// let x = 2;
     ///
-    /// let derivative = Functions::derivative(function, x).unwrap();
+    /// let derivative = Functions::derivative(function, x);
     ///
-    /// assert_eq!(derivative, 4);
+    /// assert_eq!(derivative, 4_f64);
     /// ```
     /// <hr/>
     ///
@@ -132,7 +132,7 @@ impl Functions {
     ///
     /// # Example
     /// ```
-    /// use vml::special::Functions;
+    /// use ferrate::special::Functions;
     ///
     /// let lower_bound = 0_f64;
     /// let upper_bound = 6_f64;
@@ -178,7 +178,7 @@ impl Functions {
     /// # Example #1: Constant
     ///
     /// ```
-    /// use vml::special::Functions;
+    /// use ferrate::special::Functions;
     ///
     /// let start = 0;
     /// let limit = 9;
@@ -192,7 +192,7 @@ impl Functions {
     ///
     /// # Example #2: Function
     /// ```
-    /// use vml::special::Functions;
+    /// use ferrate::special::Functions;
     ///
     /// let start = 4.5;
     /// let limit = 100;
@@ -221,7 +221,7 @@ impl Functions {
     ///
     /// # Example:
     /// ```
-    /// use vml::special::Functions;
+    /// use ferrate::special::Functions;
     ///
     /// let n = 6_f64;
     /// let factorial = Functions::factorial(n);
@@ -239,7 +239,7 @@ impl Functions {
     /// # Example #1: Constant
     ///
     /// ```
-    /// use vml::special::Functions;
+    /// use ferrate::special::Functions;
     ///
     /// let start = 2_f64;
     /// let limit = 7_f64;
@@ -253,7 +253,7 @@ impl Functions {
     /// # Example #2: Function
     ///
     /// ```
-    /// use vml::special::Functions;
+    /// use ferrate::special::Functions;
     ///
     /// let start = 1_f64;
     /// let limit = 6_f64;
@@ -281,7 +281,7 @@ impl Functions {
     ///
     /// # Example:
     /// ```
-    /// use vml::special::Functions;
+    /// use ferrate::special::Functions;
     ///
     /// let x = 1.5_f64;
     /// let function = |x: f64| x.powi(2) - 2_f64;

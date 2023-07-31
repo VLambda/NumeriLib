@@ -10,7 +10,7 @@ impl Digamma {
     ///
     /// # Example:
     /// ```
-    /// use vml::special::Digamma;
+    /// use ferrate::special::Digamma;
     ///
     /// let z = 2_f64;
     /// let digamma = Digamma::digamma(z);

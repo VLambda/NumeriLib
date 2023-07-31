@@ -10,7 +10,7 @@ impl Probability {
     /// # Example #1:
     ///
     /// ```
-    /// use vml::prob::Probability;
+    /// use ferrate::prob::Probability;
     ///
     /// let n = 4_f64;
     /// let r = 3_f64;
@@ -25,7 +25,7 @@ impl Probability {
     /// # Example #2:
     ///
     /// ```
-    /// use vml::prob::Probability;
+    /// use ferrate::prob::Probability;
     ///
     /// let n = 2_f64;
     /// let r = 3_f64;
@@ -48,7 +48,7 @@ impl Probability {
     /// # Example #1:
     ///
     /// ```
-    /// use vml::prob::Probability;
+    /// use ferrate::prob::Probability;
     ///
     /// let n = 4_f64;
     /// let r = 3_f64;
@@ -63,7 +63,7 @@ impl Probability {
     /// # Example #2:
     ///
     /// ```
-    /// use vml::prob::Probability;
+    /// use ferrate::prob::Probability;
     ///
     /// let n = 2_f64;
     /// let r = 3_f64;

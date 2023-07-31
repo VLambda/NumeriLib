@@ -10,7 +10,7 @@ impl Chi {
     ///
     /// # Example:
     /// ```
-    /// use vml::stats::distr::Chi;
+    /// use ferrate::stats::distr::Chi;
     ///
     /// let x = 6_f64;
     /// let df = 5_f64;
@@ -38,7 +38,7 @@ impl Chi {
     /// # Example:
     ///
     /// ```
-    /// use vml::stats::distr::Chi;
+    /// use ferrate::stats::distr::Chi;
     ///
     /// let l = 2_f64;
     /// let u = 5_f64;
