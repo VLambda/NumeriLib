@@ -4,13 +4,13 @@ pub struct Probability;
 
 impl Probability {
     /// Implementation of Permutation in rust <br>
-    /// Learn more at: <a href="https://en.wikipedia.org/wiki/Permutation" target="_blank">Wikipedia Permutation</a> <br>
+    /// Learn more at: <a href="https://wikipedia.org/wiki/Permutation" target="_blank">Wikipedia Permutation</a> <br>
     /// <hr/>
     ///
     /// # Example #1:
     ///
     /// ```
-    /// use ferrate::prob::Probability;
+    /// use ferrate::Probability;
     ///
     /// let n = 4_f64;
     /// let r = 3_f64;
@@ -25,7 +25,7 @@ impl Probability {
     /// # Example #2:
     ///
     /// ```
-    /// use ferrate::prob::Probability;
+    /// use ferrate::Probability;
     ///
     /// let n = 2_f64;
     /// let r = 3_f64;
@@ -41,14 +41,14 @@ impl Probability {
         numerator / denominator
     }
     /// An implementation of Combination in Rust <br>
-    /// Learn more at: <a href="https://en.wikipedia.org/wiki/Combination" target="_blank">Wikipedia Combination</a> <br>
+    /// Learn more at: <a href="https://wikipedia.org/wiki/Combination" target="_blank">Wikipedia Combination</a> <br>
     /// <hr/>
     ///
     ///
     /// # Example #1:
     ///
     /// ```
-    /// use ferrate::prob::Probability;
+    /// use ferrate::Probability;
     ///
     /// let n = 4_f64;
     /// let r = 3_f64;
@@ -63,7 +63,7 @@ impl Probability {
     /// # Example #2:
     ///
     /// ```
-    /// use ferrate::prob::Probability;
+    /// use ferrate::Probability;
     ///
     /// let n = 2_f64;
     /// let r = 3_f64;

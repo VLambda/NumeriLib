@@ -4,7 +4,7 @@ pub struct Chi;
 
 impl Chi {
     /// The Probability Density Function (PDF) for Chi Distribution <br>
-    /// Learn more at: <a href="https://en.wikipedia.org/wiki/Chi_distribution#Probability_density_function" target="_blank">Wikipedia Chi PDF</a> <br>
+    /// Learn more at: <a href="https://wikipedia.org/wiki/Chi_distribution#Probability_density_function" target="_blank">Wikipedia Chi PDF</a> <br>
     /// <hr/>
     ///
     ///
@@ -31,7 +31,7 @@ impl Chi {
         }
     }
     /// The Cumulative Density Function (CDF) Function for Chi Distributions <br>
-    /// Learn more at: <a href="https://en.wikipedia.org/wiki/Chi-squared_distribution#Cumulative_distribution_function" target="_blank">Wikipedia Chi CDF</a> <br>
+    /// Learn more at: <a href="https://wikipedia.org/wiki/Chi-squared_distribution#Cumulative_distribution_function" target="_blank">Wikipedia Chi CDF</a> <br>
     /// <hr/>
     ///
     ///

@@ -72,7 +72,7 @@ impl Gamma {
         (2f64 * std::f64::consts::PI).sqrt().ln() + s.ln() - base + base.ln() * (z + 0.5)
     }
     /// Uses the Lanczos Approximation for the Log Gamma Function and raises it to the power of e <br>
-    /// Learn More about the Gamma Function at: <a href="https://en.wikipedia.org/wiki/Gamma_function" target="_blank">Wikipedia Gamma Function</a> <br>
+    /// Learn More about the Gamma Function at: <a href="https://wikipedia.org/wiki/Gamma_function" target="_blank">Wikipedia Gamma Function</a> <br>
     /// Learn more about Lanczos Approximation at: <a href="https://wikipedia.org/wiki/Lanczos_approximation" target="_blank">Wikipedia Lanczos Approximation</a> <br>
     /// <hr/>
     ///
@@ -151,7 +151,7 @@ impl Gamma {
         Gamma::lanczos(bound) - Gamma::incgamma(bound, x)
     }
     /// An implementation of the Regularized Incomplete Gamma Function <br>
-    /// Learn more at: <a href="https://en.wikipedia.org/wiki/Incomplete_gamma_function#Regularized_gamma_functions_and_Poisson_random_variables" target="_blank">Wikipedia Regularized Gamma Functions</a> <br>
+    /// Learn more at: <a href="https://wikipedia.org/wiki/Incomplete_gamma_function#Regularized_gamma_functions_and_Poisson_random_variables" target="_blank">Wikipedia Regularized Gamma Functions</a> <br>
     /// <hr/>
     ///
     ///
@@ -172,7 +172,7 @@ impl Gamma {
         Gamma::incgamma(bound, x) / Gamma::lanczos(bound)
     }
     /// The CDF for the Poisson Random Variables <br>
-    /// Learn more at: <a href="https://en.wikipedia.org/wiki/Incomplete_gamma_function#Regularized_gamma_functions_and_Poisson_random_variables" target="_blank">Wikipedia Poisson Random Variables</a> <br>
+    /// Learn more at: <a href="https://wikipedia.org/wiki/Incomplete_gamma_function#Regularized_gamma_functions_and_Poisson_random_variables" target="_blank">Wikipedia Poisson Random Variables</a> <br>
     /// <hr/>
     ///
     ///

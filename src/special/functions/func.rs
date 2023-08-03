@@ -1,5 +1,5 @@
-use crate::special::Gamma;
 use crate::extra::Extra;
+use crate::special::Gamma;
 
 const EPSILON: f64 = 1e-15;
 
@@ -24,7 +24,8 @@ impl Functions {
     pub fn lower_erf(bound: f64) -> f64 {
         let f = |x: f64| (std::f64::consts::E).powf(-1_f64 * (x.powi(2)));
 
-        let error_function: f64 = (2.0 / std::f64::consts::PI.sqrt()) * Functions::integral(bound, 0_f64, f).unwrap();
+        let error_function: f64 =
+            (2.0 / std::f64::consts::PI.sqrt()) * Functions::integral(bound, 0_f64, f).unwrap();
         error_function
     }
     /// A traditional implementation of the standard Error Function. <br>
@@ -45,7 +46,8 @@ impl Functions {
     pub fn erf(bound: f64) -> f64 {
         let f = |x: f64| (std::f64::consts::E).powf(-1_f64 * (x.powi(2)));
 
-        let error_function: f64 = (2.0 / std::f64::consts::PI.sqrt()) * Functions::integral(0_f64, bound, f).unwrap();
+        let error_function: f64 =
+            (2.0 / std::f64::consts::PI.sqrt()) * Functions::integral(0_f64, bound, f).unwrap();
         error_function
     }
     /// A Rust implementation of the this approximation by Alijah Ahmed at: <a href="https://scistatcalc.blogspot.com/2013/09/numerical-estimate-of-inverse-error.html" target="_blank">Inverse Error Function Approximation</a> <br>
@@ -144,7 +146,11 @@ impl Functions {
     /// ```
     /// <hr/>
     ///
-    pub fn integral<F: Fn(f64) -> f64>(lower_bound: f64, upper_bound: f64, f: F) -> Result<f64, String> {
+    pub fn integral<F: Fn(f64) -> f64>(
+        lower_bound: f64,
+        upper_bound: f64,
+        f: F,
+    ) -> Result<f64, String> {
         let lower = lower_bound;
         let upper = upper_bound;
 
@@ -155,11 +161,7 @@ impl Functions {
 
         for i in 1..n {
             let x = lower + i as f64 * h;
-            sum += if i % 2 == 0 {
-                2.0 * f(x)
-            } else {
-                4.0 * f(x)
-            };
+            sum += if i % 2 == 0 { 2.0 * f(x) } else { 4.0 * f(x) };
         }
 
         let r1 = (h / 3.0) * sum;
@@ -204,7 +206,11 @@ impl Functions {
     /// ```
     /// <hr/>
     ///
-    pub fn summation(start: impl Into<f64> + Copy,limit: impl Into<f64> + Copy, f: fn(f64) -> f64) -> f64 {
+    pub fn summation(
+        start: impl Into<f64> + Copy,
+        limit: impl Into<f64> + Copy,
+        f: fn(f64) -> f64,
+    ) -> f64 {
         let start = start.into().round() as i64;
         let limit = limit.into().round() as i64;
         let mut result = 0.0;
@@ -275,7 +281,7 @@ impl Functions {
         result
     }
     /// A rust implementation of the Newton–Raphson method for finding roots.
-    /// Learn more at: <a href="https://en.wikipedia.org/wiki/Newton's_method" target="_blank">Wikipedia Newton–Raphson method</a> <br>
+    /// Learn more at: <a href="https://wikipedia.org/wiki/Newton's_method" target="_blank">Wikipedia Newton–Raphson method</a> <br>
     /// <hr/>
     ///
     ///

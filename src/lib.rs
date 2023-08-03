@@ -1,4 +1,8 @@
-pub mod stats;
-pub mod special;
 pub(crate) mod extra;
-pub mod prob;
+mod matrix;
+mod prob;
+pub mod special;
+pub mod stats;
+
+pub use matrix::*;
+pub use prob::*;
