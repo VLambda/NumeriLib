@@ -1,6 +1,6 @@
 [package]
 name = "ferrate"
-version = "0.0.3"
+version = "0.0.4"
 authors = ["vedang"]
 edition = "2021"
 license-file = "LICENSE"
