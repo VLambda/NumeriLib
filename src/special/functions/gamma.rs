@@ -28,15 +28,14 @@ impl Gamma {
     /// ```
     /// use ferrate::special::Gamma;
     ///
-    /// let n = 6_f64;
+    /// let n = 2_f64;
     /// let stirling = Gamma::stirling(n);
     ///
-    /// assert_eq!(stirling, 118.01916795759013_f64);
+    /// assert_eq!(stirling, 1.9190043514889832_f64);
     /// ```
     /// <hr/>
     pub fn stirling(n: f64) -> f64 {
-        (std::f64::consts::TAU * (n - 1_f64)).sqrt()
-            * ((n - 1_f64) / std::f64::consts::E).powf(n - 1_f64)
+        (std::f64::consts::TAU * (n)).sqrt() * ((n) / std::f64::consts::E).powf(n)
     }
     /// <hr/>
     ///
@@ -114,7 +113,7 @@ impl Gamma {
     ///
     /// let gamma = Gamma::incgamma(bound, x);
     ///
-    /// assert_eq!(gamma, 0.16060279414278844_f64);
+    /// assert_eq!(gamma, 0.16060279414278839_f64);
     ///
     /// ```
     /// <hr/>
@@ -165,7 +164,7 @@ impl Gamma {
     ///
     /// let reggamma = Gamma::reggamma(bound, x);
     ///
-    /// assert_eq!(reggamma, 0.05265301734372547_f64);
+    /// assert_eq!(reggamma, 0.052653017343711174_f64);
     /// ```
     /// <hr/>
     pub fn reggamma(bound: f64, x: f64) -> f64 {
@@ -186,7 +185,7 @@ impl Gamma {
     ///
     /// let reggammac = Gamma::reggammac(bound, x);
     ///
-    /// assert_eq!(reggammac, 0.9473469826562745_f64);
+    /// assert_eq!(reggammac, 0.9473469826562888_f64);
     /// ```
     /// <hr/>
     pub fn reggammac(bound: f64, x: f64) -> f64 {

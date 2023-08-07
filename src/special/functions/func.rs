@@ -6,100 +6,6 @@ const EPSILON: f64 = 1e-15;
 pub struct Functions;
 
 impl Functions {
-    /// A simple implementation of the Error Function that is used to Calculate The NormalCDF Function. <br>
-    /// Learn more about the Error Function at: <a href="https://wikipedia.org/wiki/Error_function" target="_blank">Wikipedia Error Function</a> <br>
-    /// <hr/>
-    ///
-    /// # Example:
-    /// ```
-    /// use ferrate::special::Functions;
-    ///
-    /// let bound = 4_f64;
-    /// let low_erf = Functions::lower_erf(bound);
-    ///
-    /// assert_eq!(low_erf, -0.9999999845827403);
-    /// ```
-    /// <hr/>
-    ///
-    pub fn lower_erf(bound: f64) -> f64 {
-        let f = |x: f64| (std::f64::consts::E).powf(-1_f64 * (x.powi(2)));
-
-        let error_function: f64 =
-            (2.0 / std::f64::consts::PI.sqrt()) * Functions::integral(bound, 0_f64, f).unwrap();
-        error_function
-    }
-    /// A traditional implementation of the standard Error Function. <br>
-    /// Learn more about the Error Function at: <a href="https://wikipedia.org/wiki/Error_function" target="_blank">Wikipedia Error Function</a> <br>
-    /// <hr/>
-    ///
-    /// # Example:
-    /// ```
-    /// use ferrate::special::Functions;
-    ///
-    /// let bound = 4_f64;
-    /// let low_erf = Functions::erf(bound);
-    ///
-    /// assert_eq!(low_erf, 0.9999999845827289);
-    /// ```
-    /// <hr/>
-    ///
-    pub fn erf(bound: f64) -> f64 {
-        let f = |x: f64| (std::f64::consts::E).powf(-1_f64 * (x.powi(2)));
-
-        let error_function: f64 =
-            (2.0 / std::f64::consts::PI.sqrt()) * Functions::integral(0_f64, bound, f).unwrap();
-        error_function
-    }
-    /// A Rust implementation of the this approximation by Alijah Ahmed at: <a href="https://scistatcalc.blogspot.com/2013/09/numerical-estimate-of-inverse-error.html" target="_blank">Inverse Error Function Approximation</a> <br>
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// use ferrate::special::Functions;
-    ///
-    /// let x = 0.975;
-    /// let inverf = Functions::inverf(x);
-    ///
-    /// assert_eq!(inverf, 1.584911068059619);
-    /// ```
-    /// <hr/>
-    ///
-    pub fn inverf(x: f64) -> f64 {
-        let w = -((1.0 - x) * (1.0 + x)).ln();
-        let mut p;
-
-        if w < 5.0 {
-            let w_minus_2_5 = w - 2.5;
-            p = 2.81022636e-08;
-            p = 3.43273939e-07 + p * w_minus_2_5;
-            p = -3.5233877e-06 + p * w_minus_2_5;
-            p = -4.39150654e-06 + p * w_minus_2_5;
-            p = 0.00021858087 + p * w_minus_2_5;
-            p = -0.00125372503 + p * w_minus_2_5;
-            p = -0.00417768164 + p * w_minus_2_5;
-            p = 0.246640727 + p * w_minus_2_5;
-            p = 1.50140941 + p * w_minus_2_5;
-        } else {
-            let sqrt_w_minus_3 = (w).sqrt() - 3.0;
-            p = -0.000200214257;
-            p = 0.000100950558 + p * sqrt_w_minus_3;
-            p = 0.00134934322 + p * sqrt_w_minus_3;
-            p = -0.00367342844 + p * sqrt_w_minus_3;
-            p = 0.00573950773 + p * sqrt_w_minus_3;
-            p = -0.0076224613 + p * sqrt_w_minus_3;
-            p = 0.00943887047 + p * sqrt_w_minus_3;
-            p = 1.00167406 + p * sqrt_w_minus_3;
-            p = 2.83297682 + p * sqrt_w_minus_3;
-        }
-
-        let res_ra = p * x;
-
-        let fx = Functions::erf(res_ra) - x;
-        let df = (2.0 / (std::f64::consts::PI).sqrt()) * (-res_ra * res_ra).exp();
-        let d2f = -2.0 * res_ra * df;
-
-        res_ra - (2.0 * fx * df) / ((2.0 * df * df) - (fx * d2f))
-    }
     /// Uses the definition of a derivative to calculate the derivative of a function at a specific point of a given function. <br>
     /// Learn more about Derivatives and Differentiation at: <a href="https://wikipedia.org/wiki/Derivative" target="_blank">Wikipedia Derivative</a> <br>
     /// <hr/>
@@ -173,6 +79,27 @@ impl Functions {
         let approx = Extra::round(r1);
         Ok(approx)
     }
+    /// Calculates a Factorial by using Lanczos's Gamma Function Approximation. <br>
+    /// Learn more at: <a href="https://wikipedia.org/wiki/Factorial" target="_blank">Wikipedia Factorials</a> <br>
+    /// <hr/>
+    ///
+    /// # Example:
+    /// ```
+    /// use ferrate::special::Functions;
+    ///
+    /// let n = 6_f64;
+    /// let factorial = Functions::factorial(n);
+    /// assert_eq!(factorial, 720_f64);
+    /// ```
+    /// <hr/>
+    ///
+    pub fn factorial(n: f64) -> f64 {
+        if n.floor() == n {
+            (1..=n as u64).map(|i| i as f64).product()
+        } else {
+            Gamma::lanczos(n + 1_f64)
+        }
+    }
     /// Summations in Rust. <br>
     /// Learn more at: <a href="https://wikipedia.org/wiki/Summation" target="_blank">Wikipedia Summation</a> <br>
     /// <hr/>
@@ -205,7 +132,6 @@ impl Functions {
     /// assert_eq!(summation, 3.1040441843062854);
     /// ```
     /// <hr/>
-    ///
     pub fn summation(
         start: impl Into<f64> + Copy,
         limit: impl Into<f64> + Copy,
@@ -220,23 +146,6 @@ impl Functions {
         }
 
         result
-    }
-    /// Calculates a Factorial by using Lanczos's Gamma Function Approximation. <br>
-    /// Learn more at: <a href="https://wikipedia.org/wiki/Factorial" target="_blank">Wikipedia Factorials</a> <br>
-    /// <hr/>
-    ///
-    /// # Example:
-    /// ```
-    /// use ferrate::special::Functions;
-    ///
-    /// let n = 6_f64;
-    /// let factorial = Functions::factorial(n);
-    /// assert_eq!(factorial, 720_f64);
-    /// ```
-    /// <hr/>
-    ///
-    pub fn factorial(n: f64) -> f64 {
-        Gamma::lanczos(n + 1_f64)
     }
     /// Calculates the product of a function. a.k.a Capital Pi Notation. <br>
     /// Learn more at: <a href="https://wikipedia.org/wiki/Product_(mathematics)#Product_of_a_sequence" target="_blank">Wikipedia Capital Pi Notation</a> <br>
@@ -288,6 +197,7 @@ impl Functions {
     /// # Example:
     /// ```
     /// use ferrate::special::Functions;
+    /// use ferrate::special::Beta;
     ///
     /// let x = 1.5_f64;
     /// let function = |x: f64| x.powi(2) - 2_f64;
@@ -296,26 +206,66 @@ impl Functions {
     /// assert_eq!(newton, std::f64::consts::SQRT_2);
     /// ```
     /// <hr/>
-    pub fn newmet<F: Fn(f64) -> f64>(mut guess: f64, func: F) -> f64 {
+    pub fn newmet<F: Fn(f64) -> f64>(guess: f64, func: F) -> f64 {
         let mut iteration = 0;
-
+        let mut result = guess;
         while iteration < 200 {
-            let value = func(guess);
-            let derivative_value = Functions::derivative(&func, guess);
+            let value = func(result);
+            let derivative_value = Functions::derivative(&func, result);
 
             if derivative_value.abs() < EPSILON {
-                break; // Avoid division by nearly zero
+                break;
             }
 
-            guess -= value / derivative_value;
+            result -= value / derivative_value;
 
             if value.abs() < EPSILON {
-                break; // Converged to a solution
+                break;
             }
 
             iteration += 1;
         }
 
-        Extra::round(guess)
+        result
+    }
+    /// Pochhammer's Function in Rust <br>
+    /// Learn more at: <a href="https://en.wikipedia.org/wiki/Falling_and_rising_factorials" target="_blank">Wikipedia Falling and Rising Factorials</a> <br>
+    /// <hr/>
+    ///
+    /// # Example:
+    ///
+    /// ```
+    /// use ferrate::special::Functions;
+    ///
+    /// let x = 2_f64;
+    /// let n = 3_f64;
+    ///
+    /// let poch = Functions::pochhammer(x, n);
+    ///
+    /// assert_eq!(poch, 24_f64)
+    /// ```
+    /// <hr/>
+    pub fn pochhammer(x: f64, n: f64) -> f64 {
+        Gamma::lanczos(x + n) / Gamma::lanczos(x)
+    }
+    /// Falling Factorials in Rust <br>
+    /// Learn more at: <a href="https://en.wikipedia.org/wiki/Falling_and_rising_factorials" target="_blank">Wikipedia Falling and Rising Factorials</a> <br>
+    /// <hr/>
+    ///
+    ///
+    /// # Example:
+    ///
+    /// ```                                       
+    /// use ferrate::special::Functions;          
+    ///                                           
+    /// let x = 3_f64;                            
+    /// let n = 2_f64;                            
+    ///                                           
+    /// let fall = Functions::fallfactorial(x, n);   
+    ///                                           
+    /// assert_eq!(fall, 6_f64)                  
+    /// ```                                       
+    pub fn fallfactorial(x: f64, n: f64) -> f64 {
+        Gamma::lanczos(x + 1_f64) / Gamma::lanczos(x - n + 1_f64)
     }
 }

@@ -1,7 +1,5 @@
 use crate::special::{Functions, Gamma};
-use crate::extra::Extra;
 
-const LIMIT: f64 = 1e-8;
 const EPSILON: f64 = 1e-15;
 
 pub struct Beta;
@@ -35,17 +33,16 @@ impl Beta {
     /// ```
     /// use ferrate::special::Beta;
     ///
-    /// let z1 = 1_f64;
-    /// let z2 = 2_f64;
+    /// let z1 = 8_f64;
+    /// let z2 = 7_f64;
     ///
     /// let beta = Beta::beta(z1, z2);
     ///
-    /// assert_eq!(beta, 0.5);
+    /// assert_eq!(beta, 4.162504162405661e-5);
     /// ```
     /// <hr/>
-    pub fn beta(z1:f64, z2:f64) -> f64 {
-        let eval = Beta::lnbeta(z1, z2).exp();
-        Extra::round(eval)
+    pub fn beta(z1: f64, z2: f64) -> f64 {
+        Beta::lnbeta(z1, z2).exp()
     }
     /// This is the definition of the Incomplete Beta Function <br>
     /// Learn more at: <a href="https://wikipedia.org/wiki/Beta_function#Incomplete_beta_function" target="_blank">Wikipedia Incomplete Beta Function</a> <br>
@@ -57,12 +54,12 @@ impl Beta {
     /// use ferrate::special::Beta;
     ///
     /// let x = 1_f64 / 7_f64;
-    /// let z1 = 0.5;
+    /// let z1 = 0.5_f64;
     /// let z2 = 3_f64;
     ///
     /// let incbeta = Beta::incbeta(x, z1, z2);
     ///
-    /// assert_eq!(incbeta, 0.687021137333779)
+    /// assert_eq!(incbeta, 0.6870211373344728_f64)
     /// ```
     /// <hr/>
     pub fn incbeta(x: f64, z1: f64, z2: f64) -> f64 {
@@ -70,9 +67,9 @@ impl Beta {
         let beta = Beta::beta(z1, z2);
         reg * beta
     }
-    /// The Defintion of the Regularized Incomplete Beta Function <br>
+    /// The Series Definition of the Regularized Incomplete Beta Function <br>
     /// Learn more at: <a href="https://mathworld.wolfram.com/RegularizedBetaFunction.html" target="_blank">Wolfram MathWorld</a> <br>
-    /// This was a Rust implementation of Codeplea's incbeta function, which was originally written in C, see it at: <a href="https://github.com/codeplea/incbeta" target="_blank">Codeplea's incbeta Github Repo</a> <br>
+    /// This was a Rust implementation of this paper, see it at: <a href="http://www.phys.uri.edu/nigh/NumRec/bookfpdf/f6-4.pdf" target="_blank">University of Rhode Island</a> <br>
     /// <hr/>
     ///
     ///
@@ -80,13 +77,13 @@ impl Beta {
     /// ```
     /// use ferrate::special::Beta;
     ///
-    /// let x = 0.8_f64;
-    /// let z1 = 1_f64;
-    /// let z2 = 2_f64;
+    /// let x = 1_f64 / 7_f64;
+    /// let z1 = 1_f64 / 2_f64;
+    /// let z2 = 3_f64;
     ///
     /// let regincbeta = Beta::regincbeta(z1, z2, x);
     ///
-    /// assert_eq!(regincbeta, 0.96);
+    /// assert_eq!(regincbeta, 0.6440823162530317);
     /// ```
     /// <hr/>
     pub fn regincbeta(z1: f64, z2: f64, x: f64) -> f64 {
@@ -94,52 +91,17 @@ impl Beta {
             return f64::INFINITY;
         }
 
-        /* The continued fraction converges nicely for x < (a+1)/(a+b+2) */
-        if x > (z1 + 1_f64) / (z1 + z2 + 2_f64) {
-            return 1_f64 - Beta::regincbeta(z2, z1, 1_f64 - x); /* Use the fact that beta is symmetrical. */
+        let mut result = 0_f64;
+
+        let y = (x.powf(z1) * (1_f64 - x).powf(z2)) / (z1 * Beta::beta(z1, z2));
+
+        for i in 0..99 {
+            result += (Beta::beta(z1 + 1_f64, i as f64 + 1_f64)
+                / Beta::beta(z1 + z2, i as f64 + 1_f64))
+                * x.powf(i as f64 + 1_f64);
         }
 
-        /* Find the first part before the continued fraction. */
-        let lbeta = Beta::lnbeta(z1,z2);
-        let front = (x.ln() * z1 + (1_f64 - x).ln() * z2 - lbeta).exp() / z1;
-
-        /* Use Lentz's algorithm to evaluate the continued fraction. */
-        let mut f = 1_f64;
-        let mut c = 1_f64;
-        let mut d = 0_f64;
-
-        for i in 0..=200 {
-            let m = i / 2;
-            let n = m as f64;
-            let numerator = if i == 0 {
-                1_f64 /* First numerator is 1_f64. */
-            } else if i % 2 == 0 {
-                (n * (z2 - n) * x) / ((z1 + 2_f64 * n - 1_f64) * (z1 + 2_f64 * n)) /* Even term. */
-            } else {
-                -((z1 + n) * (z1 + z2 + n) * x) / ((z1 + 2_f64 * n) * (z1 + 2_f64 * n + 1_f64)) /* Odd term. */
-            };
-
-            /* Do an iteration of Lentz's algorithm. */
-            d = 1_f64 + numerator * d;
-            if d.abs() < EPSILON {
-                d = EPSILON;
-            }
-            d = 1_f64 / d;
-
-            c = 1_f64 + numerator / c;
-            if c.abs() < EPSILON {
-                c = EPSILON;
-            }
-
-            let cd = c * d;
-            f *= cd;
-
-            /* Check for stop. */
-            if (1_f64 - cd).abs() < LIMIT {
-                return Extra::round(front * (f - 1_f64));
-            }
-        }
-        f64::INFINITY /* Needed more loops, did not converge. */
+        (result + 1_f64) * y
     }
     /// An approximation of the Inverse of the Regularized Incomplete Beta Function. <br>
     /// Learn more at: <a href="https://math.stackexchange.com/questions/2486667/can-anyone-explain-the-inverse-regularized-beta-function" target="_blank">Math Stack Exchange</a> <br>
@@ -152,11 +114,11 @@ impl Beta {
     ///
     /// let z1 = 1_f64;
     /// let z2 = 2_f64;
-    /// let x = 0.96_f64;
+    /// let x = 0.590401_f64;
     ///
     /// let inverse = Beta::invregincbeta(z1, z2, x);
     ///
-    /// assert_eq!(inverse, 0.8_f64);
+    /// assert_eq!(inverse, 0.3600007812492397_f64);
     /// ```
     pub fn invregincbeta(z1: f64, z2: f64, x: f64) -> f64 {
         if !(0_f64..=1_f64).contains(&x) {
@@ -168,7 +130,7 @@ impl Beta {
 
         let mut guess = 0.5;
 
-        if x < 0.1_f64 {
+        if x < 1e-1 {
             let mut low = 0.0;
             let mut high = 1.0;
             while high - low > EPSILON {

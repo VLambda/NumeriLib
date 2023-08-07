@@ -382,8 +382,8 @@ impl Matrix {
         }
         Self::transpose(&cumsum_columns_matrix)
     }
-    /// An implementation of Gaussian Elimination in Rust <br>
-    /// Learn more at: <a href="https://en.wikipedia.org/wiki/Gaussian_elimination" target="_blank">Wikipedia Gaussian Elimination</a> <br>
+    /// An implementation of gaussian Elimination in Rust <br>
+    /// Learn more at: <a href="https://en.wikipedia.org/wiki/Gaussian_elimination" target="_blank">Wikipedia gaussian Elimination</a> <br>
     /// <hr/>
     ///
     ///
@@ -417,7 +417,7 @@ impl Matrix {
     ///                                                               
     /// Matrix::gaussian_elimination(&mut matrix);                                     
     ///                                                               
-    /// /* Gaussian Elimination of the Matrix:                                     
+    /// /* gaussian Elimination of the Matrix:                                     
     /// Before:                                                       
     /// [4,5,6,7]                                                     
     /// [3,42,2,1]                                                    
@@ -466,5 +466,53 @@ impl Matrix {
             }
             lead += 1;
         }
+    }
+    /// Performs various arithmetic operations element-wise on two matrices.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use ferrate::Matrix;
+    ///
+    /// let rows = 2;
+    /// let columns = 3;
+    /// let default_value = 2_f64;
+    ///
+    /// let matrix1 = Matrix::create(rows, columns, default_value);
+    ///
+    /// let matrix2 = vec![
+    ///     vec![1.0, 2.0, 3.0],
+    ///     vec![4.0, 5.0, 6.0],
+    /// ];
+    ///
+    /// let exponent = 3.0;
+    ///
+    /// let result_exponentiation = Matrix::arithmetic(&matrix1, &matrix2, |a, b| a.powf(2_f64));
+    /// let result_addition = Matrix::arithmetic(&matrix1, &matrix2, |a, b| a + b);
+    /// let result_subtraction = Matrix::arithmetic(&matrix1, &matrix2, |a, b| a - b);
+    /// let result_multiplication = Matrix::arithmetic(&matrix1, &matrix2, |a, b| a * b);
+    /// let result_division = Matrix::arithmetic(&matrix1, &matrix2, |a, b| a / b);
+    /// ```
+    /// <hr/>
+    pub fn arithmetic<F>(matrix1: &Vec<Vec<f64>>, matrix2: &Vec<Vec<f64>>, op: F) -> Vec<Vec<f64>>
+    where
+        F: Fn(f64, f64) -> f64,
+    {
+        let rows = matrix1.len();
+        let columns = matrix1[0].len();
+
+        if rows != matrix2.len() || columns != matrix2[0].len() {
+            panic!("Matrices must have the same dimensions for arithmetic operations.");
+        }
+
+        let mut result_matrix = vec![vec![0.0; columns]; rows];
+
+        for i in 0..rows {
+            for j in 0..columns {
+                result_matrix[i][j] = op(matrix1[i][j], matrix2[i][j]);
+            }
+        }
+
+        result_matrix
     }
 }

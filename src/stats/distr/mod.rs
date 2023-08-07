@@ -1,11 +1,15 @@
 mod binomial;
-mod chi;
+mod chisquared;
+mod fisher;
 mod gaussian;
-mod student;
 mod geometric;
+mod poisson;
+mod student;
 
 pub use binomial::*;
-pub use chi::*;
+pub use chisquared::*;
+pub use fisher::*;
 pub use gaussian::*;
-pub use student::*;
 pub use geometric::*;
+pub use poisson::*;
+pub use student::*;

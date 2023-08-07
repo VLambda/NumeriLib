@@ -35,13 +35,12 @@ impl Student {
     /// ```
     /// use ferrate::stats::distr::Student;
     ///
-    /// let lower = 1_f64;
-    /// let upper = 1.96;
+    /// let bound = 1_f64;
     /// let df = 6_f64;
     ///
-    /// let tcdf = Student::cdf(lower, upper,df);
+    /// let tcdf = Student::cdf(bound,df);
     ///
-    /// assert_eq!(tcdf, -0.12911126566804765)
+    /// assert_eq!(tcdf, 0.8220411581265159_f64)
     /// ```
     /// <hr/>
     ///
@@ -49,32 +48,77 @@ impl Student {
     /// ```
     /// use ferrate::stats::distr::Student;
     ///
-    /// let lower = -9e+99;
+    /// let bound = -9_f64;
+    /// let df = 63_f64;
+    ///
+    /// let tcdf = Student::cdf(bound, df);
+    ///
+    /// assert_eq!(tcdf, 3.2374981160185563e-13_f64);
+    /// ```
+    /// <hr/>
+    pub fn cdf(bound: f64, df: f64) -> f64 {
+        if df.is_sign_negative() {
+            return f64::NAN;
+        }
+
+        if bound <= 0_f64 {
+            let limit = df / (bound.powi(2) + df);
+            let p1 = Beta::regincbeta(df / 2_f64, 1_f64 / 2_f64, limit);
+            p1 / 2_f64
+        } else {
+            let limit = bound.powi(2) / (bound.powi(2) + df);
+            let p1 = Beta::regincbeta(1_f64 / 2_f64, df / 2_f64, limit);
+            let p2 = p1 + 1_f64;
+            p2 / 2_f64
+        }
+    }
+    /// Calculates the 2 tailed Cumulative Density Function (CDF) of the Student's T Distribution <br>
+    /// Learn more at: <a href="https://wikipedia.org/wiki/Student%27s_t-distribution#Cumulative_distribution_function" target="_blank">Wikipedia TCDF</a> <br>
+    /// <hr/>
+    ///
+    ///
+    /// # Example #1:
+    /// ```
+    /// use ferrate::stats::distr::Student;
+    ///
+    /// let lower = 1_f64;
+    /// let upper = 1.96;
+    /// let df = 6_f64;
+    ///
+    /// let tcdf = Student::tailcdf(lower, upper,df);
+    ///
+    /// assert_eq!(tcdf, -0.12911126556567953_f64)
+    /// ```
+    /// <hr/>
+    ///
+    /// # Example #2:
+    /// ```
+    /// use ferrate::stats::distr::Student;
+    ///
+    /// let lower = -9_f64;
     /// let upper = 1.96;
     /// let df = 63_f64;
     ///
-    /// let tcdf = Student::cdf(lower, upper, df);
+    /// let tcdf = Student::tailcdf(lower, upper, df);
     ///
-    /// assert_eq!(tcdf, 0.9727888170834724);
+    /// assert_eq!(tcdf, 0.9727888167079152_f64);
     /// ```
     /// <hr/>
-    pub fn cdf(lower: f64, upper: f64, df: f64) -> f64 {
-        let (bound_low, bound_high) = if lower < upper { (lower, upper) } else { (upper, lower) };
-        let bound_low_sq = bound_low.powi(2);
-        let bound_high_sq = bound_high.powi(2);
+    pub fn tailcdf(lower: f64, upper: f64, df: f64) -> f64 {
+        let (bound_low, bound_high) = if lower < upper {
+            (lower, upper)
+        } else {
+            (upper, lower)
+        };
 
         if bound_low <= 0_f64 {
-            let bound1 = df / (bound_low_sq + df);
-            let bound2 = bound_high_sq / (bound_high_sq + df);
-            let pt1 = Beta::regincbeta(df / 2_f64, 0.5, bound1) / 2_f64;
-            let pt2 = (Beta::regincbeta(0.5, df / 2_f64, bound2) + 1_f64) / 2_f64;
-            pt1 + pt2
+            let p1 = Self::cdf(bound_low, df);
+            let p2 = Self::cdf(bound_high, df);
+            p1 + p2
         } else {
-            let bound1 = bound_low_sq / (bound_low_sq + df);
-            let bound2 = bound_high_sq / (bound_high_sq + df);
-            let pt1 = (Beta::regincbeta(0.5, df / 2_f64, bound1) + 1_f64) / 2_f64;
-            let pt2 = (Beta::regincbeta(0.5, df / 2_f64, bound2) + 1_f64) / 2_f64;
-            pt1 - pt2
+            let p1 = Self::cdf(bound_low, df);
+            let p2 = Self::cdf(bound_high, df);
+            p1 - p2
         }
     }
     /// Calculates the Inverse of TCDF (a.k.a InvT) <br>
@@ -92,7 +136,7 @@ impl Student {
     ///
     /// let inverse_t = Student::inv(area, df);
     ///
-    /// assert_eq!(inverse_t, -1.998340526962578);
+    /// assert_eq!(inverse_t, -1.9978075067095558);
     /// ```
     /// <hr/>
     ///

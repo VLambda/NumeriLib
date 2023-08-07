@@ -15,3 +15,5 @@ Cargo.lock
 
 # Unnessary IDE/Project Information
 .idea/
+
+docs/book/
