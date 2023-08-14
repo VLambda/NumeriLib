@@ -1,5 +1,6 @@
+use crate::special::Beta;
 use crate::special::Probability;
-use crate::special::{Beta, Functions};
+use crate::Functions;
 
 pub struct Binomial;
 

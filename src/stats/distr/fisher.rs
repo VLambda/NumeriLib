@@ -75,9 +75,35 @@ impl Fisher {
     }
 
     pub fn mean(d2: f64) -> f64 {
-        if d2 < 2 {
-            f64::NAN
+        if d2 < 3_f64 {
+            return f64::NAN;
         }
         d2 / (d2 - 2_f64)
+    }
+
+    pub fn mode(d1: f64, d2: f64) -> f64 {
+        if d1 < 3_f64 {
+            return f64::NAN;
+        }
+        ((d1 - 2_f64) / d1) * (d2 / (d2 + 2_f64))
+    }
+
+    pub fn variance(d1: f64, d2: f64) -> f64 {
+        if d2 < 5_f64 {
+            return f64::NAN;
+        }
+        (2_f64 * d2.powi(2) * (d1 + d2 - 2_f64)) / (d1 * (d2 - 2_f64).powi(2) * (d2 - 4_f64))
+    }
+
+    pub fn sd(d1: f64, d2: f64) -> f64 {
+        Self::variance(d1, d2).sqrt()
+    }
+
+    pub fn skewness(d1: f64, d2: f64) -> f64 {
+        if d2 < 7_f64 {
+            return f64::NAN;
+        }
+        ((2_f64 * d1 + d2 - 2_f64) * (8_f64 * (d2 - 4_f64)).sqrt())
+            / ((d2 - 6_f64) * (d1 * (d1 + d2 - 2_f64)).sqrt())
     }
 }

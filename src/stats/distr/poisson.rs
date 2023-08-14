@@ -1,4 +1,5 @@
-use crate::special::{Functions, Gamma};
+use crate::special::Gamma;
+use crate::Functions;
 
 pub struct Poisson;
 
@@ -44,5 +45,25 @@ impl Poisson {
     /// <hr/>
     pub fn cdf(k: f64, lambda: f64) -> f64 {
         Gamma::reggammac(k + 1_f64, lambda)
+    }
+
+    pub fn median(lambda: f64) -> f64 {
+        (lambda + (1_f64 / 3_f64) - (1_f64 / (50_f64 * lambda))).floor()
+    }
+
+    pub fn mode(lambda: f64) -> f64 {
+        lambda.floor()
+    }
+
+    pub fn sd(lambda: f64) -> f64 {
+        lambda.sqrt()
+    }
+
+    pub fn skewness(lambda: f64) -> f64 {
+        1_f64 / lambda.sqrt()
+    }
+
+    pub fn kurtosis(lambda: f64) -> f64 {
+        1_f64 / lambda
     }
 }

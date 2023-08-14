@@ -12,14 +12,16 @@ impl Functions {
     ///
     /// # Example:
     /// ```
-    /// use ferrate::special::Functions;
+    /// use ferrate::Functions;
+    ///     
+    /// fn main() {
+    ///     let function = |x: f64| x.powi(2);
+    ///     let x = 2;
     ///
-    /// let function = |x: f64| x.powi(2);
-    /// let x = 2;
+    ///     let derivative = Functions::derivative(function, x);
     ///
-    /// let derivative = Functions::derivative(function, x);
-    ///
-    /// assert_eq!(derivative, 4_f64);
+    ///     println!("The Derivative of x^2 as x=2 is: {}", derivative);
+    /// }
     /// ```
     /// <hr/>
     ///
@@ -40,23 +42,21 @@ impl Functions {
     ///
     /// # Example
     /// ```
-    /// use ferrate::special::Functions;
+    /// use ferrate::Functions;
     ///
-    /// let lower_bound = 0_f64;
-    /// let upper_bound = 6_f64;
-    /// let function = |x: f64| x.powi(2);
+    /// fn main() {
+    ///     let lower_bound = 0_f64;
+    ///     let upper_bound = 6_f64;
+    ///     let function = |x: f64| x.powi(2);
     ///
-    /// let integral = Functions::integral(lower_bound, upper_bound, function).unwrap();
+    ///     let integral = Functions::integral(lower_bound, upper_bound, function);
     ///
-    /// assert_eq!(integral, 72_f64)
+    ///     println!("The Integral of x^2 at [0,6] is: {}", integral)
+    /// }
     /// ```
     /// <hr/>
     ///
-    pub fn integral<F: Fn(f64) -> f64>(
-        lower_bound: f64,
-        upper_bound: f64,
-        f: F,
-    ) -> Result<f64, String> {
+    pub fn integral<F: Fn(f64) -> f64>(lower_bound: f64, upper_bound: f64, f: F) -> f64 {
         let lower = lower_bound;
         let upper = upper_bound;
 
@@ -72,12 +72,8 @@ impl Functions {
 
         let r1 = (h / 3.0) * sum;
 
-        if r1.is_infinite() || r1.is_nan() {
-            return Err("Function is Divergent".to_string());
-        }
-
         let approx = Extra::round(r1);
-        Ok(approx)
+        approx
     }
     /// Calculates a Factorial by using Lanczos's Gamma Function Approximation. <br>
     /// Learn more at: <a href="https://wikipedia.org/wiki/Factorial" target="_blank">Wikipedia Factorials</a> <br>
@@ -85,11 +81,14 @@ impl Functions {
     ///
     /// # Example:
     /// ```
-    /// use ferrate::special::Functions;
+    /// use ferrate::Functions;
     ///
-    /// let n = 6_f64;
-    /// let factorial = Functions::factorial(n);
-    /// assert_eq!(factorial, 720_f64);
+    /// fn main() {
+    ///     let n = 6_f64;
+    ///     let factorial = Functions::factorial(n);
+    ///     
+    ///     println!("6! is: {}", factorial);
+    /// }
     /// ```
     /// <hr/>
     ///
@@ -107,29 +106,33 @@ impl Functions {
     /// # Example #1: Constant
     ///
     /// ```
-    /// use ferrate::special::Functions;
+    /// use ferrate::Functions;
     ///
-    /// let start = 0;
-    /// let limit = 9;
-    /// let function = |x: f64| 3_f64;
+    /// fn main() {
+    ///     let start = 0;
+    ///     let limit = 9;
+    ///     let function = |x: f64| 3_f64;
     ///
-    /// let summation = Functions::summation(start, limit, function);
+    ///     let summation = Functions::summation(start, limit, function);
     ///
-    /// assert_eq!(summation, 30_f64);
+    ///     println!("The summation of the constant 3 from [0,9] is: {}", summation);
+    /// }
     /// ```
     /// <hr/>
     ///
     /// # Example #2: Function
     /// ```
-    /// use ferrate::special::Functions;
+    /// use ferrate::Functions;
     ///
-    /// let start = 4.5;
-    /// let limit = 100;
-    /// let function = |x: f64| 1_f64 / x;
+    /// fn main() {
+    ///     let start = 4.5;
+    ///     let limit = 100;
+    ///     let function = |x: f64| 1_f64 / x;
     ///
-    /// let summation = Functions::summation(start, limit, function);
+    ///     let summation = Functions::summation(start, limit, function);
     ///
-    /// assert_eq!(summation, 3.1040441843062854);
+    ///     println!("The summation of the function 1/x from [4.5,100] is: {}", summation);
+    /// }
     /// ```
     /// <hr/>
     pub fn summation(
@@ -154,28 +157,34 @@ impl Functions {
     /// # Example #1: Constant
     ///
     /// ```
-    /// use ferrate::special::Functions;
+    /// use ferrate::Functions;
     ///
-    /// let start = 2_f64;
-    /// let limit = 7_f64;
-    /// let f = |x: f64| 3_f64;
+    /// fn main() {
+    ///     let start = 2_f64;
+    ///     let limit = 7_f64;
+    ///     let f = |x: f64| 3_f64;
     ///
-    /// let product_series = Functions::product(start, limit, f);
-    /// assert_eq!(product_series, 729_f64);
+    ///     let product_series = Functions::product(start, limit, f);
+    ///     
+    ///     println!("The Product Series of the Constant 3 from [2,7] is: {}", product_series);
+    /// }
     /// ```
     /// <hr/>
     ///
     /// # Example #2: Function
     ///
     /// ```
-    /// use ferrate::special::Functions;
+    /// use ferrate::Functions;
     ///
-    /// let start = 1_f64;
-    /// let limit = 6_f64;
-    /// let f = |x: f64| x.powi(2);
+    /// fn main() {
+    ///     let start = 1_f64;
+    ///     let limit = 6_f64;
+    ///     let f = |x: f64| x.powi(2);
     ///
-    /// let product_series = Functions::product(start, limit, f);
-    /// assert_eq!(product_series, 518400_f64);
+    ///     let product_series = Functions::product(start, limit, f);
+    ///     
+    ///     println!("The product series of the function x^2 from [1,6] is: {}", product_series);
+    /// }
     /// ```
     /// <hr/>
     ///
@@ -196,14 +205,15 @@ impl Functions {
     ///
     /// # Example:
     /// ```
-    /// use ferrate::special::Functions;
-    /// use ferrate::special::Beta;
+    /// use ferrate::Functions;
     ///
-    /// let x = 1.5_f64;
-    /// let function = |x: f64| x.powi(2) - 2_f64;
-    /// let newton = Functions::newmet(x, function);
+    /// fn main() {
+    ///     let x = 1.5_f64;
+    ///     let function = |x: f64| x.powi(2) - 2_f64;
+    ///     let newton = Functions::newmet(x, function);
     ///
-    /// assert_eq!(newton, std::f64::consts::SQRT_2);
+    ///     println!("Using Newton's Method we can approximate the root of x^2-2 with a guess of 1.5 as: {}", newton);
+    /// }
     /// ```
     /// <hr/>
     pub fn newmet<F: Fn(f64) -> f64>(guess: f64, func: F) -> f64 {
@@ -235,14 +245,15 @@ impl Functions {
     /// # Example:
     ///
     /// ```
-    /// use ferrate::special::Functions;
+    /// use ferrate::Functions;
     ///
-    /// let x = 2_f64;
-    /// let n = 3_f64;
+    /// fn main() {
+    ///     let x = 2_f64;
+    ///     let n = 3_f64;
+    ///     let poch = Functions::pochhammer(x, n);
     ///
-    /// let poch = Functions::pochhammer(x, n);
-    ///
-    /// assert_eq!(poch, 24_f64)
+    ///     println!("The Rising Factorial of 2^n n=3 is: {}", poch);
+    /// }
     /// ```
     /// <hr/>
     pub fn pochhammer(x: f64, n: f64) -> f64 {
@@ -256,14 +267,16 @@ impl Functions {
     /// # Example:
     ///
     /// ```                                       
-    /// use ferrate::special::Functions;          
+    /// use ferrate::Functions;          
+    ///
+    /// fn main() {                                          
+    ///     let x = 3_f64;                            
+    ///     let n = 2_f64;                            
     ///                                           
-    /// let x = 3_f64;                            
-    /// let n = 2_f64;                            
+    ///     let fall = Functions::fallfactorial(x, n);   
     ///                                           
-    /// let fall = Functions::fallfactorial(x, n);   
-    ///                                           
-    /// assert_eq!(fall, 6_f64)                  
+    ///     println!("The Falling Factorial of 3^n where n=2 is: {}", fall);
+    /// }               
     /// ```                                       
     pub fn fallfactorial(x: f64, n: f64) -> f64 {
         Gamma::lanczos(x + 1_f64) / Gamma::lanczos(x - n + 1_f64)

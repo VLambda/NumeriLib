@@ -2,7 +2,7 @@
    Axect's Lanczos repo at: https://github.com/Axect/Lanczos.git
 */
 
-use crate::special::Functions;
+use crate::Functions;
 
 const G: f64 = 5f64;
 

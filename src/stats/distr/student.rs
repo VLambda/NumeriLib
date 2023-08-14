@@ -181,4 +181,36 @@ impl Student {
             f64::INFINITY
         }
     }
+
+    pub fn variance(df: f64) -> f64 {
+        if df > 2_f64 {
+            df / (df - 2_f64)
+        } else if (1_f64..2_f64).contains(&df) {
+            f64::INFINITY
+        } else {
+            f64::NAN
+        }
+    }
+
+    pub fn sd(df: f64) -> f64 {
+        Self::variance(df).sqrt()
+    }
+
+    pub fn skewness(df: f64) -> f64 {
+        if df > 3_f64 {
+            0_f64
+        } else {
+            f64::NAN
+        }
+    }
+
+    pub fn kurtosis(df: f64) -> f64 {
+        if df > 4_f64 {
+            6_f64 / (df - 4_f64)
+        } else if (2_f64..4_f64).contains(&df) {
+            f64::INFINITY
+        } else {
+            f64::NAN
+        }
+    }
 }

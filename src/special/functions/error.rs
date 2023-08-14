@@ -1,4 +1,4 @@
-use crate::special::Functions;
+use crate::Functions;
 
 pub struct Error;
 

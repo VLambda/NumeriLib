@@ -74,10 +74,6 @@ impl Chi2 {
         Self::cdf(upper, df) - Self::cdf(lower, df)
     }
 
-    pub fn mean(df: f64) -> f64 {
-        df
-    }
-
     pub fn median(df: f64) -> f64 {
         let p1 = 1_f64 - 2_f64 / (9_f64 * df);
         df * p1.powi(3)

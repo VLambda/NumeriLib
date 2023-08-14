@@ -1,4 +1,5 @@
 mod binomial;
+mod cauchy;
 mod chisquared;
 mod fisher;
 mod gaussian;
@@ -7,6 +8,7 @@ mod poisson;
 mod student;
 
 pub use binomial::*;
+pub use cauchy::*;
 pub use chisquared::*;
 pub use fisher::*;
 pub use gaussian::*;

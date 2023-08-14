@@ -142,4 +142,8 @@ impl Gaussian {
 
         Ok(rounded_val)
     }
+
+    pub fn mad(omega: f64) -> f64 {
+        Error::inverf(1_f64 / 2_f64) * omega * std::f64::consts::SQRT_2
+    }
 }

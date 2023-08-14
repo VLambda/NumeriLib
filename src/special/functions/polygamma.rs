@@ -1,4 +1,5 @@
-use crate::special::{Functions, Gamma};
+use crate::special::Gamma;
+use crate::Functions;
 
 pub struct Polygamma;
 
