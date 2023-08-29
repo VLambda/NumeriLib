@@ -2,6 +2,7 @@
    Axect's Lanczos repo at: https://github.com/Axect/Lanczos.git
 */
 
+use crate::extra::Extra;
 use crate::Functions;
 
 const G: f64 = 5f64;
@@ -89,13 +90,7 @@ impl Gamma {
     pub fn lanczos(z: f64) -> f64 {
         let exp = Gamma::lanczosln(z).exp();
 
-        if ((exp * 1e+6).ceil() - 1e-6) < (exp * 1e+6)
-            || ((exp * 1e+6).floor() + 1e+6) > (exp * 1e+6)
-        {
-            ((exp * 1e+6).round()) / 1e+6
-        } else {
-            exp
-        }
+        Extra::round(exp)
     }
     /// An implementation of the Lower Incomplete Gamma Function <br>
     /// learn more at: <a href="https://www.mathworks.com/help/symbolic/sym.igamma.html?s_tid=doc_ta#bt6_4j4-4" target="_blank">MatLab IGamma</a> <br>

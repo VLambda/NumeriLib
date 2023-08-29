@@ -1,7 +1,6 @@
+use crate::extra::Extra;
 use crate::special::Gamma;
 use crate::Functions;
-
-const EPSILON: f64 = 1e-15;
 
 pub struct Beta;
 
@@ -134,7 +133,7 @@ impl Beta {
         if x < 1e-1 {
             let mut low = 0.0;
             let mut high = 1.0;
-            while high - low > EPSILON {
+            while high - low > Extra::EPSILON2 {
                 if func(guess) < 0.0 {
                     low = guess;
                 } else {

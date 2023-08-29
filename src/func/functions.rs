@@ -1,7 +1,6 @@
 use crate::extra::Extra;
+use crate::func::integration::Integration;
 use crate::special::Gamma;
-
-const EPSILON: f64 = 1e-15;
 
 pub struct Functions;
 
@@ -29,13 +28,129 @@ impl Functions {
         let h = 1e-7;
         let definition = ((f(x.into() + h)) - f(x.into())) / h;
 
-        if definition.fract().abs() < 1e-7 {
+        if definition.fract().abs() < Extra::EPSILON1 {
             definition.round()
         } else {
             definition
         }
     }
-    /// Uses Simpson's 1/3rd Rule to calculate the integral.<br>
+    /// The Right Endpoint method to calculate a definite integral.<br>
+    /// Learn more about Integrals at: <a href="https://wikipedia.org/wiki/Integral" target="_blank">Wikipedia Integral</a> <br>
+    /// Learn more about Simpson's 1/3rd Rule at: <a href="https://wikipedia.org/wiki/Riemann_sum" target="_blank">Wikipedia Riemann Sum</a> <br>
+    /// <hr/>
+    ///
+    /// # Example
+    /// ```
+    /// use ferrate::Functions;
+    ///
+    /// fn main() {
+    ///     let lower_bound = 0_f64;
+    ///     let upper_bound = 6_f64;
+    ///     let interval_size = 1_f64;
+    ///     let function = |x: f64| x.powi(2);
+    ///
+    ///     let integral = Functions::right_riemann(function, lower_bound, upper_bound, interval_size);
+    ///
+    ///     println!("The Integral of x^2 at [0,6] is: {}", integral)
+    /// }
+    /// ```
+    /// <hr/>
+    pub fn right_riemann<F: Fn(f64) -> f64>(
+        function: F,
+        lower_limit: f64,
+        upper_limit: f64,
+        interval_size: f64,
+    ) -> f64 {
+        Integration::right_riemann(function, lower_limit, upper_limit, interval_size)
+    }
+    /// The Left Endpoint method to calculate a definite integral.<br>
+    /// Learn more about Integrals at: <a href="https://wikipedia.org/wiki/Integral" target="_blank">Wikipedia Integral</a> <br>
+    /// Learn more about Simpson's 1/3rd Rule at: <a href="https://wikipedia.org/wiki/Riemann_sum" target="_blank">Wikipedia Riemann Sum</a> <br>
+    /// <hr/>
+    ///
+    /// # Example
+    /// ```
+    /// use ferrate::Functions;
+    ///
+    /// fn main() {
+    ///     let lower_bound = 0_f64;
+    ///     let upper_bound = 6_f64;
+    ///     let interval_size = 1_f64;
+    ///     let function = |x: f64| x.powi(2);
+    ///
+    ///     let integral = Functions::left_riemann(function, lower_bound, upper_bound, interval_size);
+    ///
+    ///     println!("The Integral of x^2 at [0,6] is: {}", integral)
+    /// }
+    /// ```
+    /// <hr/>
+    pub fn left_riemann<F: Fn(f64) -> f64>(
+        function: F,
+        lower_limit: f64,
+        upper_limit: f64,
+        interval_size: f64,
+    ) -> f64 {
+        Integration::left_riemann(function, lower_limit, upper_limit, interval_size)
+    }
+    /// The Left Endpoint method to calculate a definite integral.<br>
+    /// Learn more about Integrals at: <a href="https://wikipedia.org/wiki/Integral" target="_blank">Wikipedia Integral</a> <br>
+    /// Learn more about Simpson's 1/3rd Rule at: <a href="https://wikipedia.org/wiki/Riemann_sum" target="_blank">Wikipedia Riemann Sum</a> <br>
+    /// <hr/>
+    ///
+    /// # Example
+    /// ```
+    /// use ferrate::Functions;
+    ///
+    /// fn main() {
+    ///     let lower_bound = 0_f64;
+    ///     let upper_bound = 6_f64;
+    ///     let interval_size = 1_f64;
+    ///     let function = |x: f64| x.powi(2);
+    ///
+    ///     let integral = Functions::midpoint_riemann(function, lower_bound, upper_bound, interval_size);
+    ///
+    ///     println!("The Integral of x^2 at [0,6] is: {}", integral)
+    /// }
+    /// ```
+    /// <hr/>
+    pub fn midpoint_riemann<F: Fn(f64) -> f64>(
+        function: F,
+        lower_limit: f64,
+        upper_limit: f64,
+        interval_size: f64,
+    ) -> f64 {
+        Integration::midpoint_riemann(function, lower_limit, upper_limit, interval_size)
+    }
+    /// The Trapezoid method to calculate a definite integral.<br>
+    /// Learn more about Integrals at: <a href="https://wikipedia.org/wiki/Integral" target="_blank">Wikipedia Integral</a> <br>
+    /// Learn more about Simpson's 1/3rd Rule at: <a href="https://wikipedia.org/wiki/Trapezoidal_rule" target="_blank">Wikipedia Trapezoid</a> <br>
+    /// <hr/>
+    ///
+    /// # Example
+    /// ```
+    /// use ferrate::Functions;
+    ///
+    /// fn main() {
+    ///     let lower_bound = 0_f64;
+    ///     let upper_bound = 6_f64;
+    ///     let interval_size = 1_f64;
+    ///     let function = |x: f64| x.powi(2);
+    ///
+    ///     let integral = Functions::trapezoid(function, lower_bound, upper_bound, interval_size);
+    ///
+    ///     println!("The Integral of x^2 at [0,6] is: {}", integral)
+    /// }
+    /// ```
+    /// <hr/>
+    pub fn trapezoid<F: Fn(f64) -> f64>(
+        function: F,
+        lower_limit: f64,
+        upper_limit: f64,
+        interval_size: f64,
+    ) -> f64 {
+        Integration::trapezoid(function, lower_limit, upper_limit, interval_size)
+    }
+    /// Uses Simpson's Rule to calculate a definite integral.<br>
     /// Learn more about Integrals at: <a href="https://wikipedia.org/wiki/Integral" target="_blank">Wikipedia Integral</a> <br>
     /// Learn more about Simpson's 1/3rd Rule at: <a href="https://wikipedia.org/wiki/Simpson's_rule" target="_blank">Wikipedia Simpson's Rule</a> <br>
     /// <hr/>
@@ -47,33 +162,22 @@ impl Functions {
     /// fn main() {
     ///     let lower_bound = 0_f64;
     ///     let upper_bound = 6_f64;
+    ///     let interval_size = 1_f64;
     ///     let function = |x: f64| x.powi(2);
     ///
-    ///     let integral = Functions::integral(lower_bound, upper_bound, function);
+    ///     let integral = Functions::simpson(function, lower_bound, upper_bound, interval_size);
     ///
     ///     println!("The Integral of x^2 at [0,6] is: {}", integral)
     /// }
     /// ```
     /// <hr/>
-    ///
-    pub fn integral<F: Fn(f64) -> f64>(lower_bound: f64, upper_bound: f64, f: F) -> f64 {
-        let lower = lower_bound;
-        let upper = upper_bound;
-
-        let n = 100000;
-        let h = (upper - lower) / n as f64;
-
-        let mut sum = f(lower) + f(upper);
-
-        for i in 1..n {
-            let x = lower + i as f64 * h;
-            sum += if i % 2 == 0 { 2.0 * f(x) } else { 4.0 * f(x) };
-        }
-
-        let r1 = (h / 3.0) * sum;
-
-        let approx = Extra::round(r1);
-        approx
+    pub fn simpson<F: Fn(f64) -> f64>(
+        function: F,
+        lower_limit: f64,
+        upper_limit: f64,
+        interval_size: f64,
+    ) -> f64 {
+        Integration::simpson(function, lower_limit, upper_limit, interval_size)
     }
     /// Calculates a Factorial by using Lanczos's Gamma Function Approximation. <br>
     /// Learn more at: <a href="https://wikipedia.org/wiki/Factorial" target="_blank">Wikipedia Factorials</a> <br>
@@ -223,13 +327,13 @@ impl Functions {
             let value = func(result);
             let derivative_value = Functions::derivative(&func, result);
 
-            if derivative_value.abs() < EPSILON {
+            if derivative_value.abs() < Extra::EPSILON2 {
                 break;
             }
 
             result -= value / derivative_value;
 
-            if value.abs() < EPSILON {
+            if value.abs() < Extra::EPSILON2 {
                 break;
             }
 

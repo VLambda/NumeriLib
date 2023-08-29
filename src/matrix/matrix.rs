@@ -1,6 +1,9 @@
-pub struct Matrix;
+use std::fmt;
+use std::ops::{Index, IndexMut};
 
-impl Matrix {
+pub struct Matrix<const ROWS: usize, const COLS: usize>(Vec<Vec<f64>>);
+
+impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
     /// Creates a Matrix <br>
     /// Learn more at: <a href="https://wikipedia.org/wiki/Matrix_(mathematics)" target="_blank">Wikipedia Matrix</a> <br>
     /// <hr/>
@@ -10,20 +13,26 @@ impl Matrix {
     /// ```
     /// use ferrate::Matrix;
     ///
-    /// let rows = 2;
-    /// let columns = 3;
-    /// let default_value = 3_f64;
+    /// fn main() {
+    ///     let matrix = Matrix::new([
+    ///         [1_f64, 2_f64],
+    ///         [3_f64, 4_f64]
+    ///     ]);
+    ///     
+    ///     println!("Matrix:\n {:?}", matrix);
+    /// }
     ///
-    /// let matrix = Matrix::create(rows, columns, default_value);
-    ///
-    /// /* Creates Matrix
-    /// [3.0,3.0,3.0]
-    /// [3.0,3.0,3.0]
+    /// /*
+    ///     Outputs the following:
+    ///     ----------------------
+    ///     Matrix:
+    ///     [1, 2]
+    ///     [3, 4]
     /// */
     /// ```
     /// <hr/>
-    pub fn create(rows: usize, columns: usize, default_value: f64) -> Vec<Vec<f64>> {
-        vec![vec![default_value; columns]; rows]
+    pub fn new(elements: [[f64; COLS]; ROWS]) -> Self {
+        Self(elements.iter().map(|row| row.to_vec()).collect())
     }
     /// Updates the Values in a Matrix <br>
     /// Learn more at: <a href="https://wikipedia.org/wiki/Matrix_(mathematics)" target="_blank">Wikipedia Matrix</a> <br>
@@ -34,28 +43,38 @@ impl Matrix {
     /// ```
     /// use ferrate::Matrix;
     ///
-    /// let rows = 2;
-    /// let columns = 3;
-    /// let default_value = 3_f64;
-    /// let mut matrix = Matrix::create(rows, columns, default_value);
+    /// fn main() {
+    ///     let mut matrix = Matrix::new([
+    ///         [1_f64, 2_f64, 3_f64],
+    ///         [4_f64, 5_f64, 6_f64],
+    ///         [7_f64, 8_f64, 9_f64]
+    ///     ]);
+    ///     
+    ///     println!("Matrix:\n {:?}", matrix);    
     ///
-    /// Matrix::update(&mut matrix, 1, 1, 42_f64);
+    ///     matrix.update(2, 2, 10_f64);
     ///
-    /// /* Updates the Matrix
-    /// Before:
-    /// [3.0,3.0,3.0]
-    /// [3.0,3.0,3.0]
+    ///     println!("Updated Matrix:\n {:?}", matrix);
+    /// }
     ///
-    /// After:
-    /// [3.0,3.0,3.0]
-    /// [3.0,42.0,3.0]
+    /// /*
+    ///     Outputs the Following:
+    ///     ----------------------
+    ///     Matrix:
+    ///     [1, 2, 3]
+    ///     [4, 5, 6]
+    ///     [7, 8, 9]
+    ///
+    ///     Updated Matrix:
+    ///     [1, 2, 3]
+    ///     [4, 10, 6]
+    ///     [7, 8, 9]
     /// */
-    ///
     /// ```
     /// <hr/>
-    pub fn update(matrix: &mut Vec<Vec<f64>>, row: usize, column: usize, new_value: f64) {
-        if let Some(row_vec) = matrix.get_mut(row) {
-            if let Some(element) = row_vec.get_mut(column) {
+    pub fn update(&mut self, row: usize, column: usize, new_value: f64) {
+        if let Some(row_vec) = self.0.get_mut(row - 1) {
+            if let Some(element) = row_vec.get_mut(column - 1) {
                 *element = new_value;
             }
         }
@@ -72,56 +91,48 @@ impl Matrix {
     /// ```
     /// use ferrate::Matrix;
     ///
-    /// let rows = 4;
-    /// let columns = 4;
-    /// let default_value = 0_f64;
+    /// fn main() {
+    ///     let matrix = Matrix::new([
+    ///         [78_f64, 94_f64, 25_f64, 1_f64],
+    ///         [795_f64, 64_f64, 25_f64, 12_f64],
+    ///         [37_f64, 52_f64, 81_f64, 64_f64],
+    ///         [0_f64, 15_f64, 6_f64, 4_f64]
+    ///     ]);
+    ///     
+    ///     let determinate = matrix.determinant();
     ///
-    /// let mut matrix = Matrix::create(rows, columns, default_value);
+    ///     println!("Matrix:\n {:?}\nDeterminate of the Matrix: {:?}", matrix, determinate);
+    /// }
     ///
-    /// Matrix::update(&mut matrix, 0, 0, 4_f64);
-    /// Matrix::update(&mut matrix, 0, 1, 5_f64);
-    /// Matrix::update(&mut matrix, 0, 2, 6_f64);
-    /// Matrix::update(&mut matrix, 0, 3, 7_f64);
-    /// Matrix::update(&mut matrix, 1, 0, 3_f64);
-    /// Matrix::update(&mut matrix, 1, 1, 42_f64);
-    /// Matrix::update(&mut matrix, 1, 2, 2_f64);
-    /// Matrix::update(&mut matrix, 1, 3, 1_f64);
-    /// Matrix::update(&mut matrix, 2, 0, 2_f64);
-    /// Matrix::update(&mut matrix, 2, 1, 3_f64);
-    /// Matrix::update(&mut matrix, 2, 2, 17_f64);
-    /// Matrix::update(&mut matrix, 2, 3, 52_f64);
-    /// Matrix::update(&mut matrix, 3, 0, 8_f64);
-    /// Matrix::update(&mut matrix, 3, 1, 7_f64);
-    /// Matrix::update(&mut matrix, 3, 2, 9_f64);
-    /// Matrix::update(&mut matrix, 3, 3, 5_f64);
-    ///
-    /// let determinate = Matrix::determinant(&matrix);
-    ///
-    /// /* Calculates the Determinate of this Matrix:
-    /// [4,5,6,7]
-    /// [3,42,2,1]
-    /// [2,3,17,52]
-    /// [8,7,9,5]
+    /// /*
+    ///     Outputs the Following:
+    ///     ----------------------
+    ///     Matrix:
+    ///     [78, 94, 25, 1]
+    ///     [795, 64, 25, 12]
+    ///     [37, 52, 81, 64]
+    ///     [0, 15, 6, 4]
+    ///     Determinate of the Matrix:
+    ///     -9395226.0
     /// */
-    ///
-    /// assert_eq!(determinate, 3705_f64);
     /// ```
     /// <hr/>
-    pub fn determinant(matrix: &Vec<Vec<f64>>) -> f64 {
-        let n = matrix.len();
-        if n != matrix[0].len() {
+    pub fn determinant(&self) -> f64 {
+        let n = self.0.len();
+        if n != self.0[0].len() {
             panic!("Matrix is not square!");
         }
 
         if n == 1 {
-            return matrix[0][0];
+            return self[0][0];
         }
 
         let mut sum = 0.0;
         let mut sign = 1.0;
 
         for i in 0..n {
-            let submatrix: Vec<Vec<f64>> = matrix
+            let submatrix: Vec<Vec<f64>> = self
+                .0
                 .iter()
                 .enumerate()
                 .filter_map(|(index, row)| {
@@ -133,7 +144,7 @@ impl Matrix {
                 })
                 .collect();
 
-            sum += sign * matrix[i][0] * Self::determinant(&submatrix);
+            sum += sign * self[i][0] * Matrix::<ROWS, COLS>::determinant(&Matrix(submatrix));
             sign *= -1.0;
         }
 
@@ -149,53 +160,43 @@ impl Matrix {
     /// ```
     /// use ferrate::Matrix;
     ///
-    /// let rows = 4;
-    /// let columns = 4;
-    /// let default_value = 0_f64;
+    /// fn main() {
+    ///     let matrix = Matrix::new([
+    ///         [78_f64, 94_f64, 25_f64, 1_f64],
+    ///         [795_f64, 64_f64, 25_f64, 12_f64],
+    ///         [37_f64, 52_f64, 81_f64, 64_f64],
+    ///         [0_f64, 15_f64, 6_f64, 4_f64]
+    ///     ]);
     ///
-    /// let mut matrix = Matrix::create(rows, columns, default_value);
+    ///     let transposed_matrix = matrix.transpose();
     ///
-    /// Matrix::update(&mut matrix, 0, 0, 4_f64);
-    /// Matrix::update(&mut matrix, 0, 1, 5_f64);
-    /// Matrix::update(&mut matrix, 0, 2, 6_f64);
-    /// Matrix::update(&mut matrix, 0, 3, 7_f64);
-    /// Matrix::update(&mut matrix, 1, 0, 3_f64);
-    /// Matrix::update(&mut matrix, 1, 1, 42_f64);
-    /// Matrix::update(&mut matrix, 1, 2, 2_f64);
-    /// Matrix::update(&mut matrix, 1, 3, 1_f64);
-    /// Matrix::update(&mut matrix, 2, 0, 2_f64);
-    /// Matrix::update(&mut matrix, 2, 1, 3_f64);
-    /// Matrix::update(&mut matrix, 2, 2, 17_f64);
-    /// Matrix::update(&mut matrix, 2, 3, 52_f64);
-    /// Matrix::update(&mut matrix, 3, 0, 8_f64);
-    /// Matrix::update(&mut matrix, 3, 1, 7_f64);
-    /// Matrix::update(&mut matrix, 3, 2, 9_f64);
-    /// Matrix::update(&mut matrix, 3, 3, 5_f64);
+    ///     println!("Matrix:\n{:?}\nTransposed Matrix:\n{:?}", matrix, transposed_matrix)
+    /// }
     ///
-    /// Matrix::transpose(&matrix);
-    ///
-    /// /* Transposes the Matrix:
-    /// Before:
-    /// [4,5,6,7]
-    /// [3,42,2,1]
-    /// [2,3,17,52]
-    /// [8,7,9,5]
-    /// After:
-    /// [4,3,2,8]
-    /// [5,42,3,7]
-    /// [6,2,17,9]
-    /// [7,1,52,5]
+    /// /*
+    ///     Outputs the Following:
+    ///     ----------------------
+    ///     Matrix:    
+    ///     [78, 94, 25, 1]  
+    ///     [795, 64, 25, 12]
+    ///     [37, 52, 81, 64]
+    ///     [0, 15, 6, 4]
+    ///     Transposed Matrix:
+    ///     [78, 795, 37, 0]
+    ///     [94, 64, 52, 15]
+    ///     [25, 25, 81, 6]
+    ///     [1, 12, 64, 4]
     /// */
     /// ```
     /// <hr/>
-    pub fn transpose(matrix: &Vec<Vec<f64>>) -> Vec<Vec<f64>> {
-        let rows = matrix.len();
-        let columns = matrix[0].len();
-        let mut transposed_matrix: Vec<Vec<f64>> = vec![vec![0.0; rows]; columns];
+    pub fn transpose(&self) -> Matrix<COLS, ROWS> {
+        let rows = self.0.len();
+        let columns = self.0[0].len();
+        let mut transposed_matrix = Matrix::<COLS, ROWS>::new([[0.0; ROWS]; COLS]);
 
         for i in 0..rows {
             for j in 0..columns {
-                transposed_matrix[j][i] = matrix[i][j];
+                transposed_matrix[j][i] = self[i][j];
             }
         }
 
@@ -211,30 +212,30 @@ impl Matrix {
     /// ```
     /// use ferrate::Matrix;
     ///
-    /// let rows = 3;
-    /// let columns = 4;
-    /// let default_value = 0_f64;
+    /// fn main() {
+    ///     let matrix = Matrix::new([
+    ///         [1_f64, 2_f64],
+    ///         [3_f64, 4_f64]
+    ///     ]);
     ///
-    /// let matrix = Matrix::create(rows, columns, default_value);
+    ///     let dimensions = matrix.dimensions();
     ///
-    /// /* The Matrix:
-    /// [0,0,0,0]
-    /// [0,0,0,0]
-    /// [0,0,0,0]
-    /// */
+    ///     println!("Matrix:\n{:?}\nMatrix Dimensions:\n{:?}", matrix, dimensions);
+    /// }
     ///
-    /// let matrix_dimensions = Matrix::dimensions(&matrix);
-    ///
-    /// /* Dimensions:
-    /// [3,4]
+    /// /*
+    ///     Outputs the Following:
+    ///     ----------------------
+    ///     Matrix:
+    ///     [1, 2]
+    ///     [3, 4]
+    ///     Matrix Dimensions:
+    ///     [2, 2]
     /// */
     /// ```
     /// <hr/>
-    pub fn dimensions(matrix: &Vec<Vec<f64>>) -> Vec<usize> {
-        let rows = matrix.len();
-        let columns = matrix[0].len();
-
-        vec![rows, columns]
+    pub fn dimensions(&self) -> Vec<usize> {
+        vec![ROWS, COLS]
     }
     /// Returns the Identity Matrix of a given size <br>
     /// Learn more at: <a href="https://wikipedia.org/wiki/Identity_matrix" target="_blank">Wikipedia Identity Matrix</a> <br>
@@ -246,23 +247,30 @@ impl Matrix {
     /// ```
     /// use ferrate::Matrix;
     ///
-    /// let size = 5;
+    /// fn main() {
+    ///     let identity_5x5 = Matrix::<5, 5>::identity();
     ///
-    /// let matrix = Matrix::identity(size);
+    ///     println!("5x5 Identity Matrix:\n{:?}", identity_5x5);
+    /// }
     ///
-    /// /* The 5 x 5 Identity Matrix:
-    /// [1,0,0,0,0]
-    /// [0,1,0,0,0]
-    /// [0,0,1,0,0]
-    /// [0,0,0,1,0]
-    /// [0,0,0,0,1]
+    /// /*
+    ///     Outputs the Following:
+    ///     ----------------------
+    ///     5x5 Identity Matrix:
+    ///     [1, 0, 0, 0, 0]
+    ///     [0, 1, 0, 0, 0]
+    ///     [0, 0, 1, 0, 0]
+    ///     [0, 0, 0, 1, 0]
+    ///     [0, 0, 0, 0, 1]
     /// */
     /// ```
     /// <hr/>
-    pub fn identity(n: usize) -> Vec<Vec<f64>> {
-        let mut identity_matrix = vec![vec![0.0; n]; n];
-        for i in 0..n {
-            identity_matrix[i][i] = 1.0;
+    pub fn identity() -> Matrix<ROWS, COLS> {
+        let mut identity_matrix = Matrix::new([[0.0; COLS]; ROWS]);
+        for i in 0..ROWS {
+            if i < COLS {
+                identity_matrix[i][i] = 1.0;
+            }
         }
         identity_matrix
     }
@@ -276,53 +284,40 @@ impl Matrix {
     /// ```
     /// use ferrate::Matrix;
     ///
-    /// let rows = 4;                                                 
-    /// let columns = 4;                                              
-    /// let default_value = 0_f64;                                    
-    ///                                                               
-    /// let mut matrix = Matrix::create(rows, columns, default_value);
-    ///                                                               
-    /// Matrix::update(&mut matrix, 0, 0, 4_f64);                     
-    /// Matrix::update(&mut matrix, 0, 1, 5_f64);                     
-    /// Matrix::update(&mut matrix, 0, 2, 6_f64);                     
-    /// Matrix::update(&mut matrix, 0, 3, 7_f64);                     
-    /// Matrix::update(&mut matrix, 1, 0, 3_f64);                     
-    /// Matrix::update(&mut matrix, 1, 1, 42_f64);                    
-    /// Matrix::update(&mut matrix, 1, 2, 2_f64);                     
-    /// Matrix::update(&mut matrix, 1, 3, 1_f64);                     
-    /// Matrix::update(&mut matrix, 2, 0, 2_f64);                     
-    /// Matrix::update(&mut matrix, 2, 1, 3_f64);                     
-    /// Matrix::update(&mut matrix, 2, 2, 17_f64);                    
-    /// Matrix::update(&mut matrix, 2, 3, 52_f64);                    
-    /// Matrix::update(&mut matrix, 3, 0, 8_f64);                     
-    /// Matrix::update(&mut matrix, 3, 1, 7_f64);                     
-    /// Matrix::update(&mut matrix, 3, 2, 9_f64);                     
-    /// Matrix::update(&mut matrix, 3, 3, 5_f64);                     
-    ///                                                               
-    /// Matrix::cumsumr(&matrix);                                   
-    ///                                                               
-    /// /* Row CumSum the Matrix:                                     
-    /// Before:                                                       
-    /// [4,5,6,7]                                                     
-    /// [3,42,2,1]                                                    
-    /// [2,3,17,52]                                                   
-    /// [8,7,9,5]                                                     
-    /// After:                                                        
-    /// [4,9,15,22]
-    /// [3,45,47,48]
-    /// [2,5,22,74]
-    /// [8,15,24,29]                                                    
+    /// fn main() {
+    ///     let matrix = Matrix::new([
+    ///         [1_f64, 2_f64, 3_f64],
+    ///         [4_f64, 5_f64, 6_f64],
+    ///         [7_f64, 8_f64, 9_f64]
+    ///     ]);
+    ///
+    ///     let cumsum_rows = matrix.cumsumr();
+    ///
+    ///     println!("Matrix:\n{:?}\nCumSum of Rows:\n{:?}", matrix, cumsum_rows);
+    /// }
+    ///
+    /// /*
+    ///     Outputs the Following:
+    ///     ----------------------
+    ///     Matrix:
+    ///     [1, 2, 3]
+    ///     [4, 5, 6]
+    ///     [7, 8, 9]
+    ///     CumSum of Rows:
+    ///     [1, 3, 6]
+    ///     [4, 9, 15]
+    ///     [7, 15, 24]
     /// */
     /// ```
     /// <hr/>
-    pub fn cumsumr(matrix: &Vec<Vec<f64>>) -> Vec<Vec<f64>> {
-        let mut cumsum_rows_matrix = matrix.clone();
+    pub fn cumsumr(&self) -> Matrix<ROWS, COLS> {
+        let mut cumsum_rows_matrix = self.0.clone();
         for row in &mut cumsum_rows_matrix {
             for j in 1..row.len() {
                 row[j] += row[j - 1];
             }
         }
-        cumsum_rows_matrix
+        Matrix(cumsum_rows_matrix)
     }
     /// Calculates the Cumulative Sum of a Matrix's Columns <br>
     /// Learn more at: <a href="https://www.mathworks.com/help/matlab/ref/cumsum.html#btrgrnv-1-dim" target="_blank">MatLab Cumsum</a> <br>
@@ -334,185 +329,189 @@ impl Matrix {
     /// ```
     /// use ferrate::Matrix;
     ///
-    /// let rows = 4;                                                 
-    /// let columns = 4;                                              
-    /// let default_value = 0_f64;                                    
-    ///                                                               
-    /// let mut matrix = Matrix::create(rows, columns, default_value);
-    ///                                                               
-    /// Matrix::update(&mut matrix, 0, 0, 4_f64);                     
-    /// Matrix::update(&mut matrix, 0, 1, 5_f64);                     
-    /// Matrix::update(&mut matrix, 0, 2, 6_f64);                     
-    /// Matrix::update(&mut matrix, 0, 3, 7_f64);                     
-    /// Matrix::update(&mut matrix, 1, 0, 3_f64);                     
-    /// Matrix::update(&mut matrix, 1, 1, 42_f64);                    
-    /// Matrix::update(&mut matrix, 1, 2, 2_f64);                     
-    /// Matrix::update(&mut matrix, 1, 3, 1_f64);                     
-    /// Matrix::update(&mut matrix, 2, 0, 2_f64);                     
-    /// Matrix::update(&mut matrix, 2, 1, 3_f64);                     
-    /// Matrix::update(&mut matrix, 2, 2, 17_f64);                    
-    /// Matrix::update(&mut matrix, 2, 3, 52_f64);                    
-    /// Matrix::update(&mut matrix, 3, 0, 8_f64);                     
-    /// Matrix::update(&mut matrix, 3, 1, 7_f64);                     
-    /// Matrix::update(&mut matrix, 3, 2, 9_f64);                     
-    /// Matrix::update(&mut matrix, 3, 3, 5_f64);                     
-    ///                                                               
-    /// Matrix::cumsumc(&matrix);                                   
-    ///                                                               
-    /// /* Column CumSum the Matrix:                                     
-    /// Before:                                                       
-    /// [4,5,6,7]                                                     
-    /// [3,42,2,1]                                                    
-    /// [2,3,17,52]                                                   
-    /// [8,7,9,5]                                                     
-    /// After:                                                        
-    /// [4,5,6,7]
-    /// [7,47,8,8]
-    /// [9,50,25,60]
-    /// [17,57,34,65]                                                    
+    /// fn main() {
+    ///    let matrix = Matrix::new([
+    ///         [1_f64, 2_f64, 3_f64],
+    ///         [4_f64, 5_f64, 6_f64],
+    ///         [7_f64, 8_f64, 9_f64]
+    ///     ]);
+    ///
+    ///     let cumsum_columns = matrix.cumsumc();
+    ///
+    ///     println!("Matrix:\n{:?}\nCumSum of Columns:\n{:?}", matrix, cumsum_columns);  
+    /// }
+    ///
+    /// /*
+    ///     Outputs the Following:
+    ///     ----------------------
+    ///     Matrix:
+    ///     [1, 2, 3]
+    ///     [4, 5, 6]
+    ///     [7, 8, 9]
+    ///     CumSum of Columns:
+    ///     [1, 2, 3]
+    ///     [5, 7, 9]
+    ///     [12, 15, 18]
     /// */
     /// ```
     /// <hr/>
-    pub fn cumsumc(matrix: &Vec<Vec<f64>>) -> Vec<Vec<f64>> {
-        let mut cumsum_columns_matrix = Self::transpose(matrix);
+    pub fn cumsumc(&self) -> Matrix<ROWS, COLS> {
+        let transposed = self.transpose();
+        let mut cumsum_columns_matrix = transposed.0.clone();
         for row in &mut cumsum_columns_matrix {
             for j in 1..row.len() {
                 row[j] += row[j - 1];
             }
         }
-        Self::transpose(&cumsum_columns_matrix)
+        let transposed_cumsum = Matrix(cumsum_columns_matrix);
+        transposed_cumsum.transpose()
     }
-    /// An implementation of gaussian Elimination in Rust <br>
-    /// Learn more at: <a href="https://en.wikipedia.org/wiki/Gaussian_elimination" target="_blank">Wikipedia gaussian Elimination</a> <br>
+    /// Performs various arithmetic operations element-wise on two matrices. <br>
     /// <hr/>
-    ///
-    ///
-    /// # Example:
-    ///
-    /// ```
-    /// use ferrate::Matrix;                                          
-    ///                                                               
-    /// let rows = 4;                                                 
-    /// let columns = 4;                                              
-    /// let default_value = 0_f64;                                    
-    ///                                                               
-    /// let mut matrix = Matrix::create(rows, columns, default_value);
-    ///                                                               
-    /// Matrix::update(&mut matrix, 0, 0, 4_f64);                     
-    /// Matrix::update(&mut matrix, 0, 1, 5_f64);                     
-    /// Matrix::update(&mut matrix, 0, 2, 6_f64);                     
-    /// Matrix::update(&mut matrix, 0, 3, 7_f64);                     
-    /// Matrix::update(&mut matrix, 1, 0, 3_f64);                     
-    /// Matrix::update(&mut matrix, 1, 1, 42_f64);                    
-    /// Matrix::update(&mut matrix, 1, 2, 2_f64);                     
-    /// Matrix::update(&mut matrix, 1, 3, 1_f64);                     
-    /// Matrix::update(&mut matrix, 2, 0, 2_f64);                     
-    /// Matrix::update(&mut matrix, 2, 1, 3_f64);                     
-    /// Matrix::update(&mut matrix, 2, 2, 17_f64);                    
-    /// Matrix::update(&mut matrix, 2, 3, 52_f64);                    
-    /// Matrix::update(&mut matrix, 3, 0, 8_f64);                     
-    /// Matrix::update(&mut matrix, 3, 1, 7_f64);                     
-    /// Matrix::update(&mut matrix, 3, 2, 9_f64);                     
-    /// Matrix::update(&mut matrix, 3, 3, 5_f64);                     
-    ///                                                               
-    /// Matrix::gaussian_elimination(&mut matrix);                                     
-    ///                                                               
-    /// /* gaussian Elimination of the Matrix:                                     
-    /// Before:                                                       
-    /// [4,5,6,7]                                                     
-    /// [3,42,2,1]                                                    
-    /// [2,3,17,52]                                                   
-    /// [8,7,9,5]                                                     
-    /// After:                                                        
-    /// [1,0,0,0]
-    /// [0,1,0,0]
-    /// [0,0,1,0]
-    /// [0,0,0,1]                                                 
-    /// */                                                            
-    /// ```
-    /// <hr/>
-    pub fn gaussian_elimination(matrix: &mut Vec<Vec<f64>>) {
-        let rows = matrix.len();
-        let columns = matrix[0].len();
-
-        let mut lead = 0;
-        for r in 0..rows {
-            if lead >= columns {
-                break;
-            }
-            let mut i = r;
-            while matrix[i][lead] == 0.0 {
-                i += 1;
-                if i == rows {
-                    i = r;
-                    lead += 1;
-                    if columns == lead {
-                        return;
-                    }
-                }
-            }
-            matrix.swap(i, r);
-            let lv = matrix[r][lead];
-            for j in 0..columns {
-                matrix[r][j] /= lv;
-            }
-            for i in 0..rows {
-                if i != r {
-                    let lv = matrix[i][lead];
-                    for j in 0..columns {
-                        matrix[i][j] -= lv * matrix[r][j];
-                    }
-                }
-            }
-            lead += 1;
-        }
-    }
-    /// Performs various arithmetic operations element-wise on two matrices.
     ///
     /// # Example
     ///
     /// ```
     /// use ferrate::Matrix;
     ///
-    /// let rows = 2;
-    /// let columns = 3;
-    /// let default_value = 2_f64;
+    /// fn main() {
     ///
-    /// let matrix1 = Matrix::create(rows, columns, default_value);
+    ///     let matrix1 = Matrix::new([
+    ///         [1_f64, 2_f64],
+    ///         [3_f64, 4_f64]
+    ///     ]);
     ///
-    /// let matrix2 = vec![
-    ///     vec![1.0, 2.0, 3.0],
-    ///     vec![4.0, 5.0, 6.0],
-    /// ];
+    ///     let matrix2 = Matrix::new([
+    ///         [5_f64, 6_f64],
+    ///         [7_f64, 8_f64]
+    ///     ]);
     ///
-    /// let exponent = 3.0;
+    ///     let result_exponentiation = Matrix::arithmetic(&matrix1, &matrix2, |a, b| a.powf(b));
+    ///     let result_addition = Matrix::arithmetic(&matrix1, &matrix2, |a, b| a + b);
+    ///     let result_subtraction = Matrix::arithmetic(&matrix1, &matrix2, |a, b| a - b);
+    ///     let result_multiplication = Matrix::arithmetic(&matrix1, &matrix2, |a, b| a * b);
+    ///     let result_division = Matrix::arithmetic(&matrix1, &matrix2, |a, b| a / b);
     ///
-    /// let result_exponentiation = Matrix::arithmetic(&matrix1, &matrix2, |a, b| a.powf(2_f64));
-    /// let result_addition = Matrix::arithmetic(&matrix1, &matrix2, |a, b| a + b);
-    /// let result_subtraction = Matrix::arithmetic(&matrix1, &matrix2, |a, b| a - b);
-    /// let result_multiplication = Matrix::arithmetic(&matrix1, &matrix2, |a, b| a * b);
-    /// let result_division = Matrix::arithmetic(&matrix1, &matrix2, |a, b| a / b);
+    ///     println!("
+    ///         Matrix 1:\n{:?}\n
+    ///         Matrix 2:\n{:?}\n
+    ///         Addition:\n{:?}\n
+    ///         Subtraction:\n{:?}\n
+    ///         Multiplication:\n{:?}\n
+    ///         Division:\n{:?}\n
+    ///         Power:\n{:?}", matrix1, matrix2, result_addition, result_subtraction, result_multiplication, result_division, result_exponentiation);
+    /// }
+    ///
+    /// /*
+    ///     Outputs the Following:
+    ///     ----------------------
+    ///     Matrix 1:
+    ///     [1, 2]
+    ///     [3, 4]
+    ///     Matrix 2:
+    ///     [5, 6]
+    ///     [7, 8]
+    ///     Addition:
+    ///     [6, 8]
+    ///     [10, 12]
+    ///     Subtraction:
+    ///     [-4, -4]
+    ///     [-4, -4]
+    ///     Multiplication:
+    ///     [5, 12]
+    ///     [21, 32]
+    ///     Division:
+    ///     [0.2, 0.333333333]
+    ///     [0.428571428, 0.5]
+    ///     Power:
+    ///     [1, 64]
+    ///     [2187, 65536]
+    /// */
+    ///
     /// ```
     /// <hr/>
-    pub fn arithmetic<F>(matrix1: &Vec<Vec<f64>>, matrix2: &Vec<Vec<f64>>, op: F) -> Vec<Vec<f64>>
+    pub fn arithmetic<F>(&self, other: &Matrix<ROWS, COLS>, op: F) -> Matrix<ROWS, COLS>
     where
         F: Fn(f64, f64) -> f64,
     {
-        let rows = matrix1.len();
-        let columns = matrix1[0].len();
+        let mut result_matrix = Matrix::new([[0.0; COLS]; ROWS]);
 
-        if rows != matrix2.len() || columns != matrix2[0].len() {
-            panic!("Matrices must have the same dimensions for arithmetic operations.");
-        }
-
-        let mut result_matrix = vec![vec![0.0; columns]; rows];
-
-        for i in 0..rows {
-            for j in 0..columns {
-                result_matrix[i][j] = op(matrix1[i][j], matrix2[i][j]);
+        for i in 0..ROWS {
+            for j in 0..COLS {
+                result_matrix[i][j] = op(self[i][j], other[i][j]);
             }
         }
 
         result_matrix
+    }
+    /// Allows you to raise a matrix to a exponent <br>
+    /// <hr/>
+    ///
+    /// # Example:
+    ///
+    /// ```
+    /// use ferrate::Matrix;
+    ///
+    /// fn main() {
+    ///     let mut matrix = Matrix::new([
+    ///         [1_f64, 2_f64],
+    ///         [3_f64, 4_f64]
+    ///     ]);
+    ///
+    ///     let exponent = 3_f64;
+    ///     let power_matrix = matrix.power(exponent);
+    ///
+    ///     println!("Matrix:\n{:?}\nPower Matrix:\n{:?}", matrix, power_matrix);
+    /// }
+    ///
+    /// /*
+    ///     Outputs the Following:
+    ///     ----------------------
+    ///     Matrix:
+    ///     [1, 2]
+    ///     [3, 4]
+    ///     Power Matrix:
+    ///     [1, 8]
+    ///     [27, 64]
+    /// */
+    ///
+    /// ```
+    /// <hr/>
+    pub fn power(&mut self, exponent: f64) {
+        for i in 0..ROWS {
+            for j in 0..COLS {
+                self[i][j] = self[i][j].powf(exponent);
+            }
+        }
+    }
+}
+
+impl<const ROWS: usize, const COLS: usize> Index<usize> for Matrix<ROWS, COLS> {
+    type Output = Vec<f64>;
+
+    fn index(&self, index: usize) -> &Self::Output {
+        &self.0[index]
+    }
+}
+
+impl<const ROWS: usize, const COLS: usize> IndexMut<usize> for Matrix<ROWS, COLS> {
+    fn index_mut(&mut self, index: usize) -> &mut Self::Output {
+        &mut self.0[index]
+    }
+}
+
+impl<const ROWS: usize, const COLS: usize> fmt::Debug for Matrix<ROWS, COLS> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        for row in &self.0 {
+            write!(f, "[")?;
+            for (index, val) in row.iter().enumerate() {
+                write!(f, "{}", val)?;
+                if index < COLS - 1 {
+                    write!(f, ", ")?;
+                }
+            }
+            write!(f, "]\n")?;
+        }
+        Ok(())
     }
 }
