@@ -1,17 +1,24 @@
 use std::fmt;
 use std::ops::{Index, IndexMut};
 
+/// A module containing Matrix and Matrix Functions.
 pub struct Matrix<const ROWS: usize, const COLS: usize>(Vec<Vec<f64>>);
 
 impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
-    /// Creates a Matrix <br>
-    /// Learn more at: <a href="https://wikipedia.org/wiki/Matrix_(mathematics)" target="_blank">Wikipedia Matrix</a> <br>
-    /// <hr/>
+    /// Creates a new matrix from a 2D array of elements.
+    ///
+    /// # Parameters
+    ///
+    /// - `elements`: A 2D array representing the elements of the matrix. The outer array represents rows, and the inner arrays represent columns.
+    ///
+    /// # Returns
+    ///
+    /// A new matrix containing the elements provided in the 2D array.
     ///
     /// # Example
     ///
     /// ```
-    /// use ferrate::Matrix;
+    /// use mathematica::Matrix;
     ///
     /// fn main() {
     ///     let matrix = Matrix::new([
@@ -34,14 +41,21 @@ impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
     pub fn new(elements: [[f64; COLS]; ROWS]) -> Self {
         Self(elements.iter().map(|row| row.to_vec()).collect())
     }
-    /// Updates the Values in a Matrix <br>
-    /// Learn more at: <a href="https://wikipedia.org/wiki/Matrix_(mathematics)" target="_blank">Wikipedia Matrix</a> <br>
-    /// <hr/>
+
+    /// Updates the value at a specific row and column in the matrix.
+    ///
+    /// # Parameters
+    ///
+    /// - `row`: The row index (1-based) where the value should be updated.
+    /// - `column`: The column index (1-based) where the value should be updated.
+    /// - `new_value`: The new value to set at the specified position.
+    ///
+    /// If either the row or column index is out of bounds, this function does nothing.
     ///
     /// # Example:
     ///
     /// ```
-    /// use ferrate::Matrix;
+    /// use mathematica::Matrix;
     ///
     /// fn main() {
     ///     let mut matrix = Matrix::new([
@@ -79,17 +93,17 @@ impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
             }
         }
     }
-    /// Calculates the Determinate of a square Matrix with the Leibniz formula <br>
-    /// Learn about determinate at: <a href="https://wikipedia.org/wiki/Determinant" target="_blank">Wikipedia Determinate</a> <br>
-    /// Learn about the Leibniz formula at: <a href="https://wikipedia.org/wiki/Leibniz_formula_for_determinants" target="_blank">Wikipedia Leibniz Formula</a> <br>
-    /// Learn more about Square Matrix's at: <a href="https://wikipedia.org/wiki/Square_matrix" target="_blank">Wikipedia Square Matrix</a> <br>
-    /// <hr/>
+
+    /// Calculates the determinant of a square matrix using the Leibniz formula.
     ///
+    /// # Returns
+    ///
+    /// The determinant of the matrix as an `f64` value.
     ///
     /// # Example:
     ///
     /// ```
-    /// use ferrate::Matrix;
+    /// use mathematica::Matrix;
     ///
     /// fn main() {
     ///     let matrix = Matrix::new([
@@ -150,15 +164,17 @@ impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
 
         sum
     }
-    /// The Transpose Function in Rust <br>
-    /// Learn more at: <a href="https://wikipedia.org/wiki/Transpose" target="_blank">Wikipedia Transpose</a> <br>
-    /// <hr/>
+
+    /// Returns the transpose of the matrix, where rows become columns and columns become rows.
     ///
+    /// # Returns
+    ///
+    /// The transposed matrix.
     ///
     /// # Example:
     ///
     /// ```
-    /// use ferrate::Matrix;
+    /// use mathematica::Matrix;
     ///
     /// fn main() {
     ///     let matrix = Matrix::new([
@@ -202,15 +218,17 @@ impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
 
         transposed_matrix
     }
-    /// Returns the Dimensions of a Matrix <br>
-    /// Learn more at: <a href="https://wikipedia.org/wiki/Matrix_(mathematics)" target="_blank">Wikipedia Matrix</a> <br>
-    /// <hr/>
+
+    /// Returns the dimensions of the matrix as a vector where the first element is the number of rows and the second element is the number of columns.
     ///
+    /// # Returns
+    ///
+    /// A vector containing the number of rows and columns, respectively.
     ///
     /// # Example:
     ///
     /// ```
-    /// use ferrate::Matrix;
+    /// use mathematica::Matrix;
     ///
     /// fn main() {
     ///     let matrix = Matrix::new([
@@ -237,15 +255,17 @@ impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
     pub fn dimensions(&self) -> Vec<usize> {
         vec![ROWS, COLS]
     }
-    /// Returns the Identity Matrix of a given size <br>
-    /// Learn more at: <a href="https://wikipedia.org/wiki/Identity_matrix" target="_blank">Wikipedia Identity Matrix</a> <br>
-    /// <hr/>
+
+    /// Returns the identity matrix of the same size as the current matrix.
     ///
+    /// # Returns
+    ///
+    /// An identity matrix of the same size as the current matrix.
     ///
     /// # Example
     ///
     /// ```
-    /// use ferrate::Matrix;
+    /// use mathematica::Matrix;
     ///
     /// fn main() {
     ///     let identity_5x5 = Matrix::<5, 5>::identity();
@@ -274,15 +294,17 @@ impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
         }
         identity_matrix
     }
-    /// Calculates the Cumulative Sum of a Matrix's Rows <br>
-    /// Learn more at: <a href="https://www.mathworks.com/help/matlab/ref/cumsum.html#btrgrnv-1-dim" target="_blank">MatLab Cumsum</a> <br>
-    /// <hr/>
+
+    /// Calculates the cumulative sum of a matrix's rows.
     ///
+    /// # Returns
+    ///
+    /// A new matrix where each row contains the cumulative sum of the corresponding row in the original matrix.
     ///
     /// # Example:
     ///
     /// ```
-    /// use ferrate::Matrix;
+    /// use mathematica::Matrix;
     ///
     /// fn main() {
     ///     let matrix = Matrix::new([
@@ -319,15 +341,17 @@ impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
         }
         Matrix(cumsum_rows_matrix)
     }
-    /// Calculates the Cumulative Sum of a Matrix's Columns <br>
-    /// Learn more at: <a href="https://www.mathworks.com/help/matlab/ref/cumsum.html#btrgrnv-1-dim" target="_blank">MatLab Cumsum</a> <br>
-    /// <hr/>
+
+    /// Calculates the cumulative sum of a matrix's columns.
     ///
+    /// # Returns
+    ///
+    /// A new matrix where each column contains the cumulative sum of the corresponding column in the original matrix.
     ///
     /// # Example:
     ///
     /// ```
-    /// use ferrate::Matrix;
+    /// use mathematica::Matrix;
     ///
     /// fn main() {
     ///    let matrix = Matrix::new([
@@ -366,13 +390,23 @@ impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
         let transposed_cumsum = Matrix(cumsum_columns_matrix);
         transposed_cumsum.transpose()
     }
-    /// Performs various arithmetic operations element-wise on two matrices. <br>
-    /// <hr/>
+
+    /// Performs various arithmetic operations element-wise on two matrices.
+    ///
+    /// # Parameters
+    ///
+    /// - `self`: The first matrix.
+    /// - `other`: The second matrix.
+    /// - `op`: A closure that takes two `f64` values and returns an `f64`, representing the arithmetic operation to be performed.
+    ///
+    /// # Returns
+    ///
+    /// A new matrix containing the result of the element-wise arithmetic operation.
     ///
     /// # Example
     ///
     /// ```
-    /// use ferrate::Matrix;
+    /// use mathematica::Matrix;
     ///
     /// fn main() {
     ///
@@ -444,13 +478,17 @@ impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
 
         result_matrix
     }
-    /// Allows you to raise a matrix to a exponent <br>
-    /// <hr/>
+
+    /// Raises the elements of the matrix to the given exponent in-place.
+    ///
+    /// # Parameters
+    ///
+    /// - `exponent`: The exponent to which each element of the matrix should be raised.
     ///
     /// # Example:
     ///
     /// ```
-    /// use ferrate::Matrix;
+    /// use mathematica::Matrix;
     ///
     /// fn main() {
     ///     let mut matrix = Matrix::new([

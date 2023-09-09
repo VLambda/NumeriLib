@@ -2,17 +2,27 @@ use crate::extra::Extra;
 use crate::func::integration::Integration;
 use crate::special::Gamma;
 
+/// A module containing Regular Mathematics Functions.
 pub struct Functions;
 
 impl Functions {
-    /// Uses the definition of a derivative to calculate the derivative of a function at a specific point of a given function. <br>
-    /// Learn more about Derivatives and Differentiation at: <a href="https://wikipedia.org/wiki/Derivative" target="_blank">Wikipedia Derivative</a> <br>
-    /// <hr/>
+    /// Uses the definition of a derivative to calculate the derivative of a function at a specific point of a given function.
     ///
-    /// # Example:
-    /// ```
-    /// use ferrate::Functions;
-    ///     
+    /// # Parameters
+    ///
+    /// - `f`: A function that takes a single `f64` argument and returns an `f64`. This is the function for which the derivative will be calculated.
+    /// - `x`: The point at which the derivative will be calculated.
+    ///
+    /// # Returns
+    ///
+    /// The calculated derivative of the function at the given point.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    ///
+    /// use mathematica::Functions;
+    ///
     /// fn main() {
     ///     let function = |x: f64| x.powi(2);
     ///     let x = 2;
@@ -23,7 +33,6 @@ impl Functions {
     /// }
     /// ```
     /// <hr/>
-    ///
     pub fn derivative<F: Fn(f64) -> f64>(f: F, x: impl Into<f64> + Copy) -> f64 {
         let h = 1e-7;
         let definition = ((f(x.into() + h)) - f(x.into())) / h;
@@ -34,14 +43,24 @@ impl Functions {
             definition
         }
     }
-    /// The Right Endpoint method to calculate a definite integral.<br>
-    /// Learn more about Integrals at: <a href="https://wikipedia.org/wiki/Integral" target="_blank">Wikipedia Integral</a> <br>
-    /// Learn more about Simpson's 1/3rd Rule at: <a href="https://wikipedia.org/wiki/Riemann_sum" target="_blank">Wikipedia Riemann Sum</a> <br>
-    /// <hr/>
+
+    /// The Right Endpoint method to calculate a definite integral.
+    ///
+    /// # Parameters
+    ///
+    /// - `function`: A function that takes a single `f64` argument and returns an `f64`. This is the function to be integrated.
+    /// - `lower_limit`: The lower limit of integration.
+    /// - `upper_limit`: The upper limit of integration.
+    /// - `interval_size`: The size of the subintervals for the Riemann sum.
+    ///
+    /// # Returns
+    ///
+    /// The calculated definite integral using the Right Endpoint method.
     ///
     /// # Example
-    /// ```
-    /// use ferrate::Functions;
+    ///
+    /// ```rust
+    /// use mathematica::Functions;
     ///
     /// fn main() {
     ///     let lower_bound = 0_f64;
@@ -63,14 +82,24 @@ impl Functions {
     ) -> f64 {
         Integration::right_riemann(function, lower_limit, upper_limit, interval_size)
     }
-    /// The Left Endpoint method to calculate a definite integral.<br>
-    /// Learn more about Integrals at: <a href="https://wikipedia.org/wiki/Integral" target="_blank">Wikipedia Integral</a> <br>
-    /// Learn more about Simpson's 1/3rd Rule at: <a href="https://wikipedia.org/wiki/Riemann_sum" target="_blank">Wikipedia Riemann Sum</a> <br>
-    /// <hr/>
+
+    /// The Left Endpoint method to calculate a definite integral.
+    ///
+    /// # Parameters
+    ///
+    /// - `function`: A function that takes a single `f64` argument and returns an `f64`. This is the function to be integrated.
+    /// - `lower_limit`: The lower limit of integration.
+    /// - `upper_limit`: The upper limit of integration.
+    /// - `interval_size`: The size of the subintervals for the Riemann sum.
+    ///
+    /// # Returns
+    ///
+    /// The calculated definite integral using the Left Endpoint method.
     ///
     /// # Example
-    /// ```
-    /// use ferrate::Functions;
+    ///
+    /// ```rust
+    /// use mathematica::Functions;
     ///
     /// fn main() {
     ///     let lower_bound = 0_f64;
@@ -92,14 +121,24 @@ impl Functions {
     ) -> f64 {
         Integration::left_riemann(function, lower_limit, upper_limit, interval_size)
     }
-    /// The Left Endpoint method to calculate a definite integral.<br>
-    /// Learn more about Integrals at: <a href="https://wikipedia.org/wiki/Integral" target="_blank">Wikipedia Integral</a> <br>
-    /// Learn more about Simpson's 1/3rd Rule at: <a href="https://wikipedia.org/wiki/Riemann_sum" target="_blank">Wikipedia Riemann Sum</a> <br>
-    /// <hr/>
+
+    /// The Midpoint method to calculate a definite integral.
+    ///
+    /// # Parameters
+    ///
+    /// - `function`: A function that takes a single `f64` argument and returns an `f64`. This is the function to be integrated.
+    /// - `lower_limit`: The lower limit of integration.
+    /// - `upper_limit`: The upper limit of integration.
+    /// - `interval_size`: The size of the subintervals for the Riemann sum.
+    ///
+    /// # Returns
+    ///
+    /// The calculated definite integral using the Midpoint method.
     ///
     /// # Example
-    /// ```
-    /// use ferrate::Functions;
+    ///
+    /// ```rust
+    /// use mathematica::Functions;
     ///
     /// fn main() {
     ///     let lower_bound = 0_f64;
@@ -112,7 +151,7 @@ impl Functions {
     ///     println!("The Integral of x^2 at [0,6] is: {}", integral)
     /// }
     /// ```
-    /// <hr/>
+    ///
     pub fn midpoint_riemann<F: Fn(f64) -> f64>(
         function: F,
         lower_limit: f64,
@@ -121,14 +160,24 @@ impl Functions {
     ) -> f64 {
         Integration::midpoint_riemann(function, lower_limit, upper_limit, interval_size)
     }
-    /// The Trapezoid method to calculate a definite integral.<br>
-    /// Learn more about Integrals at: <a href="https://wikipedia.org/wiki/Integral" target="_blank">Wikipedia Integral</a> <br>
-    /// Learn more about Simpson's 1/3rd Rule at: <a href="https://wikipedia.org/wiki/Trapezoidal_rule" target="_blank">Wikipedia Trapezoid</a> <br>
-    /// <hr/>
+
+    /// The Trapezoid method to calculate a definite integral.
+    ///
+    /// # Parameters
+    ///
+    /// - `function`: A function that takes a single `f64` argument and returns an `f64`. This is the function to be integrated.
+    /// - `lower_limit`: The lower limit of integration.
+    /// - `upper_limit`: The upper limit of integration.
+    /// - `interval_size`: The size of the subintervals for the Trapezoidal rule.
+    ///
+    /// # Returns
+    ///
+    /// The calculated definite integral using the Trapezoidal rule.
     ///
     /// # Example
-    /// ```
-    /// use ferrate::Functions;
+    ///
+    /// ```rust
+    /// use mathematica::Functions;
     ///
     /// fn main() {
     ///     let lower_bound = 0_f64;
@@ -150,14 +199,24 @@ impl Functions {
     ) -> f64 {
         Integration::trapezoid(function, lower_limit, upper_limit, interval_size)
     }
-    /// Uses Simpson's Rule to calculate a definite integral.<br>
-    /// Learn more about Integrals at: <a href="https://wikipedia.org/wiki/Integral" target="_blank">Wikipedia Integral</a> <br>
-    /// Learn more about Simpson's 1/3rd Rule at: <a href="https://wikipedia.org/wiki/Simpson's_rule" target="_blank">Wikipedia Simpson's Rule</a> <br>
-    /// <hr/>
+
+    /// Uses Simpson's Rule to calculate a definite integral.
+    ///
+    /// # Parameters
+    ///
+    /// - `function`: A function that takes a single `f64` argument and returns an `f64`. This is the function to be integrated.
+    /// - `lower_limit`: The lower limit of integration.
+    /// - `upper_limit`: The upper limit of integration.
+    /// - `interval_size`: The size of the subintervals for the Simpson's Rule.
+    ///
+    /// # Returns
+    ///
+    /// The calculated definite integral using Simpson's Rule.
     ///
     /// # Example
-    /// ```
-    /// use ferrate::Functions;
+    ///
+    /// ```rust
+    /// use mathematica::Functions;
     ///
     /// fn main() {
     ///     let lower_bound = 0_f64;
@@ -179,23 +238,30 @@ impl Functions {
     ) -> f64 {
         Integration::simpson(function, lower_limit, upper_limit, interval_size)
     }
-    /// Calculates a Factorial by using Lanczos's Gamma Function Approximation. <br>
-    /// Learn more at: <a href="https://wikipedia.org/wiki/Factorial" target="_blank">Wikipedia Factorials</a> <br>
-    /// <hr/>
+
+    /// Calculates a Factorial by using Lanczos's Gamma Function Approximation.
     ///
-    /// # Example:
-    /// ```
-    /// use ferrate::Functions;
+    /// # Parameters
+    ///
+    /// - `n`: The value for which the factorial is calculated.
+    ///
+    /// # Returns
+    ///
+    /// The factorial of the given value.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use mathematica::Functions;
     ///
     /// fn main() {
     ///     let n = 6_f64;
     ///     let factorial = Functions::factorial(n);
-    ///     
+    ///
     ///     println!("6! is: {}", factorial);
     /// }
     /// ```
     /// <hr/>
-    ///
     pub fn factorial(n: f64) -> f64 {
         if n.floor() == n {
             (1..=n as u64).map(|i| i as f64).product()
@@ -203,14 +269,23 @@ impl Functions {
             Gamma::lanczos(n + 1_f64)
         }
     }
-    /// Summations in Rust. <br>
-    /// Learn more at: <a href="https://wikipedia.org/wiki/Summation" target="_blank">Wikipedia Summation</a> <br>
-    /// <hr/>
+
+    /// Summations in Rust.
+    ///
+    /// # Parameters
+    ///
+    /// - `start`: The starting value for the summation.
+    /// - `limit`: The ending value for the summation.
+    /// - `f`: A function that takes a single `f64` argument and returns an `f64`. This is the function to be summed.
+    ///
+    /// # Returns
+    ///
+    /// The sum of applying the function to each value in the range `[start, limit]`.
     ///
     /// # Example #1: Constant
     ///
-    /// ```
-    /// use ferrate::Functions;
+    /// ```rust
+    /// use mathematica::Functions;
     ///
     /// fn main() {
     ///     let start = 0;
@@ -222,11 +297,11 @@ impl Functions {
     ///     println!("The summation of the constant 3 from [0,9] is: {}", summation);
     /// }
     /// ```
-    /// <hr/>
     ///
     /// # Example #2: Function
-    /// ```
-    /// use ferrate::Functions;
+    ///
+    /// ```rust
+    /// use mathematica::Functions;
     ///
     /// fn main() {
     ///     let start = 4.5;
@@ -254,14 +329,23 @@ impl Functions {
 
         result
     }
-    /// Calculates the product of a function. a.k.a Capital Pi Notation. <br>
-    /// Learn more at: <a href="https://wikipedia.org/wiki/Product_(mathematics)#Product_of_a_sequence" target="_blank">Wikipedia Capital Pi Notation</a> <br>
-    /// <hr/>
+
+    /// Calculates the product of a function. a.k.a Capital Pi Notation.
     ///
-    /// # Example #1: Constant
+    /// # Parameters
     ///
-    /// ```
-    /// use ferrate::Functions;
+    /// - `start`: The starting value for the product.
+    /// - `limit`: The ending value for the product.
+    /// - `f`: A function that takes a single `f64` argument and returns an `f64`. This is the function to be multiplied in the product.
+    ///
+    /// # Returns
+    ///
+    /// The product of applying the function to each value in the range `[start, limit]`.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use mathematica::Functions;
     ///
     /// fn main() {
     ///     let start = 2_f64;
@@ -269,29 +353,27 @@ impl Functions {
     ///     let f = |x: f64| 3_f64;
     ///
     ///     let product_series = Functions::product(start, limit, f);
-    ///     
+    ///
     ///     println!("The Product Series of the Constant 3 from [2,7] is: {}", product_series);
     /// }
     /// ```
-    /// <hr/>
     ///
     /// # Example #2: Function
     ///
-    /// ```
-    /// use ferrate::Functions;
+    /// ```rust
+    /// use mathematica::Functions;
     ///
     /// fn main() {
-    ///     let start = 1_f64;
-    ///     let limit = 6_f64;
-    ///     let f = |x: f64| x.powi(2);
+    ///     let start = 3_f64;
+    ///     let limit = 7_f64;
+    ///     let function = |x: f64| x.powi(2);
     ///
-    ///     let product_series = Functions::product(start, limit, f);
-    ///     
-    ///     println!("The product series of the function x^2 from [1,6] is: {}", product_series);
+    ///     let summation = Functions::product(start, limit, function);
+    ///
+    ///     println!("The Product Series of the Function x^2 from [3,7] is: {}", summation);
     /// }
     /// ```
     /// <hr/>
-    ///
     pub fn product<F: Fn(f64) -> f64>(start: f64, limit: f64, f: F) -> f64 {
         let mut result = 1.0;
         let start = start.round() as i64;
@@ -302,14 +384,22 @@ impl Functions {
         }
         result
     }
+
     /// A rust implementation of the Newton–Raphson method for finding roots.
-    /// Learn more at: <a href="https://wikipedia.org/wiki/Newton's_method" target="_blank">Wikipedia Newton–Raphson method</a> <br>
-    /// <hr/>
     ///
+    /// # Parameters
     ///
-    /// # Example:
-    /// ```
-    /// use ferrate::Functions;
+    /// - `guess`: An initial guess for the root.
+    /// - `func`: A function that takes a single `f64` argument and returns an `f64`. This is the function for which the root is found.
+    ///
+    /// # Returns
+    ///
+    /// The approximate root of the function.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use mathematica::Functions;
     ///
     /// fn main() {
     ///     let x = 1.5_f64;
@@ -342,14 +432,22 @@ impl Functions {
 
         result
     }
-    /// Pochhammer's Function in Rust <br>
-    /// Learn more at: <a href="https://en.wikipedia.org/wiki/Falling_and_rising_factorials" target="_blank">Wikipedia Falling and Rising Factorials</a> <br>
-    /// <hr/>
+
+    /// Pochhammer's Function in Rust.
     ///
-    /// # Example:
+    /// # Parameters
     ///
-    /// ```
-    /// use ferrate::Functions;
+    /// - `x`: The base value.
+    /// - `n`: The exponent value.
+    ///
+    /// # Returns
+    ///
+    /// The value of Pochhammer's function.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use mathematica::Functions;
     ///
     /// fn main() {
     ///     let x = 2_f64;
@@ -363,25 +461,33 @@ impl Functions {
     pub fn pochhammer(x: f64, n: f64) -> f64 {
         Gamma::lanczos(x + n) / Gamma::lanczos(x)
     }
-    /// Falling Factorials in Rust <br>
-    /// Learn more at: <a href="https://en.wikipedia.org/wiki/Falling_and_rising_factorials" target="_blank">Wikipedia Falling and Rising Factorials</a> <br>
-    /// <hr/>
+
+    /// Falling Factorials in Rust.
     ///
+    /// # Parameters
     ///
-    /// # Example:
+    /// - `x`: The base of the falling factorial.
+    /// - `n`: The number of falling factorial terms.
     ///
-    /// ```                                       
-    /// use ferrate::Functions;          
+    /// # Returns
     ///
-    /// fn main() {                                          
-    ///     let x = 3_f64;                            
-    ///     let n = 2_f64;                            
-    ///                                           
-    ///     let fall = Functions::fallfactorial(x, n);   
-    ///                                           
+    /// The value of the falling factorial.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use mathematica::Functions;
+    ///
+    /// fn main() {
+    ///     let x = 3_f64;
+    ///     let n = 2_f64;
+    ///
+    ///     let fall = Functions::fallfactorial(x, n);
+    ///
     ///     println!("The Falling Factorial of 3^n where n=2 is: {}", fall);
-    /// }               
-    /// ```                                       
+    /// }
+    /// ```
+    /// <hr/>                                       
     pub fn fallfactorial(x: f64, n: f64) -> f64 {
         Gamma::lanczos(x + 1_f64) / Gamma::lanczos(x - n + 1_f64)
     }

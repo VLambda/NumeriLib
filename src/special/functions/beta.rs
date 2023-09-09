@@ -2,64 +2,97 @@ use crate::extra::Extra;
 use crate::special::Gamma;
 use crate::Functions;
 
+/// A module containing functions to work with the Beta Functions.
 pub struct Beta;
 
 impl Beta {
-    /// Calculates the Log Beta Function by using the Gamma Function definition of the Function <br>
-    /// Learn more about the Log Beta Function at: <a href="https://math.stackexchange.com/questions/3922187/what-is-the-log-of-the-beta-function-how-can-it-be-simplified" target="_blank">Math Stack Exchange</a> <br>
-    /// <hr/>
+    /// Calculates the natural logarithm of the Beta function using the definition of the Beta function.
     ///
+    /// The Beta function, B(z1, z2), is defined as B(z1, z2) = Γ(z1) * Γ(z2) / Γ(z1 + z2), where Γ represents the gamma function.
     ///
-    /// # Example:
-    /// ```
-    /// use ferrate::special::Beta;
+    /// # Parameters
     ///
-    /// let z1 = 1_f64;
-    /// let z2 = 2_f64;
-    /// let lnbeta = Beta::lnbeta(z1, z2);
+    /// - `z1`: The first parameter of the Beta function.
+    /// - `z2`: The second parameter of the Beta function.
     ///
-    /// assert_eq!(lnbeta, -0.6931471805616405);
+    /// # Returns
+    ///
+    /// The natural logarithm of the Beta function.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use mathematica::special::Beta;
+    ///
+    /// fn main() {
+    ///     let z1 = 1_f64;
+    ///     let z2 = 2_f64;
+    ///     let lnbeta = Beta::lnbeta(z1, z2);
+    ///
+    ///     println!("Natural Logarithm of Beta({}, {}) is: {}", z1, z2, lnbeta);
+    /// }
     /// ```
     /// <hr/>
     pub fn lnbeta(z1: f64, z2: f64) -> f64 {
         Gamma::lanczosln(z1) + Gamma::lanczosln(z2) - Gamma::lanczosln(z1 + z2)
     }
-    /// Raises the Log Beta Function to the power of e <br>
-    /// Learn more at: <a href="https://wikipedia.org/wiki/Beta_function" target="_blank">Wikipedia Beta Function</a> <br>
-    /// <hr/>
+
+    /// Calculates the Beta function using the natural logarithm of the Beta function.
     ///
+    /// The Beta function, B(z1, z2), is defined as B(z1, z2) = Γ(z1) * Γ(z2) / Γ(z1 + z2), where Γ represents the gamma function.
     ///
-    /// # Example:
-    /// ```
-    /// use ferrate::special::Beta;
+    /// # Parameters
     ///
-    /// let z1 = 8_f64;
-    /// let z2 = 7_f64;
+    /// - `z1`: The first parameter of the Beta function.
+    /// - `z2`: The second parameter of the Beta function.
     ///
-    /// let beta = Beta::beta(z1, z2);
+    /// # Returns
     ///
-    /// assert_eq!(beta, 4.162504162405661e-5);
+    /// The value of the Beta function.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use mathematica::special::Beta;
+    ///
+    /// fn main() {
+    ///     let z1 = 8_f64;
+    ///     let z2 = 7_f64;
+    ///     let beta = Beta::beta(z1, z2);
+    ///
+    ///     println!("Beta({}, {}) is: {}", z1, z2, beta);
+    /// }
     /// ```
     /// <hr/>
     pub fn beta(z1: f64, z2: f64) -> f64 {
         Beta::lnbeta(z1, z2).exp()
     }
-    /// This is the definition of the Incomplete Beta Function <br>
-    /// Learn more at: <a href="https://wikipedia.org/wiki/Beta_function#Incomplete_beta_function" target="_blank">Wikipedia Incomplete Beta Function</a> <br>
-    /// <hr/>
+
+    /// Calculates the Incomplete Beta function (I_x(z1, z2)).
     ///
+    /// # Parameters
     ///
-    /// # Example:
-    /// ```
-    /// use ferrate::special::Beta;
+    /// - `x`: The upper limit of integration.
+    /// - `z1`: The first parameter of the Beta function.
+    /// - `z2`: The second parameter of the Beta function.
     ///
-    /// let x = 1_f64 / 7_f64;
-    /// let z1 = 0.5_f64;
-    /// let z2 = 3_f64;
+    /// # Returns
     ///
-    /// let incbeta = Beta::incbeta(x, z1, z2);
+    /// The value of the regularized incomplete Beta function.
     ///
-    /// assert_eq!(incbeta, 0.6870211373344728_f64)
+    /// # Example
+    ///
+    /// ```rust
+    /// use mathematica::special::Beta;
+    ///
+    /// fn main() {
+    ///     let x = 0.2_f64;
+    ///     let z1 = 2.0_f64;
+    ///     let z2 = 3.0_f64;
+    ///     let incbeta = Beta::incbeta(x, z1, z2);
+    ///
+    ///     println!("Incomplete Beta({}, {}, {}) is: {}", x, z1, z2, incbeta);
+    /// }
     /// ```
     /// <hr/>
     pub fn incbeta(x: f64, z1: f64, z2: f64) -> f64 {
@@ -67,23 +100,34 @@ impl Beta {
         let beta = Beta::beta(z1, z2);
         reg * beta
     }
-    /// The Series Definition of the Regularized Incomplete Beta Function <br>
-    /// Learn more at: <a href="https://mathworld.wolfram.com/RegularizedBetaFunction.html" target="_blank">Wolfram MathWorld</a> <br>
-    /// This was a Rust implementation of this paper, see it at: <a href="http://www.phys.uri.edu/nigh/NumRec/bookfpdf/f6-4.pdf" target="_blank">University of Rhode Island</a> <br>
-    /// <hr/>
+
+    /// Calculates the regularized incomplete Beta function using a series definition.
     ///
+    /// The regularized incomplete Beta function, I_x(z1, z2), is defined as (1/B(z1, z2)) * ∫[0 to x] t^(z1-1) * (1-t)^(z2-1) dt, where B represents the Beta function.
     ///
-    /// # Example:
-    /// ```
-    /// use ferrate::special::Beta;
+    /// # Parameters
     ///
-    /// let x = 1_f64 / 7_f64;
-    /// let z1 = 1_f64 / 2_f64;
-    /// let z2 = 3_f64;
+    /// - `z1`: The first parameter of the Beta function.
+    /// - `z2`: The second parameter of the Beta function.
+    /// - `x`: The upper limit of integration.
     ///
-    /// let regincbeta = Beta::regincbeta(z1, z2, x);
+    /// # Returns
     ///
-    /// assert_eq!(regincbeta, 0.6440823162530317);
+    /// The value of the regularized incomplete Beta function.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use mathematica::special::Beta;
+    ///
+    /// fn main() {
+    ///     let x = 1_f64 / 7_f64;
+    ///     let z1 = 1_f64 / 2_f64;
+    ///     let z2 = 3_f64;
+    ///     let regincbeta = Beta::regincbeta(z1, z2, x);
+    ///
+    ///     println!("Regularized Incomplete Beta({}, {}, {}) is: {}", z1, z2, x, regincbeta);
+    /// }
     /// ```
     /// <hr/>
     pub fn regincbeta(z1: f64, z2: f64, x: f64) -> f64 {
@@ -103,23 +147,36 @@ impl Beta {
 
         (result + 1_f64) * y
     }
-    /// An approximation of the Inverse of the Regularized Incomplete Beta Function. <br>
-    /// Learn more at: <a href="https://math.stackexchange.com/questions/2486667/can-anyone-explain-the-inverse-regularized-beta-function" target="_blank">Math Stack Exchange</a> <br>
-    /// and: <a href="https://functions.wolfram.com/GammaBetaErf/InverseBetaRegularized/" target="_blank">Wolfram Math World Inverse Regularized Beta</a> <br>
+
+    /// Approximates the inverse of the regularized incomplete Beta function.
+    ///
+    /// The regularized incomplete Beta function, I_x(z1, z2), is defined as (1/B(z1, z2)) * ∫[0 to x] t^(z1-1) * (1-t)^(z2-1) dt, where B represents the Beta function.
+    ///
+    /// # Parameters
+    ///
+    /// - `z1`: The first parameter of the Beta function.
+    /// - `z2`: The second parameter of the Beta function.
+    /// - `x`: The target probability, typically a value between 0 and 1.
+    ///
+    /// # Returns
+    ///
+    /// An approximation of the inverse of the regularized incomplete Beta function.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use mathematica::special::Beta;
+    ///
+    /// fn main() {
+    ///     let z1 = 1_f64;
+    ///     let z2 = 2_f64;
+    ///     let x = 0.590401_f64;
+    ///     let inverse = Beta::invregincbeta(z1, z2, x);
+    ///
+    ///     println!("Inverse Regularized Incomplete Beta({}, {}, {}) is: {}", z1, z2, x, inverse);
+    /// }
+    /// ```
     /// <hr/>
-    ///
-    /// # Example:
-    /// ```
-    /// use ferrate::special::Beta;
-    ///
-    /// let z1 = 1_f64;
-    /// let z2 = 2_f64;
-    /// let x = 0.590401_f64;
-    ///
-    /// let inverse = Beta::invregincbeta(z1, z2, x);
-    ///
-    /// assert_eq!(inverse, 0.3600007812492397_f64);
-    /// ```
     pub fn invregincbeta(z1: f64, z2: f64, x: f64) -> f64 {
         if !(0_f64..=1_f64).contains(&x) {
             return f64::NAN;

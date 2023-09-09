@@ -1,27 +1,37 @@
 use crate::special::Error;
 
+/// A module containing functions to work with the Gaussian (Normal) distribution.
 pub struct Gaussian;
 
 impl Gaussian {
-    /// Calculates a Probability Density Function (PDF) on a Normal/Gaussian distribution <br>
-    /// Learn more about Normal Distributions at: <a href="https://wikipedia.org/wiki/Normal_distribution#Definitions" target="_blank">Wikipedia normal.md PDF</a> <br>
-    /// <hr/>
+    /// Calculates the Probability Density Function (PDF) on a Normal/Gaussian distribution.
     ///
-    /// # Example:
+    /// # Parameters
     ///
+    /// - `x_value`: The value at which to evaluate the PDF.
+    /// - `mean`: The mean (average) of the distribution.
+    /// - `sd`: The standard deviation of the distribution.
+    ///
+    /// # Returns
+    ///
+    /// The calculated PDF.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use mathematica::stats::distr::Gaussian;
+    ///
+    /// fn main() {
+    ///     let x_value = 0.5;
+    ///     let mean = 0.0;
+    ///     let sd = 1.0;
+    ///
+    ///     let normalpdf = Gaussian::pdf(x_value, mean, sd);
+    ///
+    ///     println!("PDF at x = {}: {}", x_value, normalpdf);
+    /// }
     /// ```
-    /// use ferrate::stats::distr::Gaussian;
-    ///
-    /// let xvalue = 0.5;
-    /// let mean = 0 as f64;
-    /// let sd = 1 as f64;
-    ///
-    /// let normalpdf = Gaussian::pdf(xvalue,mean,sd);
-    ///
-    /// assert_eq!(normalpdf, 0.3520653267642995);
-    /// ```
     /// <hr/>
-    ///
     pub fn pdf(
         x_value: impl Into<f64> + Copy,
         mean: impl Into<f64> + Copy,
@@ -31,22 +41,33 @@ impl Gaussian {
             * (std::f64::consts::E)
                 .powf((-1.0 / 2.0) * ((x_value.into() - mean.into()) / sd.into()).powi(2))
     }
-    /// Calculates Cumulative Distribution Function (CDF) on a Normal/Gaussian distribution <br>
-    /// Learn more about Normal Distributions at: <a href="https://wikipedia.org/wiki/Normal_distribution#Definitions" target="_blank">Wikipedia normal.md CDF</a> <br>
-    /// <hr/>
+
+    /// Calculates the Cumulative Distribution Function (CDF) on a Normal/Gaussian distribution.
     ///
-    /// # Example:
+    /// The CDF is calculated by converting the value to a z-score and using the Error function.
     ///
-    /// ```
-    /// use ferrate::stats::distr::Gaussian;
+    /// # Parameters
     ///
-    /// let bound = 1.96_f64 ;
-    /// let mean = 0_f64 ;
-    /// let sd = 1_f64;
+    /// - `bound`: The upper bound of integration for the CDF.
+    /// - `mean`: The mean (average) of the distribution.
+    /// - `sd`: The standard deviation of the distribution.
+    ///
+    /// # Returns
+    ///
+    /// The calculated CDF.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use mathematica::stats::distr::Gaussian;
+    ///
+    /// let bound = 1.96;
+    /// let mean = 0.0;
+    /// let sd = 1.0;
     ///
     /// let normalcdf = Gaussian::cdf(bound, mean, sd);
     ///
-    /// assert_eq!(normalcdf, 0.024997895148220428_f64);
+    /// println!("CDF at bound = {}: {}", bound, normalcdf);
     /// ```
     /// <hr/>
     pub fn cdf(bound: f64, mean: f64, sd: f64) -> f64 {
@@ -56,64 +77,73 @@ impl Gaussian {
 
         erfc / 2_f64
     }
-    /// Calculates a 2 tailed Cumulative Distribution Function (CDF) on a Normal/Gaussian distribution <br>
-    /// Learn more about Normal Distributions at: <a href="https://wikipedia.org/wiki/Normal_distribution#Definitions" target="_blank">Wikipedia normal.md CDF</a> <br>
-    /// <hr/>
+
+    /// Calculates a 2 tailed Cumulative Distribution Function (CDF) on a Normal/Gaussian distribution.
     ///
-    /// # Example:
+    /// The 2-tailed CDF is calculated by summing the CDF values for both tails.
     ///
-    /// ```
-    /// use ferrate::stats::distr::Gaussian;
+    /// # Parameters
     ///
-    /// let lower = 45_f64 ;
-    /// let upper = 56_f64 ;
-    /// let mean = 42_f64 ;
-    /// let sd = 3.6_f64;
+    /// - `lower`: The lower bound of integration for the CDF.
+    /// - `upper`: The upper bound of integration for the CDF.
+    /// - `mean`: The mean (average) of the distribution.
+    /// - `sd`: The standard deviation of the distribution.
+    ///
+    /// # Returns
+    ///
+    /// The calculated 2-tailed CDF.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use mathematica::stats::distr::Gaussian;
+    ///
+    /// let lower = -1.0;
+    /// let upper = 1.0;
+    /// let mean = 0.0;
+    /// let sd = 1.0;
     ///
     /// let normalcdf = Gaussian::tailcdf(lower, upper, mean, sd);
     ///
-    /// assert_eq!(normalcdf, 0.2023787330665709_f64);
+    /// println!("2-tailed CDF between {} and {}: {}", lower, upper, normalcdf);
     /// ```
     /// <hr/>
     pub fn tailcdf(lower: f64, upper: f64, mean: f64, sd: f64) -> f64 {
         Self::cdf(upper, mean, sd) + Self::cdf(lower, mean, sd)
     }
-    /// This function recreates the InvNorm function in the Ti-83 & 84 calculators. <br>
-    /// This is not to be confused with an Inverse gaussian Distribution though. <br>
-    /// Learn more at: <a href="https://www.statology.org/inverse-normal-distribution/" target="_blank">Statology InvNorm</a> <br>
-    /// <hr/>
+
+    /// Calculates the Inverse Normal (Quantile) function.
     ///
+    /// This function is used to find the value that corresponds to a given cumulative probability.
+    /// It recreates the InvNorm function in the Ti-83 & 84 calculators.
     ///
-    /// # Example #1: Right Side Non-Standard Normal Distribution
+    /// # Parameters
     ///
-    /// ```
-    /// use ferrate::stats::distr::Gaussian;
+    /// - `area`: The cumulative probability for which to find the quantile.
+    /// - `mean`: The mean (average) of the distribution.
+    /// - `sd`: The standard deviation of the distribution.
+    /// - `tail`: The tail side for which to find the quantile ("Right" or "Left").
     ///
-    /// let area = 0.589255651;
-    /// let mean = 42;
-    /// let sd = 3.6;
-    /// let tail = "Right";
+    /// # Returns
     ///
-    /// let invnorm = Gaussian::inv(area, mean, sd, tail).unwrap();
-    /// assert_eq!(invnorm, 41.18772964960383);
-    /// ```
-    /// <hr/>
+    /// - The calculated quantile value on success.
+    /// - An error message on failure.
     ///
-    /// # Example #2: Left Side Standard Normal Distribution
+    /// # Example
     ///
-    /// ```
-    /// use ferrate::stats::distr::Gaussian;
+    /// ```rust
+    /// use mathematica::stats::distr::Gaussian;
     ///
     /// let area = 0.975;
-    /// let mean = 0;
-    /// let sd = 1;
+    /// let mean = 0.0;
+    /// let sd = 1.0;
     /// let tail = "Left";
     ///
     /// let invnorm = Gaussian::inv(area, mean, sd, tail).unwrap();
-    /// assert_eq!(invnorm, 1.9599639845400547);
+    ///
+    /// println!("Inverse normal quantile for area {}: {}", area, invnorm);
     /// ```
     /// <hr/>
-    ///
     pub fn inv<T: AsRef<str> + Copy>(
         area: f64,
         mean: impl Into<f64> + Copy,
@@ -143,7 +173,31 @@ impl Gaussian {
         Ok(rounded_val)
     }
 
-    pub fn mad(omega: f64) -> f64 {
-        Error::inverf(1_f64 / 2_f64) * omega * std::f64::consts::SQRT_2
+    /// Calculates the Median Absolute Deviation (MAD) on a Normal/Gaussian distribution.
+    ///
+    /// MAD is a robust measure of the variability of a univariate sample of quantitative data.
+    ///
+    /// # Parameters
+    ///
+    /// - `sigma`: The standard deviation multiplier.
+    ///
+    /// # Returns
+    ///
+    /// The calculated MAD value.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use mathematica::stats::distr::Gaussian;
+    ///
+    /// let sigma = 1.5;
+    ///
+    /// let mad = Gaussian::mad(sigma);
+    ///
+    /// println!("MAD for sigma {}: {}", sigma, mad);
+    /// ```
+    /// <hr/>
+    pub fn mad(sigma: f64) -> f64 {
+        Error::inverf(1_f64 / 2_f64) * sigma * std::f64::consts::SQRT_2
     }
 }

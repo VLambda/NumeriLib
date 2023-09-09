@@ -85,8 +85,8 @@ mod tests {
 
     #[test]
     fn test_probability_functions() {
-        assert_eq!(Probability::permutation(3.0, 4.0), 24.0);
-        assert_eq!(Probability::combination(3.0, 4.0), 4.0);
+        assert_eq!(Probability::permutation(4.0, 3.0), 24.0);
+        assert_eq!(Probability::combination(4.0, 3.0), 4.0);
         // Add more test cases for other Probability functions
     }
 }

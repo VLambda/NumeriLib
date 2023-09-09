@@ -91,6 +91,7 @@ mod tests {
         assert_approx_eq!(2275.032699_f64, fact, 1e-2)
     }
 
+    #[warn(unused_variables)]
     #[test]
     fn summation_constant_test() {
         let start = 0;
@@ -114,6 +115,7 @@ mod tests {
     }
 
     #[test]
+    #[warn(unused_variables)]
     fn product_constant_test() {
         let start = 2_f64;
         let limit = 7_f64;

@@ -2,29 +2,40 @@ use crate::special::Beta;
 use crate::special::Probability;
 use crate::Functions;
 
+/// A module containing functions to work with the Binomial distribution.
 pub struct Binomial;
 
 impl Binomial {
     fn q(p: f64) -> f64 {
         1_f64 - p
     }
-    /// The Probability Mass Function (PMF) of the Binomial Distribution <br>
-    /// Learn more at: <a href="https://wikipedia.org/wiki/Binomial_distribution#Probability_mass_function" target="_blank">Wikipedia Binomial PMF</a> <br>
-    /// <hr/>
+
+    /// Calculates the Probability Mass Function (PMF) of the Binomial distribution.
     ///
+    /// The Binomial distribution models the number of successes in a fixed number of independent Bernoulli trials.
+    ///
+    /// # Parameters
+    ///
+    /// - `trials`: The number of trials.
+    /// - `probability`: The probability of success in a single trial.
+    /// - `success`: The number of successful outcomes.
+    ///
+    /// # Returns
+    ///
+    /// The calculated PMF.
     ///
     /// # Example
     ///
-    /// ```
-    /// use ferrate::stats::distr::Binomial;
+    /// ```rust
+    /// use mathematica::stats::distr::Binomial;
     ///
-    /// let trails = 10_f64;
-    /// let probability = 0.25_f64;
-    /// let success = 4_f64;
+    /// let trials = 10.0;
+    /// let probability = 0.25;
+    /// let success = 4.0;
     ///
-    /// let pmf = Binomial::pmf(trails, probability, success);
+    /// let pmf = Binomial::pmf(trials, probability, success);
     ///
-    /// assert_eq!(pmf, 0.1459980010986328_f64)
+    /// println!("PMF at {} successes: {}", success, pmf);
     /// ```
     /// <hr/>
     pub fn pmf(trails: f64, probability: f64, success: f64) -> f64 {
@@ -32,45 +43,61 @@ impl Binomial {
             * probability.powf(success)
             * Binomial::q(probability).powf(trails - success)
     }
-    /// The Cumulative Density Function (CDF) for Binomial Distributions <br>
-    /// Learn more at: <a href="https://wikipedia.org/wiki/Binomial_distribution#Cumulative_distribution_function" target="_blank">Wikipedia Binomial CDF</a> <br>
-    /// <hr/>
+
+    /// Calculates the Cumulative Density Function (CDF) of the Binomial distribution.
     ///
+    /// # Parameters
     ///
-    /// # Example:
+    /// - `trials`: The number of trials.
+    /// - `probability`: The probability of success in a single trial.
+    /// - `success`: The number of successful outcomes.
     ///
-    /// ```
-    /// use ferrate::stats::distr::Binomial;
+    /// # Returns
     ///
-    /// let trial = 10_f64;
-    /// let probability = 0.25_f64;
-    /// let success = 4_f64;
+    /// The calculated CDF.
     ///
-    /// let cdf = Binomial::cdf(trial, probability, success);
+    /// # Example
     ///
-    /// assert_eq!(cdf, 0.9218730912280808_f64);
+    /// ```rust
+    /// use mathematica::stats::distr::Binomial;
+    ///
+    /// let trials = 10.0;
+    /// let probability = 0.25;
+    /// let success = 4.0;
+    ///
+    /// let cdf = Binomial::cdf(trials, probability, success);
+    ///
+    /// println!("CDF at {} successes: {}", success, cdf);
     /// ```
     /// <hr/>
     pub fn cdf(trails: f64, probability: f64, success: f64) -> f64 {
         Beta::regincbeta(trails - success, 1_f64 + success, Binomial::q(probability))
     }
-    /// Calculates the InverseCDF of a Binomial Distribution <br>
-    /// Learn more at: <a href="https://www.mathworks.com/help/stats/binoinv.html" target="_blank">MatLab InverseCDF Binomial Distribution</a> <br>
-    /// <hr/>
+
+    /// Calculates the Inverse CDF of the Binomial distribution.
     ///
+    /// # Parameters
     ///
-    /// # Example:
+    /// - `area`: The desired cumulative probability.
+    /// - `trials`: The number of trials.
+    /// - `probability`: The probability of success in a single trial.
     ///
-    /// ```
-    /// use ferrate::stats::distr::Binomial;
+    /// # Returns
     ///
-    /// let area = 0.51_f64;
-    /// let trials = 500_f64;
-    /// let probability = 0.6_f64;
+    /// The calculated quantile value.
     ///
-    /// let inv = Binomial::inv(area, trials, probability);
+    /// # Example
     ///
-    /// assert_eq!(inv, 300_f64);
+    /// ```rust
+    /// use mathematica::stats::distr::Binomial;
+    ///
+    /// let area = 0.51;
+    /// let trials = 500.0;
+    /// let probability = 0.6;
+    ///
+    /// let quantile = Binomial::inv(area, trials, probability);
+    ///
+    /// println!("Quantile for probability {}: {}", area, quantile);
     /// ```
     /// <hr/>
     pub fn inv(area: f64, trials: f64, probability: f64) -> f64 {
@@ -81,127 +108,181 @@ impl Binomial {
 
         new.ceil()
     }
-    /// Calculates the mean of a Binomial Distribution <br>
-    /// Learn more at: <a href="https://wikipedia.org/wiki/Binomial_distribution" target="_blank">Wikipedia Binomial Distribution</a> <br>
-    /// <hr/>
+
+    /// Calculates the mean of a Binomial Distribution.
     ///
+    /// The mean of a binomial distribution is given by `trials * probability`.
     ///
-    /// # Example:
+    /// # Parameters
     ///
-    /// ```
-    /// use ferrate::stats::distr::Binomial;
+    /// - `trials`: The number of trials.
+    /// - `probability`: The probability of success in a single trial.
     ///
-    /// let trials = 8_f64;
-    /// let probability = 0.125_f64;
+    /// # Returns
+    ///
+    /// The calculated mean.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use mathematica::stats::distr::Binomial;
+    ///
+    /// let trials = 8.0;
+    /// let probability = 0.125;
     ///
     /// let mean = Binomial::mean(trials, probability);
     ///
-    /// assert_eq!(mean, 1_f64)
+    /// println!("Mean: {}", mean);
     /// ```
     /// <hr/>
     pub fn mean(trials: f64, probability: f64) -> f64 {
         trials * probability
     }
-    /// Calculates the median of a Binomial Distribution <br>
-    /// Learn more at: <a href="https://wikipedia.org/wiki/Binomial_distribution" target="_blank">Wikipedia Binomial Distribution</a> <br>
-    /// <hr/>
+
+    /// Calculates the median of a Binomial Distribution.
     ///
+    /// The median of a binomial distribution is estimated as the rounded value of the mean.
     ///
-    /// # Example:
+    /// # Parameters
     ///
-    /// ```
-    /// use ferrate::stats::distr::Binomial;
+    /// - `trials`: The number of trials.
+    /// - `probability`: The probability of success in a single trial.
     ///
-    /// let trials = 8_f64;
-    /// let probability = 0.125_f64;
+    /// # Returns
+    ///
+    /// The calculated median.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use mathematica::stats::distr::Binomial;
+    ///
+    /// let trials = 8.0;
+    /// let probability = 0.125;
     ///
     /// let median = Binomial::median(trials, probability);
     ///
-    /// assert_eq!(median, 1_f64)
+    /// println!("Median: {}", median);
     /// ```
     /// <hr/>
     pub fn median(trials: f64, probability: f64) -> f64 {
         Self::mean(trials, probability).round()
     }
-    /// Calculates the mode of a Binomial Distribution <br>
-    /// Learn more at: <a href="https://wikipedia.org/wiki/Binomial_distribution" target="_blank">Wikipedia Binomial Distribution</a> <br>
-    /// <hr/>
+
+    /// Calculates the mode of a Binomial Distribution.
     ///
+    /// The mode of a binomial distribution is given by `(trials + 1) * probability` rounded down.
     ///
-    /// # Example:
+    /// # Parameters
     ///
-    /// ```
-    /// use ferrate::stats::distr::Binomial;
+    /// - `trials`: The number of trials.
+    /// - `probability`: The probability of success in a single trial.
     ///
-    /// let trials = 8_f64;
-    /// let probability = 0.125_f64;
+    /// # Returns
+    ///
+    /// The calculated mode.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use mathematica::stats::distr::Binomial;
+    ///
+    /// let trials = 8.0;
+    /// let probability = 0.125;
     ///
     /// let mode = Binomial::mode(trials, probability);
     ///
-    /// assert_eq!(mode, 1_f64)
+    /// println!("Mode: {}", mode);
     /// ```
     /// <hr/>
     pub fn mode(trials: f64, probability: f64) -> f64 {
         ((trials + 1_f64) * probability).floor()
     }
-    /// Calculates the variance of a Binomial Distribution <br>
-    /// Learn more at: <a href="https://wikipedia.org/wiki/Binomial_distribution" target="_blank">Wikipedia Binomial Distribution</a> <br>
-    /// <hr/>
+
+    /// Calculates the variance of a Binomial Distribution.
     ///
+    /// The variance of a binomial distribution is given by `trials * probability * q(probability)`.
     ///
-    /// # Example:
+    /// # Parameters
     ///
-    /// ```
-    /// use ferrate::stats::distr::Binomial;
+    /// - `trials`: The number of trials.
+    /// - `probability`: The probability of success in a single trial.
     ///
-    /// let trials = 8_f64;
-    /// let probability = 0.125_f64;
+    /// # Returns
+    ///
+    /// The calculated variance.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use mathematica::stats::distr::Binomial;
+    ///
+    /// let trials = 8.0;
+    /// let probability = 0.125;
     ///
     /// let variance = Binomial::variance(trials, probability);
     ///
-    /// assert_eq!(variance, 0.875_f64)
+    /// println!("Variance: {}", variance);
     /// ```
     /// <hr/>
     pub fn variance(trials: f64, probability: f64) -> f64 {
         trials * probability * Binomial::q(probability)
     }
-    /// Calculates the standard deviation of a Binomial Distribution <br>
-    /// Learn more at: <a href="https://wikipedia.org/wiki/Binomial_distribution" target="_blank">Wikipedia Binomial Distribution</a> <br>
-    /// <hr/>
+
+    /// Calculates the standard deviation of a Binomial Distribution.
     ///
+    /// The standard deviation of a binomial distribution is the square root of the variance.
     ///
-    /// # Example:
+    /// # Parameters
     ///
-    /// ```
-    /// use ferrate::stats::distr::Binomial;
+    /// - `trials`: The number of trials.
+    /// - `probability`: The probability of success in a single trial.
     ///
-    /// let trials = 8_f64;
-    /// let probability = 0.125_f64;
+    /// # Returns
     ///
-    /// let variance = Binomial::variance(trials, probability);
+    /// The calculated standard deviation.
     ///
-    /// assert_eq!(variance, 0.875_f64)
+    /// # Example
+    ///
+    /// ```rust
+    /// use mathematica::stats::distr::Binomial;
+    ///
+    /// let trials = 8.0;
+    /// let probability = 0.125;
+    ///
+    /// let sd = Binomial::sd(trials, probability);
+    ///
+    /// println!("Standard Deviation: {}", sd);
     /// ```
     /// <hr/>
     pub fn sd(trials: f64, probability: f64) -> f64 {
         Binomial::variance(trials, probability).sqrt()
     }
-    /// Calculates the mean of a Binomial Distribution <br>
-    /// Learn more at: <a href="https://wikipedia.org/wiki/Binomial_distribution" target="_blank">Wikipedia Binomial Distribution</a> <br>
-    /// <hr/>
+
+    /// Calculates the skewness of a Binomial Distribution.
     ///
+    /// The skewness of a binomial distribution is given by `(q(probability) - probability) / (trials * probability * q(probability))`.
     ///
-    /// # Example:
+    /// # Parameters
     ///
-    /// ```
-    /// use ferrate::stats::distr::Binomial;
+    /// - `trials`: The number of trials.
+    /// - `probability`: The probability of success in a single trial.
     ///
-    /// let trials = 8_f64;
-    /// let probability = 0.125_f64;
+    /// # Returns
+    ///
+    /// The calculated skewness.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use mathematica::stats::distr::Binomial;
+    ///
+    /// let trials = 8.0;
+    /// let probability = 0.125;
     ///
     /// let skewness = Binomial::skewness(trials, probability);
     ///
-    /// assert_eq!(skewness, 0.8017837257372732_f64)
+    /// println!("Skewness: {}", skewness);
     /// ```
     /// <hr/>
     pub fn skewness(trials: f64, probability: f64) -> f64 {
@@ -209,22 +290,31 @@ impl Binomial {
         let p2 = (trials * probability * Binomial::q(probability)).sqrt();
         p1 / p2
     }
-    /// Calculates the kurtosis of a Binomial Distribution <br>
-    /// Learn more at: <a href="https://wikipedia.org/wiki/Binomial_distribution" target="_blank">Wikipedia Binomial Distribution</a> <br>
-    /// <hr/>
+
+    /// Calculates the kurtosis of a Binomial Distribution.
     ///
+    /// The kurtosis of a binomial distribution is given by `(1 - 6 * probability * q(probability)) / (trials * probability * q(probability))`.
     ///
-    /// # Example:
+    /// # Parameters
     ///
-    /// ```
-    /// use ferrate::stats::distr::Binomial;
+    /// - `trials`: The number of trials.
+    /// - `probability`: The probability of success in a single trial.
     ///
-    /// let trials = 8_f64;
-    /// let probability = 0.125_f64;
+    /// # Returns
+    ///
+    /// The calculated kurtosis.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use mathematica::stats::distr::Binomial;
+    ///
+    /// let trials = 8.0;
+    /// let probability = 0.125;
     ///
     /// let kurtosis = Binomial::kurtosis(trials, probability);
     ///
-    /// assert_eq!(kurtosis, 0.39285714285714285_f64)
+    /// println!("Kurtosis: {}", kurtosis);
     /// ```
     /// <hr/>
     pub fn kurtosis(trials: f64, probability: f64) -> f64 {

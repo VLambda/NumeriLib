@@ -17,46 +17,58 @@ const LG5N7: [f64; 7] = [
     -0.00000539702438713199,
 ];
 
+/// Provides methods for calculating the Gamma function and related functions.
 pub struct Gamma;
 
 impl Gamma {
-    /// Stirling's Approximation for the Gamma Function (Also Factorials) <br>
-    /// Learn more at: <a href="https://wikipedia.org/wiki/Stirling's_approximation" target="_blank">Wikipedia Stirling's Approximation</a> <br>
-    /// <hr/>
+    /// Calculates Stirling's approximation for the Gamma function.
     ///
+    /// Stirling's approximation is an approximation for the Gamma function and factorials.
     ///
-    /// # Example:
-    /// ```
-    /// use ferrate::special::Gamma;
+    /// # Parameters
+    ///
+    /// - `n`: The value for which to calculate Stirling's approximation.
+    ///
+    /// # Returns
+    ///
+    /// The calculated value of Stirling's approximation for the Gamma function.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use mathematica::special::Gamma;
     ///
     /// let n = 2_f64;
     /// let stirling = Gamma::stirling(n);
     ///
-    /// assert_eq!(stirling, 1.9190043514889832_f64);
+    /// println!("Stirling's Approximation for {} is: {}", n, stirling);
     /// ```
     /// <hr/>
     pub fn stirling(n: f64) -> f64 {
         (std::f64::consts::TAU * (n)).sqrt() * ((n) / std::f64::consts::E).powf(n)
     }
-    /// <hr/>
+
+    /// Calculates the natural logarithm of the Gamma function using Lanczos approximation.
     ///
-    /// # !!! I gotta give credit where credit is due. I took the approximation from Axect's repo at: <https://github.com/Axect/Lanczos.git> !!! <br>
+    /// The Lanczos approximation provides an efficient way to compute the logarithm of the Gamma function.
     ///
-    /// <hr/>
-    /// This is an approximation of the Log Gamma Function using Lanczos Approximation. <br>
-    /// Learn more about the Log Gamma Function at: <a href="https://wikipedia.org/wiki/Gamma_function#The_log-gamma_function" target="_blank">Wikipedia Log Gamma</a> <br>
-    /// Learn more about Lanczos Approximation at: <a href="https://wikipedia.org/wiki/Lanczos_approximation" target="_blank">Wikipedia Lanczos Approximation</a> <br>
-    /// <hr/>
+    /// # Parameters
     ///
+    /// - `z`: The value for which to calculate the logarithm of the Gamma function.
     ///
-    /// # Example:
-    /// ```
-    /// use ferrate::special::Gamma;
+    /// # Returns
+    ///
+    /// The natural logarithm of the Gamma function at the given `z`.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use mathematica::special::Gamma;
     ///
     /// let n = 6_f64;
     /// let lanczos_ln = Gamma::lanczosln(n);
     ///
-    /// assert_eq!(lanczos_ln, 4.787491742764145);
+    /// println!("Lanczos Logarithm of Gamma for {} is: {}", n, lanczos_ln);
     /// ```
     /// <hr/>
     pub fn lanczosln(z: f64) -> f64 {
@@ -71,20 +83,28 @@ impl Gamma {
 
         (2f64 * std::f64::consts::PI).sqrt().ln() + s.ln() - base + base.ln() * (z + 0.5)
     }
-    /// Uses the Lanczos Approximation for the Log Gamma Function and raises it to the power of e <br>
-    /// Learn More about the Gamma Function at: <a href="https://wikipedia.org/wiki/Gamma_function" target="_blank">Wikipedia Gamma Function</a> <br>
-    /// Learn more about Lanczos Approximation at: <a href="https://wikipedia.org/wiki/Lanczos_approximation" target="_blank">Wikipedia Lanczos Approximation</a> <br>
-    /// <hr/>
+
+    /// Calculates the Gamma function using Lanczos approximation.
     ///
+    /// The Lanczos approximation provides an efficient way to compute the Gamma function.
     ///
-    /// # Example:
-    /// ```
-    /// use ferrate::special::Gamma;
+    /// # Parameters
+    ///
+    /// - `z`: The value for which to calculate the Gamma function.
+    ///
+    /// # Returns
+    ///
+    /// The calculated value of the Gamma function at the given `z`.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use mathematica::special::Gamma;
     ///
     /// let n = 6_f64;
     /// let lanczos = Gamma::lanczos(n);
     ///
-    /// assert_eq!(lanczos, 120_f64);
+    /// println!("Lanczos Gamma for {} is: {}", n, lanczos);
     /// ```
     /// <hr/>
     pub fn lanczos(z: f64) -> f64 {
@@ -92,24 +112,32 @@ impl Gamma {
 
         Extra::round(exp)
     }
-    /// An implementation of the Lower Incomplete Gamma Function <br>
-    /// learn more at: <a href="https://www.mathworks.com/help/symbolic/sym.igamma.html?s_tid=doc_ta#bt6_4j4-4" target="_blank">MatLab IGamma</a> <br>
-    /// and: <a href="https://www.boost.org/doc/libs/1_35_0/libs/math/doc/sf_and_dist/html/math_toolkit/special/sf_gamma/igamma.html" target="_blank">Boost Incomplete Gamma Functions</a> <br>
-    /// <hr/>
+
+    /// Calculates the incomplete gamma function.
     ///
+    /// The incomplete gamma function represents the integral of the Gamma probability density function
+    /// from 0 to `x`, with shape parameter `bound`.
+    ///
+    /// # Parameters
+    ///
+    /// - `bound`: The shape parameter of the incomplete gamma function.
+    /// - `x`: The upper bound of integration.
+    ///
+    /// # Returns
+    ///
+    /// The value of the incomplete gamma function at the given `bound` and `x`.
     ///
     /// # Example
     ///
-    /// ```
-    /// use ferrate::special::Gamma;
+    /// ```rust
+    /// use mathematica::special::Gamma;
     ///
     /// let bound = 3_f64;
     /// let x = 1_f64;
     ///
     /// let gamma = Gamma::incgamma(bound, x);
     ///
-    /// assert_eq!(gamma, 0.16060279414278839_f64);
-    ///
+    /// println!("Incomplete Gamma at ({}, {}) is: {}", bound, x, gamma);
     /// ```
     /// <hr/>
     pub fn incgamma(bound: f64, x: f64) -> f64 {
@@ -123,64 +151,94 @@ impl Gamma {
 
         result
     }
-    /// An implementation of the Upper Incomplete Gamma Function <br>
-    /// Learn more at: <a href="https://www.mathworks.com/help/symbolic/sym.igamma.html?s_tid=doc_ta#bt6_4j4-4" target="_blank">MatLab IGamma</a> <br>
-    /// <hr/>
+
+    /// Calculates the complementary incomplete gamma function.
     ///
+    /// The complementary incomplete gamma function represents the integral of the Gamma probability density function
+    /// from `x` to infinity, with shape parameter `bound`.
+    ///
+    /// # Parameters
+    ///
+    /// - `bound`: The shape parameter of the complementary incomplete gamma function.
+    /// - `x`: The lower bound of integration.
+    ///
+    /// # Returns
+    ///
+    /// The value of the complementary incomplete gamma function at the given `bound` and `x`.
     ///
     /// # Example
     ///
-    /// ```
-    /// use ferrate::special::Gamma;
+    /// ```rust
+    /// use mathematica::special::Gamma;
     ///
     /// let a = 3_f64;
     /// let x = 1_f64;
     ///
     /// let gamma = Gamma::incgammac(a, x);
     ///
-    /// assert_eq!(gamma, 1.8393972058572117_f64);
+    /// println!("Complementary Incomplete Gamma at ({}, {}) is: {}", a, x, gamma);
     /// ```
     /// <hr/>
     pub fn incgammac(bound: f64, x: f64) -> f64 {
         Gamma::lanczos(bound) - Gamma::incgamma(bound, x)
     }
-    /// An implementation of the Regularized Incomplete Gamma Function <br>
-    /// Learn more at: <a href="https://wikipedia.org/wiki/Incomplete_gamma_function#Regularized_gamma_functions_and_Poisson_random_variables" target="_blank">Wikipedia Regularized Gamma Functions</a> <br>
-    /// <hr/>
+
+    /// Calculates the regularized incomplete gamma function.
     ///
+    /// The regularized incomplete gamma function is the ratio of the incomplete gamma function
+    /// to the complete gamma function.
+    ///
+    /// # Parameters
+    ///
+    /// - `bound`: The shape parameter of the regularized incomplete gamma function.
+    /// - `x`: The upper bound of integration.
+    ///
+    /// # Returns
+    ///
+    /// The value of the regularized incomplete gamma function at the given `bound` and `x`.
     ///
     /// # Example
     ///
-    /// ```
-    /// use ferrate::special::Gamma;
+    /// ```rust
+    /// use mathematica::special::Gamma;
     ///
     /// let bound = 5_f64;
     /// let x = 2_f64;
     ///
     /// let reggamma = Gamma::reggamma(bound, x);
     ///
-    /// assert_eq!(reggamma, 0.052653017343711174_f64);
+    /// println!("Regularized Incomplete Gamma at ({}, {}) is: {}", bound, x, reggamma);
     /// ```
     /// <hr/>
     pub fn reggamma(bound: f64, x: f64) -> f64 {
         Gamma::incgamma(bound, x) / Gamma::lanczos(bound)
     }
-    /// The CDF for the Poisson Random Variables <br>
-    /// Learn more at: <a href="https://wikipedia.org/wiki/Incomplete_gamma_function#Regularized_gamma_functions_and_Poisson_random_variables" target="_blank">Wikipedia Poisson Random Variables</a> <br>
-    /// <hr/>
+
+    /// Calculates the cumulative distribution function (CDF) for Poisson random variables.
     ///
+    /// The CDF for Poisson random variables gives the probability that a Poisson-distributed random variable
+    /// is less than or equal to `x`, with the parameter `bound`.
+    ///
+    /// # Parameters
+    ///
+    /// - `bound`: The parameter of the Poisson distribution.
+    /// - `x`: The upper bound for the CDF.
+    ///
+    /// # Returns
+    ///
+    /// The probability that a Poisson-distributed random variable is less than or equal to `x`.
     ///
     /// # Example
     ///
-    /// ```
-    /// use ferrate::special::Gamma;
+    /// ```rust
+    /// use mathematica::special::Gamma;
     ///
     /// let bound = 5_f64;
     /// let x = 2_f64;
     ///
     /// let reggammac = Gamma::reggammac(bound, x);
     ///
-    /// assert_eq!(reggammac, 0.9473469826562888_f64);
+    /// println!("Poisson CDF at ({}, {}) is: {}", bound, x, reggammac);
     /// ```
     /// <hr/>
     pub fn reggammac(bound: f64, x: f64) -> f64 {

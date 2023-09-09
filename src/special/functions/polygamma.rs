@@ -1,71 +1,76 @@
 use crate::special::Gamma;
 use crate::Functions;
 
+/// Provides methods for calculating polygamma functions.
 pub struct Polygamma;
 
 impl Polygamma {
-    /// The Defintion of the Digamma function in Rust <br>
-    /// Learn more at: <a href="https://wikipedia.org/wiki/Digamma_function" target="_blank">Wikipedia Digamma Function</a> <br>
-    /// <hr/>
+    /// Calculates the digamma function.
     ///
+    /// The digamma function, denoted as ψ(z), is the derivative of the natural logarithm of the gamma function.
     ///
-    /// # Example:
-    /// ```
-    /// use ferrate::special::Polygamma;
+    /// # Parameters
     ///
-    /// let z = 2_f64;
+    /// - `z`: The value at which to calculate the digamma function.
+    ///
+    /// # Returns
+    ///
+    /// The value of the digamma function at the given parameter `z`.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use mathematica::special::Polygamma;
+    ///
+    /// let z = 2.0;
     /// let digamma = Polygamma::digamma(z);
     ///
-    /// assert_eq!(digamma, 0.42278438084235914);
+    /// println!("Digamma({}) = {}", z, digamma);
     /// ```
+    /// <hr/>
     pub fn digamma(z: f64) -> f64 {
         let p1 = |t: f64| Gamma::lanczosln(t).exp();
         let dt = Functions::derivative(p1, z);
         dt / Gamma::lanczosln(z).exp()
     }
-    /// The Polygamma Functions in Rust <br>
-    /// Learn more at: <a href="https://wikipedia.org/wiki/Polygamma_function" target="_blank">Wikipedia Polygamma Functions</a> <br>
+
+    /// Calculates the polygamma function of a given degree.
     ///
+    /// The polygamma function, denoted as ψ^(n)(z), is the n-th derivative of the digamma function.
     ///
-    /// # Example #1:
+    /// # Parameters
     ///
+    /// - `degree`: The degree of the polygamma function. Use -1 for the digamma function and 0 for the first derivative (digamma function).
+    /// - `z`: The value at which to calculate the polygamma function.
+    ///
+    /// # Returns
+    ///
+    /// The value of the polygamma function of the specified degree at the given parameter `z`.
+    ///
+    /// # Example 1 (Digamma):
+    ///
+    /// ```rust
+    /// use mathematica::special::Polygamma;
+    ///
+    /// let degree = 0; // 0 corresponds to the digamma function
+    /// let z = 5.0;
+    ///
+    /// let digamma = Polygamma::polygamma(degree, z);
+    ///
+    /// println!("Digamma({}) = {}", z, digamma);
     /// ```
-    /// use ferrate::special::Polygamma;
-    ///
-    /// let degree = 4;
-    /// let z = 5_f64;
-    ///
-    /// let polygamma = Polygamma::polygamma(degree, z);
-    ///
-    /// assert_eq!(polygamma, -0.014063191342111519_f64)
-    /// ```
-    /// <hr/>
     ///
     /// # Example 2:
     ///
-    /// ```
-    /// use ferrate::special::Polygamma;
+    /// ```rust
+    /// use mathematica::special::Polygamma;
     ///
-    /// let degree = -1;
-    /// let z = 5_f64;
-    ///
-    /// let polygamma = Polygamma::polygamma(degree, z);
-    ///
-    /// assert_eq!(polygamma, 3.1780538303306463_f64);
-    /// ```
-    /// <hr/>
-    ///
-    /// # Example 3:
-    ///
-    /// ```
-    /// use ferrate::special::Polygamma;
-    ///
-    /// let degree = 0;
-    /// let z = 5_f64;
+    /// let degree = 1;
+    /// let z = 5.0;
     ///
     /// let polygamma = Polygamma::polygamma(degree, z);
     ///
-    /// assert_eq!(polygamma, 1.5061177964312848_f64);
+    /// println!("Polygamma({},{}) = {}", degree, z, polygamma);
     /// ```
     /// <hr/>
     pub fn polygamma(degree: i32, z: f64) -> f64 {

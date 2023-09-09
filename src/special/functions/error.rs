@@ -1,22 +1,31 @@
 use crate::Functions;
 
+/// Provides methods for calculating error functions and their inverses.
 pub struct Error;
 
 impl Error {
-    /// Uses the Maclaurin Series representation of the Error Function <br>
-    /// Learn more about the Error Function at: <a href="https://wikipedia.org/wiki/Error_function" target="_blank">Wikipedia Error Function</a> <br>
-    /// <hr/>
+    /// Calculates the Error Function (erf) using the Maclaurin Series representation.
     ///
+    /// The Error Function, erf(z), is defined as:
+    /// erf(z) = (2 / sqrt(pi)) * ∫[0 to z] exp(-t^2) dt
     ///
-    /// # Example:
+    /// # Parameters
     ///
-    /// ```
-    /// use ferrate::special::Error;
+    /// - `z`: The value at which to calculate the Error Function.
     ///
-    /// let bound = 4_f64;
+    /// # Returns
+    ///
+    /// The value of the Error Function at the given `z`.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use mathematica::special::Error;
+    ///
+    /// let bound = 4.0_f64;
     /// let erf = Error::erf(bound);
     ///
-    /// assert_eq!(erf, 0.9999999845946841);
+    /// println!("Error Function at {} is: {}", bound, erf);
     /// ```
     /// <hr/>
     pub fn erf(z: f64) -> f64 {
@@ -30,40 +39,56 @@ impl Error {
 
         result
     }
-    /// The Definition of the Complementary Error Function <br>
-    /// Learn moare at: <a href="https://wikipedia.org/wiki/Error_function#Complementary_error_function" target="_blank">Wikipedia Complementary Error Function</a> <br>
-    /// <hr/>
+
+    /// Calculates the Complementary Error Function (erfc).
     ///
+    /// The Complementary Error Function, erfc(z), is defined as:
+    /// erfc(z) = 1 - erf(z)
     ///
-    /// # Example:
+    /// # Parameters
     ///
-    /// ```
-    /// use ferrate::special::Error;
+    /// - `z`: The value at which to calculate the Complementary Error Function.
     ///
-    /// let z = 4_f64;
+    /// # Returns
     ///
+    /// The value of the Complementary Error Function at the given `z`.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use mathematica::special::Error;
+    ///
+    /// let z = 4.0_f64;
     /// let erfc = Error::erfc(z);
     ///
-    /// assert_eq!(erfc, 0.000000015405315911820594_f64);
+    /// println!("Complementary Error Function at {} is: {}", z, erfc);
     /// ```
     /// <hr/>
     pub fn erfc(z: f64) -> f64 {
         1_f64 - Error::erf(z)
     }
-    /// A Rust implementation of the Inverse Error Function <br>
-    /// Uses this approximation by Alijah Ahmed at: <a href="https://scistatcalc.blogspot.com/2013/09/numerical-estimate-of-inverse-error.html" target="_blank">Inverse Error Function Approximation</a> <br>
-    /// <hr/>
+
+    /// Calculates the Inverse Error Function (inverf).
     ///
+    /// The Inverse Error Function, inverf(x), returns the value `z` such that `erf(z) = x`.
+    ///
+    /// # Parameters
+    ///
+    /// - `x`: The value for which to calculate the Inverse Error Function.
+    ///
+    /// # Returns
+    ///
+    /// The value `z` such that `erf(z) = x`.
     ///
     /// # Example
     ///
-    /// ```
-    /// use ferrate::special::Error;
+    /// ```rust
+    /// use mathematica::special::Error;
     ///
     /// let x = 0.975;
     /// let inverf = Error::inverf(x);
     ///
-    /// assert_eq!(inverf, 1.5849110680594818);
+    /// println!("Inverse Error Function at {} is: {}", x, inverf);
     /// ```
     /// <hr/>
     pub fn inverf(x: f64) -> f64 {

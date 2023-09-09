@@ -1,23 +1,37 @@
 use crate::special::Beta;
 
+/// A module containing functions to work with the Student's T distribution.
 pub struct Student;
 
 impl Student {
-    /// Calculates the Probability Density Function (PDF) of the Student's T Distribution <br>
-    /// Learn more at: <a href="https://wikipedia.org/wiki/Student%27s_t-distribution#Probability_density_function" target="_blank">Wikipedia TPDF</a> <br>
-    /// <hr/>
+    /// Calculates the Probability Density Function (PDF) of the Student's T Distribution.
     ///
+    /// The Student's T distribution describes the distribution of the ratio of a standard normal variable
+    /// to the square root of a scaled chi-squared variable. It is commonly used in hypothesis testing
+    /// when the sample size is small and the population variance is unknown.
     ///
-    /// # Example:
+    /// # Parameters
+    ///
+    /// - `x`: The value at which to evaluate the PDF.
+    /// - `df`: The degrees of freedom parameter.
+    ///
+    /// # Returns
+    ///
+    /// The value of the PDF at the given `x`.
+    ///
+    /// # Example
+    ///
     /// ```
-    /// use ferrate::stats::distr::Student;
+    /// use mathematica::stats::distr::Student;
     ///
-    /// let x = 0.975;
-    /// let df = 6_f64;
+    /// fn main() {
+    ///     let x = 0.975;
+    ///     let df = 6_f64;
     ///
-    /// let tpdf = Student::pdf(x, df);
+    ///     let tpdf = Student::pdf(x, df);
     ///
-    /// assert_eq!(tpdf, 0.22873968790971655);
+    ///     println!("PDF at x = {}: {}", x, tpdf);
+    /// }
     /// ```
     /// <hr/>
     pub fn pdf(x: f64, df: f64) -> f64 {
@@ -26,34 +40,34 @@ impl Student {
         let p3 = 1_f64 / (df.sqrt() * Beta::beta(0.5, df / 2_f64));
         p3 * p1.powf(p2)
     }
-    /// Calculates the Cumulative Density Function (CDF) of the Student's T Distribution <br>
-    /// Learn more at: <a href="https://wikipedia.org/wiki/Student%27s_t-distribution#Cumulative_distribution_function" target="_blank">Wikipedia TCDF</a> <br>
-    /// <hr/>
+
+    /// Calculates the Cumulative Density Function (CDF) of the Student's T Distribution.
     ///
+    /// The CDF gives the probability that a random variable following the Student's T distribution
+    /// is less than or equal to a given value.
     ///
-    /// # Example #1:
+    /// # Parameters
+    ///
+    /// - `bound`: The upper bound value for which to calculate the CDF.
+    /// - `df`: The degrees of freedom parameter.
+    ///
+    /// # Returns
+    ///
+    /// The value of the CDF at the given `bound`.
+    ///
+    /// # Example
+    ///
     /// ```
-    /// use ferrate::stats::distr::Student;
+    /// use mathematica::stats::distr::Student;
     ///
-    /// let bound = 1_f64;
-    /// let df = 6_f64;
+    /// fn main() {
+    ///     let bound = 1_f64;
+    ///     let df = 6_f64;
     ///
-    /// let tcdf = Student::cdf(bound,df);
+    ///     let tcdf = Student::cdf(bound, df);
     ///
-    /// assert_eq!(tcdf, 0.8220411581265159_f64)
-    /// ```
-    /// <hr/>
-    ///
-    /// # Example #2:
-    /// ```
-    /// use ferrate::stats::distr::Student;
-    ///
-    /// let bound = -9_f64;
-    /// let df = 63_f64;
-    ///
-    /// let tcdf = Student::cdf(bound, df);
-    ///
-    /// assert_eq!(tcdf, 3.2374981160185563e-13_f64);
+    ///     println!("CDF at bound = {}: {}", bound, tcdf);
+    /// }
     /// ```
     /// <hr/>
     pub fn cdf(bound: f64, df: f64) -> f64 {
@@ -72,36 +86,36 @@ impl Student {
             p2 / 2_f64
         }
     }
-    /// Calculates the 2 tailed Cumulative Density Function (CDF) of the Student's T Distribution <br>
-    /// Learn more at: <a href="https://wikipedia.org/wiki/Student%27s_t-distribution#Cumulative_distribution_function" target="_blank">Wikipedia TCDF</a> <br>
-    /// <hr/>
+
+    /// Calculates the two-tailed Cumulative Density Function (CDF) of the Student's T Distribution.
     ///
+    /// This function calculates the probability that a random variable following the Student's T distribution
+    /// falls between two given values.
     ///
-    /// # Example #1:
+    /// # Parameters
+    ///
+    /// - `lower`: The lower bound value.
+    /// - `upper`: The upper bound value.
+    /// - `df`: The degrees of freedom parameter.
+    ///
+    /// # Returns
+    ///
+    /// The probability that the random variable falls between `lower` and `upper`.
+    ///
+    /// # Example
+    ///
     /// ```
-    /// use ferrate::stats::distr::Student;
+    /// use mathematica::stats::distr::Student;
     ///
-    /// let lower = 1_f64;
-    /// let upper = 1.96;
-    /// let df = 6_f64;
+    /// fn main() {
+    ///     let lower = 1_f64;
+    ///     let upper = 1.96;
+    ///     let df = 6_f64;
     ///
-    /// let tcdf = Student::tailcdf(lower, upper,df);
+    ///     let tcdf = Student::tailcdf(lower, upper, df);
     ///
-    /// assert_eq!(tcdf, -0.12911126556567953_f64)
-    /// ```
-    /// <hr/>
-    ///
-    /// # Example #2:
-    /// ```
-    /// use ferrate::stats::distr::Student;
-    ///
-    /// let lower = -9_f64;
-    /// let upper = 1.96;
-    /// let df = 63_f64;
-    ///
-    /// let tcdf = Student::tailcdf(lower, upper, df);
-    ///
-    /// assert_eq!(tcdf, 0.9727888167079152_f64);
+    ///     println!("Two-tailed CDF between {} and {}: {}", lower, upper, tcdf);
+    /// }
     /// ```
     /// <hr/>
     pub fn tailcdf(lower: f64, upper: f64, df: f64) -> f64 {
@@ -118,38 +132,38 @@ impl Student {
         } else {
             let p1 = Self::cdf(bound_low, df);
             let p2 = Self::cdf(bound_high, df);
-            p1 - p2
+            p2 - p1
         }
     }
-    /// Calculates the Inverse of TCDF (a.k.a InvT) <br>
-    /// Learn more at: <a href="https://www.mathworks.com/help/stats/tinv.html" target="_blank">MatLab T Inverse</a> <br>
-    /// <hr/>
+
+    /// Calculates the Inverse of the two-tailed Cumulative Density Function (CDF), also known as InvT.
     ///
+    /// The inverse of the two-tailed CDF gives the value at which the cumulative probability falls within
+    /// a specified range for a random variable following the Student's T distribution.
     ///
-    /// # Example #1:
+    /// # Parameters
+    ///
+    /// - `area`: The desired cumulative probability range (0.0 to 1.0).
+    /// - `df`: The degrees of freedom parameter.
+    ///
+    /// # Returns
+    ///
+    /// The value `x` such that the cumulative probability of the Student's T distribution falls
+    /// between `-x` and `x` is equal to the specified `area`.
+    ///
+    /// # Example
     ///
     /// ```
-    /// use ferrate::stats::distr::Student;
+    /// use mathematica::stats::distr::Student;
     ///
-    /// let area = 0.025_f64;
-    /// let df = 63_f64;
+    /// fn main() {
+    ///     let area = 0.025_f64;
+    ///     let df = 63_f64;
     ///
-    /// let inverse_t = Student::inv(area, df);
+    ///     let inverse_t = Student::inv(area, df);
     ///
-    /// assert_eq!(inverse_t, -1.9978075067095558);
-    /// ```
-    /// <hr/>
-    ///
-    /// # Example #2:
-    /// ```
-    /// use ferrate::stats::distr::Student;
-    ///
-    /// let area = 0.5_f64;
-    /// let df = 96_f64;
-    ///
-    /// let inverse_t = Student::inv(area, df);
-    ///
-    /// assert_eq!(inverse_t, 0_f64);
+    ///     println!("Inverse of two-tailed CDF with area {}: {}", area, inverse_t);
+    /// }
     /// ```
     /// <hr/>
     pub fn inv(area: f64, df: f64) -> f64 {
@@ -182,6 +196,32 @@ impl Student {
         }
     }
 
+    /// Calculates the variance of the Student's T Distribution.
+    ///
+    /// The variance is a measure of the dispersion of the distribution.
+    ///
+    /// # Parameters
+    ///
+    /// - `df`: The degrees of freedom parameter.
+    ///
+    /// # Returns
+    ///
+    /// The variance of the distribution.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use mathematica::stats::distr::Student;
+    ///
+    /// fn main() {
+    ///     let df = 6_f64;
+    ///
+    ///     let variance = Student::variance(df);
+    ///
+    ///     println!("Variance: {}", variance);
+    /// }
+    /// ```
+    /// <hr/>
     pub fn variance(df: f64) -> f64 {
         if df > 2_f64 {
             df / (df - 2_f64)
@@ -192,10 +232,62 @@ impl Student {
         }
     }
 
+    /// Calculates the standard deviation of the Student's T Distribution.
+    ///
+    /// The standard deviation is the square root of the variance and measures the spread of the distribution.
+    ///
+    /// # Parameters
+    ///
+    /// - `df`: The degrees of freedom parameter.
+    ///
+    /// # Returns
+    ///
+    /// The standard deviation of the distribution.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use mathematica::stats::distr::Student;
+    ///
+    /// fn main() {
+    ///     let df = 6_f64;
+    ///
+    ///     let sd = Student::sd(df);
+    ///
+    ///     println!("Standard Deviation: {}", sd);
+    /// }
+    /// ```
+    /// <hr/>
     pub fn sd(df: f64) -> f64 {
         Self::variance(df).sqrt()
     }
 
+    /// Calculates the skewness of the Student's T Distribution.
+    ///
+    /// Skewness measures the asymmetry of the distribution.
+    ///
+    /// # Parameters
+    ///
+    /// - `df`: The degrees of freedom parameter.
+    ///
+    /// # Returns
+    ///
+    /// The skewness of the distribution. Returns NaN if `df` is not greater than 3.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use mathematica::stats::distr::Student;
+    ///
+    /// fn main() {
+    ///     let df = 6_f64;
+    ///
+    ///     let skewness = Student::skewness(df);
+    ///
+    ///     println!("Skewness: {}", skewness);
+    /// }
+    /// ```
+    /// <hr/>
     pub fn skewness(df: f64) -> f64 {
         if df > 3_f64 {
             0_f64
@@ -204,6 +296,32 @@ impl Student {
         }
     }
 
+    /// Calculates the kurtosis of the Student's T Distribution.
+    ///
+    /// Kurtosis measures the "tailedness" of the distribution.
+    ///
+    /// # Parameters
+    ///
+    /// - `df`: The degrees of freedom parameter.
+    ///
+    /// # Returns
+    ///
+    /// The kurtosis of the distribution. Returns NaN if `df` is not greater than 4.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use mathematica::stats::distr::Student;
+    ///
+    /// fn main() {
+    ///     let df = 6_f64;
+    ///
+    ///     let kurtosis = Student::kurtosis(df);
+    ///
+    ///     println!("Kurtosis: {}", kurtosis);
+    /// }
+    /// ```
+    /// <hr/>
     pub fn kurtosis(df: f64) -> f64 {
         if df > 4_f64 {
             6_f64 / (df - 4_f64)

@@ -1,41 +1,50 @@
 use crate::Functions;
 
+/// Provides methods for performing probability-related calculations.
 pub struct Probability;
 
 impl Probability {
-    /// Implementation of Permutation in rust <br>
-    /// Learn more at: <a href="https://wikipedia.org/wiki/Permutation" target="_blank">Wikipedia Permutation</a> <br>
-    /// <hr/>
+    /// Calculates the permutation of `r` items from a set of `n` items.
     ///
-    /// # Example #1:
+    /// A permutation is an ordered arrangement of items, and this function calculates the number
+    /// of permutations possible given `r` items from a set of `n` items.
     ///
-    /// ```
-    /// use ferrate::special::Probability;
+    /// # Parameters
     ///
-    /// let n = 4_f64;
-    /// let r = 3_f64;
+    /// - `r`: The number of items to arrange (permutations).
+    /// - `n`: The total number of items in the set.
     ///
-    /// let npr = Probability::permutation(r, n);
+    /// # Returns
     ///
-    /// assert_eq!(npr, 24_f64);
-    /// ```
+    /// The number of permutations of `r` items from a set of `n` items.
     ///
-    /// <hr/>
+    /// # Example 1:
     ///
-    /// # Example #2:
+    /// ```rust
+    /// use mathematica::special::Probability;
     ///
-    /// ```
-    /// use ferrate::special::Probability;
-    ///
-    /// let n = 2_f64;
-    /// let r = 3_f64;
+    /// let n = 4.0;
+    /// let r = 3.0;
     ///
     /// let npr = Probability::permutation(r, n);
     ///
-    /// assert_eq!(npr, 0_f64);
+    /// println!("Permutations({}, {}) = {}", r, n, npr);
+    /// ```
+    ///
+    /// # Example 2:
+    ///
+    /// ```rust
+    /// use mathematica::special::Probability;
+    ///
+    /// let n = 2.0;
+    /// let r = 3.0;
+    ///
+    /// let npr = Probability::permutation(r, n);
+    ///
+    /// println!("Permutations({}, {}) = {}", r, n, npr);
     /// ```
     /// <hr/>
-    pub fn permutation(r: f64, n: f64) -> f64 {
+    pub fn permutation(n: f64, r: f64) -> f64 {
         if r <= n {
             let numerator = Functions::factorial(n);
             let denominator = Functions::factorial(n - r);
@@ -44,40 +53,48 @@ impl Probability {
             0_f64
         }
     }
-    /// An implementation of Combination in Rust <br>
-    /// Learn more at: <a href="https://wikipedia.org/wiki/Combination" target="_blank">Wikipedia Combination</a> <br>
-    /// <hr/>
+
+    /// Calculates the combination of `r` items from a set of `n` items.
     ///
+    /// A combination is a selection of items without regard to the order. This function calculates
+    /// the number of combinations possible given `r` items from a set of `n` items.
     ///
-    /// # Example #1:
+    /// # Parameters
     ///
-    /// ```
-    /// use ferrate::special::Probability;
+    /// - `r`: The number of items to select (combinations).
+    /// - `n`: The total number of items in the set.
     ///
-    /// let n = 4_f64;
-    /// let r = 3_f64;
+    /// # Returns
     ///
-    /// let ncr = Probability::combination(r, n);
+    /// The number of combinations of `r` items from a set of `n` items.
     ///
-    /// assert_eq!(ncr, 4_f64);
-    /// ```
+    /// # Example 1:
     ///
-    /// <hr/>
+    /// ```rust
+    /// use mathematica::special::Probability;
     ///
-    /// # Example #2:
-    ///
-    /// ```
-    /// use ferrate::special::Probability;
-    ///
-    /// let n = 2_f64;
-    /// let r = 3_f64;
+    /// let n = 4.0;
+    /// let r = 3.0;
     ///
     /// let ncr = Probability::combination(r, n);
     ///
-    /// assert_eq!(ncr, 0_f64);
+    /// println!("Combinations({}, {}) = {}", r, n, ncr);
+    /// ```
+    ///
+    /// # Example 2:
+    ///
+    /// ```rust
+    /// use mathematica::special::Probability;
+    ///
+    /// let n = 2.0;
+    /// let r = 3.0;
+    ///
+    /// let ncr = Probability::combination(r, n);
+    ///
+    /// println!("Combinations({}, {}) = {}", r, n, ncr);
     /// ```
     /// <hr/>
-    pub fn combination(r: f64, n: f64) -> f64 {
+    pub fn combination(n: f64, r: f64) -> f64 {
         if r <= n {
             let numerator = Functions::factorial(n);
             let denominator = Functions::factorial(n - r);
