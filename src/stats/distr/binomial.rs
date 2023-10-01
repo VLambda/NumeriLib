@@ -27,7 +27,7 @@ impl Binomial {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Binomial;
+    /// use numerilib::stats::distr::Binomial;
     ///
     /// let trials = 10.0;
     /// let probability = 0.25;
@@ -39,12 +39,12 @@ impl Binomial {
     /// ```
     /// <hr/>
     pub fn pmf(trails: f64, probability: f64, success: f64) -> f64 {
-        Probability::combination(success, trails)
+        Probability::combination(trails, success)
             * probability.powf(success)
             * Binomial::q(probability).powf(trails - success)
     }
 
-    /// Calculates the Cumulative Density Function (CDF) of the Binomial distribution.
+    /// Calculates the Lower Cumulative Density Function (LCDF) of the Binomial distribution.
     ///
     /// # Parameters
     ///
@@ -54,24 +54,54 @@ impl Binomial {
     ///
     /// # Returns
     ///
-    /// The calculated CDF.
+    /// The calculated LCDF.
     ///
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Binomial;
+    /// use numerilib::stats::distr::Binomial;
     ///
     /// let trials = 10.0;
     /// let probability = 0.25;
     /// let success = 4.0;
     ///
-    /// let cdf = Binomial::cdf(trials, probability, success);
+    /// let cdf = Binomial::lcdf(trials, probability, success);
     ///
-    /// println!("CDF at {} successes: {}", success, cdf);
+    /// println!("LCDF at {} successes: {}", success, cdf);
     /// ```
     /// <hr/>
-    pub fn cdf(trails: f64, probability: f64, success: f64) -> f64 {
-        Beta::regincbeta(trails - success, 1_f64 + success, Binomial::q(probability))
+    pub fn lcdf(trails: f64, probability: f64, success: f64) -> f64 {
+        Functions::summation(0_f64, success, |i: f64| Self::pmf(trails, probability, i))
+    }
+
+    /// Calculates the Upper Cumulative Density Function (UCDF) of the Binomial distribution.
+    ///
+    /// # Parameters
+    //
+    /// - `trials`: The number of trials.
+    /// - `probability`: The probability of success in a single trial.
+    /// - `success`: The number of successful outcomes.
+    ///
+    /// # Returns
+    ///
+    /// The calculated UCDF.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use numerilib::stats::distr::Binomial;
+    ///
+    /// let trials = 10.0;
+    /// let probability = 0.25;
+    /// let success = 4.0;
+    ///
+    /// let cdf = Binomial::ucdf(trials, probability, success);
+    ///
+    /// println!("UCDF at {} successes: {}", success, cdf);
+    /// ```
+    /// <hr/>
+    pub fn ucdf(trails: f64, probability: f64, success: f64) -> f64 {
+        Functions::summation(success, trails, |i: f64| Self::pmf(trails, probability, i))
     }
 
     /// Calculates the Inverse CDF of the Binomial distribution.
@@ -89,7 +119,7 @@ impl Binomial {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Binomial;
+    /// use numerilib::stats::distr::Binomial;
     ///
     /// let area = 0.51;
     /// let trials = 500.0;
@@ -101,12 +131,15 @@ impl Binomial {
     /// ```
     /// <hr/>
     pub fn inv(area: f64, trials: f64, probability: f64) -> f64 {
-        let func = |t: f64| Binomial::cdf(trials, probability, t) - area;
-        let guess = trials * probability;
+        let mut value = 0_f64;
+        let mut count = 0_f64;
 
-        let new = Functions::newmet(guess, func);
+        while value <= area {
+            value = Self::lcdf(trials, probability, count);
+            count += 0.1_f64;
+        }
 
-        new.ceil()
+        count.round() - 1_f64
     }
 
     /// Calculates the mean of a Binomial Distribution.
@@ -125,7 +158,7 @@ impl Binomial {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Binomial;
+    /// use numerilib::stats::distr::Binomial;
     ///
     /// let trials = 8.0;
     /// let probability = 0.125;
@@ -155,7 +188,7 @@ impl Binomial {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Binomial;
+    /// use numerilib::stats::distr::Binomial;
     ///
     /// let trials = 8.0;
     /// let probability = 0.125;
@@ -185,7 +218,7 @@ impl Binomial {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Binomial;
+    /// use numerilib::stats::distr::Binomial;
     ///
     /// let trials = 8.0;
     /// let probability = 0.125;
@@ -215,7 +248,7 @@ impl Binomial {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Binomial;
+    /// use numerilib::stats::distr::Binomial;
     ///
     /// let trials = 8.0;
     /// let probability = 0.125;
@@ -226,7 +259,7 @@ impl Binomial {
     /// ```
     /// <hr/>
     pub fn variance(trials: f64, probability: f64) -> f64 {
-        trials * probability * Binomial::q(probability)
+        trials * probability * (1_f64 - probability)
     }
 
     /// Calculates the standard deviation of a Binomial Distribution.
@@ -245,7 +278,7 @@ impl Binomial {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Binomial;
+    /// use numerilib::stats::distr::Binomial;
     ///
     /// let trials = 8.0;
     /// let probability = 0.125;
@@ -275,7 +308,7 @@ impl Binomial {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Binomial;
+    /// use numerilib::stats::distr::Binomial;
     ///
     /// let trials = 8.0;
     /// let probability = 0.125;
@@ -307,7 +340,7 @@ impl Binomial {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Binomial;
+    /// use numerilib::stats::distr::Binomial;
     ///
     /// let trials = 8.0;
     /// let probability = 0.125;

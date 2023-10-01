@@ -1,0 +1,9 @@
+mod hypergeometric_kurtosis_tests;
+mod hypergeometric_lower_cdf_tests;
+mod hypergeometric_mean_tests;
+mod hypergeometric_mode_tests;
+mod hypergeometric_pmf_tests;
+mod hypergeometric_sd_tests;
+mod hypergeometric_skewness_tests;
+mod hypergeometric_upper_cdf_tests;
+mod hypergeometric_variance_tests;

@@ -1,0 +1,4 @@
+mod geometric_failures_cdf_tests;
+mod geometric_failures_mean_tests;
+mod geometric_failures_median_tests;
+mod geometric_failures_pmf_tests;

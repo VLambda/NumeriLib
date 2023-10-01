@@ -22,7 +22,7 @@ impl Fisher {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Fisher;
+    /// use numerilib::stats::distr::Fisher;
     ///
     /// let x = 7.0;
     /// let d1 = 6.0;
@@ -57,7 +57,7 @@ impl Fisher {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Fisher;
+    /// use numerilib::stats::distr::Fisher;
     ///
     /// let bound = 8.0;
     /// let d1 = 4.0;
@@ -69,6 +69,9 @@ impl Fisher {
     /// ```
     /// <hr/>
     pub fn cdf(bound: f64, d1: f64, d2: f64) -> f64 {
+        if bound < 0_f64 {
+            return 0_f64;
+        }
         let limit = (d1 * bound) / (d1 * bound + d2);
         Beta::regincbeta(d1 / 2_f64, d2 / 2_f64, limit)
     }
@@ -89,7 +92,7 @@ impl Fisher {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Fisher;
+    /// use numerilib::stats::distr::Fisher;
     ///
     /// let lower = 8.0;
     /// let upper = 9.0;
@@ -118,7 +121,7 @@ impl Fisher {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Fisher;
+    /// use numerilib::stats::distr::Fisher;
     ///
     /// let d2 = 8.0;
     ///
@@ -148,7 +151,7 @@ impl Fisher {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Fisher;
+    /// use numerilib::stats::distr::Fisher;
     ///
     /// let d1 = 4.0;
     /// let d2 = 8.0;
@@ -179,7 +182,7 @@ impl Fisher {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Fisher;
+    /// use numerilib::stats::distr::Fisher;
     ///
     /// let d1 = 4.0;
     /// let d2 = 8.0;
@@ -210,7 +213,7 @@ impl Fisher {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Fisher;
+    /// use numerilib::stats::distr::Fisher;
     ///
     /// let d1 = 4.0;
     /// let d2 = 8.0;
@@ -238,7 +241,7 @@ impl Fisher {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Fisher;
+    /// use numerilib::stats::distr::Fisher;
     ///
     /// let d1 = 4.0;
     /// let d2 = 8.0;

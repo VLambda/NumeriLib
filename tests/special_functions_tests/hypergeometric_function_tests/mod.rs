@@ -1,0 +1,3 @@
+mod gaussian_hypergeometric_tests;
+mod kummer_hypergeometric_tests;
+mod whittaker_hypergeometric_tests;

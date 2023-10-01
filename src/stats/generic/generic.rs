@@ -17,7 +17,7 @@ impl Generic {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::Generic;
+    /// use numerilib::stats::Generic;
     ///
     /// let numbers = [3.0, 5.0, 8.0, 12.0, 15.0];
     /// let mean = Generic::mean(&numbers);
@@ -47,7 +47,7 @@ impl Generic {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::Generic;
+    /// use numerilib::stats::Generic;
     ///
     /// let numbers = [3.0, 5.0, 8.0, 12.0, 15.0];
     /// let sum = Generic::sum(&numbers);
@@ -74,7 +74,7 @@ impl Generic {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::Generic;
+    /// use numerilib::stats::Generic;
     ///
     /// let numbers = [3.0, 5.0, 8.0, 12.0, 15.0];
     /// let sum_squared = Generic::sum_squared(&numbers);
@@ -101,7 +101,7 @@ impl Generic {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::Generic;
+    /// use numerilib::stats::Generic;
     ///
     /// let numbers = [3.0, 5.0, 8.0, 12.0, 15.0];
     /// let size = Generic::size(&numbers);
@@ -129,7 +129,7 @@ impl Generic {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::Generic;
+    /// use numerilib::stats::Generic;
     ///
     /// let numbers = [3.0, 5.0, 8.0, 12.0, 15.0];
     /// let variance = Generic::population_variance(&numbers);
@@ -158,7 +158,7 @@ impl Generic {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::Generic;
+    /// use numerilib::stats::Generic;
     ///
     /// let numbers = [3.0, 5.0, 8.0, 12.0, 15.0];
     /// let sample_variance = Generic::sample_variance(&numbers);
@@ -187,7 +187,7 @@ impl Generic {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::Generic;
+    /// use numerilib::stats::Generic;
     ///
     /// let numbers = [3.0, 5.0, 8.0, 12.0, 15.0];
     /// let population_sd = Generic::population_sd(&numbers);
@@ -214,7 +214,7 @@ impl Generic {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::Generic;
+    /// use numerilib::stats::Generic;
     ///
     /// let numbers = [3.0, 5.0, 8.0, 12.0, 15.0];
     /// let sd = Generic::sample_sd(&numbers);
@@ -242,7 +242,7 @@ impl Generic {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::Generic;
+    /// use numerilib::stats::Generic;
     ///
     /// let numbers = [3.0, 5.0, 8.0, 12.0, 15.0, 19.0, 21.0, 25.0, 28.0, 31.0];
     /// let summary = Generic::five_number_summary(&numbers);

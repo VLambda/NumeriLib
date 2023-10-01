@@ -1,10 +1,10 @@
 [package]
-name = "mathematica"
-version = "0.0.5"
+name = "numerilib"
+version = "0.1.0"
 authors = ["vedang"]
 edition = "2021"
 license-file = "LICENSE"
-description = "A Rust Math Library"
+description = "A Rust Mathematics Library"
 readme = "CratesREADME.md"
 repository = "https://github.com/VLambda/ferrate.git"
 

@@ -1,0 +1,8 @@
+mod geometric_trials_cdf_tests;
+mod geometric_trials_kurtosis_tests;
+mod geometric_trials_mean_tests;
+mod geometric_trials_median_tests;
+mod geometric_trials_pmf_tests;
+mod geometric_trials_sd_tests;
+mod geometric_trials_skewness_tests;
+mod geometric_trials_variance_tests;

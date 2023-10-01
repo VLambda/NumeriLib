@@ -1,3 +1,4 @@
+use crate::special::Probability;
 use crate::Functions;
 
 /// Provides methods for calculating hypergeometric functions.
@@ -14,7 +15,7 @@ impl Hypergeometric {
     /// - `a`: The first parameter of the Gaussian hypergeometric function.
     /// - `b`: The second parameter of the Gaussian hypergeometric function.
     /// - `c`: The third parameter of the Gaussian hypergeometric function.
-    /// - `z`: The value at which to calculate the function.
+    /// - `z`: The value at which to calculate the function. Note: for accuracy, 0 < `z` < 0.5.
     ///
     /// # Returns
     ///
@@ -23,7 +24,7 @@ impl Hypergeometric {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::special::Hypergeometric;
+    /// use numerilib::special::Hypergeometric;
     ///
     /// let a = 1.0;
     /// let b = 2.0;
@@ -36,15 +37,13 @@ impl Hypergeometric {
     /// ```
     /// <hr/>
     pub fn gaussian(a: f64, b: f64, c: f64, z: f64) -> f64 {
-        let mut result = 0_f64;
+        let func = |x: f64| {
+            ((Probability::pochhammer(a, x) * Probability::pochhammer(b, x))
+                / (Probability::pochhammer(c, x) * Probability::factorial(x)))
+                * z.powf(x)
+        };
 
-        for k in 0..70 {
-            result += ((Functions::pochhammer(a, k as f64) * Functions::pochhammer(b, k as f64))
-                / Functions::pochhammer(c, k as f64))
-                * (z.powf(k as f64) / Functions::factorial(k as f64))
-        }
-
-        result
+        Functions::summation(0_f64, 78_f64, func)
     }
 
     /// Calculates the Kummer hypergeometric function.
@@ -65,7 +64,7 @@ impl Hypergeometric {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::special::Hypergeometric;
+    /// use numerilib::special::Hypergeometric;
     ///
     /// let a = 1.0;
     /// let b = 2.0;
@@ -77,14 +76,12 @@ impl Hypergeometric {
     /// ```
     /// <hr/>
     pub fn kummer(a: f64, b: f64, z: f64) -> f64 {
-        let mut result = 0_f64;
+        let func = |x: f64| {
+            (Probability::pochhammer(a, x) / Probability::pochhammer(b, x))
+                * (z.powf(x) / Probability::factorial(x))
+        };
 
-        for k in 0..99 {
-            result += ((Functions::pochhammer(a, k as f64)) / Functions::pochhammer(b, k as f64))
-                * (z.powf(k as f64) / Functions::factorial(k as f64))
-        }
-
-        result
+        Functions::summation(0_f64, 99_f64, func)
     }
 
     /// Calculates the Whittaker hypergeometric function.
@@ -104,7 +101,7 @@ impl Hypergeometric {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::special::Hypergeometric;
+    /// use numerilib::special::Hypergeometric;
     ///
     /// let k = 1.0;
     /// let m = 2.0;

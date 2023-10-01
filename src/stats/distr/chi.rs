@@ -21,7 +21,7 @@ impl Chi {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Chi;
+    /// use numerilib::stats::distr::Chi;
     ///
     /// let x = 2.5;
     /// let df = 4.0;
@@ -55,7 +55,7 @@ impl Chi {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Chi;
+    /// use numerilib::stats::distr::Chi;
     ///
     /// let x = 2.5;
     /// let df = 4.0;
@@ -82,7 +82,7 @@ impl Chi {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Chi;
+    /// use numerilib::stats::distr::Chi;
     ///
     /// let df = 5.0;
     ///
@@ -109,7 +109,7 @@ impl Chi {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Chi;
+    /// use numerilib::stats::distr::Chi;
     ///
     /// let df = 5.0;
     ///
@@ -135,7 +135,7 @@ impl Chi {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Chi;
+    /// use numerilib::stats::distr::Chi;
     ///
     /// let df = 4.0;
     ///
@@ -164,7 +164,7 @@ impl Chi {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Chi;
+    /// use numerilib::stats::distr::Chi;
     ///
     /// let df = 4.0;
     ///
@@ -190,7 +190,7 @@ impl Chi {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Chi;
+    /// use numerilib::stats::distr::Chi;
     ///
     /// let df = 4.0;
     ///
@@ -216,7 +216,7 @@ impl Chi {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Chi;
+    /// use numerilib::stats::distr::Chi;
     ///
     /// let df = 4.0;
     ///
@@ -244,7 +244,7 @@ impl Chi {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Chi;
+    /// use numerilib::stats::distr::Chi;
     ///
     /// let df = 4.0;
     ///

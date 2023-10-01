@@ -1,12 +1,12 @@
-# Chapter 1: What is Ferrate
+# Chapter 1: What is Mathematica
 
 ## 1.1 Overview
 
-Welcome to the official documentation of the Ferrate Mathematics Library. This library is designed to provide a comprehensive set of mathematical functions for Rust programmers. Whether you are working on scientific computing, data analysis, or any other math-intensive project, this library aims to be your one-stop shop.
+Welcome to the official documentation of the Mathematica Mathematics Library. This library is designed to provide a comprehensive set of mathematical functions for Rust programmers. Whether you are working on scientific computing, data analysis, or any other math-intensive project, this library aims to be your one-stop shop.
 
 ## 1.2 Work in Progress
 
-As a testament to our commitment to continuous improvement, Ferrate is an ongoing project. I am constantly expanding and enhancing its capabilities, striving to provide a robust and comprehensive set of mathematical tools. Your feedback and contributions are invaluable in shaping the future of the library.
+As a testament to my commitment to continuous improvement, Mathematica is an ongoing project. I am constantly expanding and enhancing its capabilities, striving to provide a robust and comprehensive set of mathematical tools. Your feedback and contributions are invaluable in shaping the future of the library.
 
 ## 1.3 What is so far added?
 
@@ -16,7 +16,7 @@ The Calculus branch of the library is section to various aspects of calculus, in
 
 ### 1.3.2 Special Functions
 
-The Special Functions branch encompasses a range of essential mathematical functions, such as Gamma, Beta, and Polygamma functions, with more soon to be added.
+The Special Functions branch encompasses a range of essential mathematical functions, such as Gamma, Beta, and Polygamma functions, with more functions and others soon to be added.
 
 ### 1.3.3 Linear Algebra
 
@@ -24,4 +24,4 @@ Linear Algebra is fundamental in various fields of mathematics and engineering. 
 
 ### 1.3.4 Statistics
 
-Statistics is a major part of this library and assists in analysis for offering highly accurate calculations for tests and distributions.
+Statistics is a major part of this library and assists in analysis for offering highly accurate calculations for distributions.

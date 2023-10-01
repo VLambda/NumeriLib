@@ -21,7 +21,7 @@ impl GeometricTrials {
     /// # Example #1:
     ///
     /// ```
-    /// use mathematica::stats::distr::GeometricTrials;
+    /// use numerilib::stats::distr::GeometricTrials;
     ///
     /// let probability = 0.25_f64;
     /// let trials = 12_f64;
@@ -55,7 +55,7 @@ impl GeometricTrials {
     /// # Example #1:
     ///
     /// ```
-    /// use mathematica::stats::distr::GeometricTrials;
+    /// use numerilib::stats::distr::GeometricTrials;
     ///
     /// let probability = 0.25_f64;
     /// let trials = 12_f64;
@@ -86,7 +86,7 @@ impl GeometricTrials {
     /// # Example:
     ///
     /// ```
-    /// use mathematica::stats::distr::GeometricTrials;
+    /// use numerilib::stats::distr::GeometricTrials;
     ///
     /// let probability = 0.25_f64;
     ///
@@ -114,7 +114,7 @@ impl GeometricTrials {
     /// # Example:
     ///
     /// ```
-    /// use mathematica::stats::distr::GeometricTrials;
+    /// use numerilib::stats::distr::GeometricTrials;
     ///
     /// let probability = 0.25_f64;
     ///
@@ -142,7 +142,7 @@ impl GeometricTrials {
     /// # Example:
     ///
     /// ```
-    /// use mathematica::stats::distr::GeometricTrials;
+    /// use numerilib::stats::distr::GeometricTrials;
     ///
     /// let probability = 0.25_f64;
     ///
@@ -170,7 +170,7 @@ impl GeometricTrials {
     /// # Example:
     ///
     /// ```
-    /// use mathematica::stats::distr::GeometricTrials;
+    /// use numerilib::stats::distr::GeometricTrials;
     ///
     /// let probability = 0.25_f64;
     ///
@@ -198,7 +198,7 @@ impl GeometricTrials {
     /// # Example:
     ///
     /// ```
-    /// use mathematica::stats::distr::GeometricTrials;
+    /// use numerilib::stats::distr::GeometricTrials;
     ///
     /// let probability = 0.25_f64;
     ///
@@ -226,7 +226,7 @@ impl GeometricTrials {
     /// # Example:
     ///
     /// ```
-    /// use mathematica::stats::distr::GeometricTrials;
+    /// use numerilib::stats::distr::GeometricTrials;
     ///
     /// let probability = 0.25_f64;
     ///
@@ -257,7 +257,7 @@ impl GeometricFailure {
     /// # Example #1:
     ///
     /// ```
-    /// use mathematica::stats::distr::GeometricFailure;
+    /// use numerilib::stats::distr::GeometricFailure;
     ///
     /// let probability = 0.25_f64;
     /// let failures = 12_f64;
@@ -291,7 +291,7 @@ impl GeometricFailure {
     /// # Example #1:
     ///
     /// ```
-    /// use mathematica::stats::distr::GeometricFailure;
+    /// use numerilib::stats::distr::GeometricFailure;
     ///
     /// let probability = 0.25_f64;
     /// let failures = 12_f64;
@@ -322,7 +322,7 @@ impl GeometricFailure {
     /// # Example:
     ///
     /// ```
-    /// use mathematica::stats::distr::GeometricFailure;
+    /// use numerilib::stats::distr::GeometricFailure;
     ///
     /// let probability = 0.25_f64;
     ///
@@ -350,7 +350,7 @@ impl GeometricFailure {
     /// # Example:
     ///
     /// ```
-    /// use mathematica::stats::distr::GeometricFailure;
+    /// use numerilib::stats::distr::GeometricFailure;
     ///
     /// let probability = 0.25_f64;
     ///

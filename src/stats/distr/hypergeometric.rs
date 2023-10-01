@@ -1,4 +1,5 @@
 use crate::special::Probability;
+use crate::Functions;
 
 /// A module containing functions to work with the Hypergeometric distribution.
 pub struct Hypergeometric;
@@ -23,7 +24,7 @@ impl Hypergeometric {
     /// # Example
     ///
     /// ```
-    /// use mathematica::stats::distr::Hypergeometric;
+    /// use numerilib::stats::distr::Hypergeometric;
     ///
     /// fn main() {
     ///     let population = 100_f64;
@@ -62,7 +63,7 @@ impl Hypergeometric {
     /// # Example
     ///
     /// ```
-    /// use mathematica::stats::distr::Hypergeometric;
+    /// use numerilib::stats::distr::Hypergeometric;
     ///
     /// fn main() {
     ///     let population = 100_f64;
@@ -77,14 +78,9 @@ impl Hypergeometric {
     /// ```
     /// <hr/>
     pub fn lcdf(population: f64, success: f64, draws: f64, observed: f64) -> f64 {
-        let mut result = 0_f64;
-        let x = observed as i32;
+        let func = |x: f64| Self::pmf(population, success, draws, x);
 
-        for i in 0..x + 1 {
-            result += Self::pmf(population, success, draws, i as f64)
-        }
-
-        result
+        Functions::summation(0_f64, observed, func)
     }
 
     /// Calculates the Upper Cumulative Distribution Function (CDF) of the Hypergeometric Distribution.
@@ -106,7 +102,7 @@ impl Hypergeometric {
     /// # Example
     ///
     /// ```
-    /// use mathematica::stats::distr::Hypergeometric;
+    /// use numerilib::stats::distr::Hypergeometric;
     ///
     /// fn main() {
     ///     let population = 100_f64;
@@ -121,15 +117,9 @@ impl Hypergeometric {
     /// ```
     /// <hr/>
     pub fn ucdf(population: f64, success: f64, draws: f64, observed: f64) -> f64 {
-        let mut result = 0_f64;
-        let x = observed as i32;
-        let m = success as i32;
+        let func = |x: f64| Self::pmf(population, success, draws, x);
 
-        for i in x..m + 1 {
-            result += Self::pmf(population, success, draws, i as f64)
-        }
-
-        result
+        Functions::summation(observed, success, func)
     }
 
     /// Calculates the mean of the Hypergeometric Distribution.
@@ -149,7 +139,7 @@ impl Hypergeometric {
     /// # Example
     ///
     /// ```
-    /// use mathematica::stats::distr::Hypergeometric;
+    /// use numerilib::stats::distr::Hypergeometric;
     ///
     /// fn main() {
     ///     let population = 100_f64;
@@ -183,7 +173,7 @@ impl Hypergeometric {
     /// # Example
     ///
     /// ```
-    /// use mathematica::stats::distr::Hypergeometric;
+    /// use numerilib::stats::distr::Hypergeometric;
     ///
     /// fn main() {
     ///     let population = 100_f64;
@@ -217,7 +207,7 @@ impl Hypergeometric {
     /// # Example
     ///
     /// ```
-    /// use mathematica::stats::distr::Hypergeometric;
+    /// use numerilib::stats::distr::Hypergeometric;
     ///
     /// fn main() {
     ///     let population = 100_f64;
@@ -254,7 +244,7 @@ impl Hypergeometric {
     /// # Example
     ///
     /// ```
-    /// use mathematica::stats::distr::Hypergeometric;
+    /// use numerilib::stats::distr::Hypergeometric;
     ///
     /// fn main() {
     ///     let population = 100_f64;
@@ -288,7 +278,7 @@ impl Hypergeometric {
     /// # Example
     ///
     /// ```
-    /// use mathematica::stats::distr::Hypergeometric;
+    /// use numerilib::stats::distr::Hypergeometric;
     ///
     /// fn main() {
     ///     let population = 100_f64;
@@ -326,7 +316,7 @@ impl Hypergeometric {
     /// # Example
     ///
     /// ```
-    /// use mathematica::stats::distr::Hypergeometric;
+    /// use numerilib::stats::distr::Hypergeometric;
     ///
     /// fn main() {
     ///     let population = 100_f64;

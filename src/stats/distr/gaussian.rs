@@ -19,7 +19,7 @@ impl Gaussian {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Gaussian;
+    /// use numerilib::stats::distr::Gaussian;
     ///
     /// fn main() {
     ///     let x_value = 0.5;
@@ -59,7 +59,7 @@ impl Gaussian {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Gaussian;
+    /// use numerilib::stats::distr::Gaussian;
     ///
     /// let bound = 1.96;
     /// let mean = 0.0;
@@ -96,7 +96,7 @@ impl Gaussian {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Gaussian;
+    /// use numerilib::stats::distr::Gaussian;
     ///
     /// let lower = -1.0;
     /// let upper = 1.0;
@@ -109,7 +109,10 @@ impl Gaussian {
     /// ```
     /// <hr/>
     pub fn tailcdf(lower: f64, upper: f64, mean: f64, sd: f64) -> f64 {
-        Self::cdf(upper, mean, sd) + Self::cdf(lower, mean, sd)
+        if lower > upper {
+            return 0_f64;
+        }
+        Self::cdf(lower, mean, sd) - Self::cdf(upper, mean, sd)
     }
 
     /// Calculates the Inverse Normal (Quantile) function.
@@ -132,7 +135,7 @@ impl Gaussian {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Gaussian;
+    /// use numerilib::stats::distr::Gaussian;
     ///
     /// let area = 0.975;
     /// let mean = 0.0;
@@ -188,7 +191,7 @@ impl Gaussian {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Gaussian;
+    /// use numerilib::stats::distr::Gaussian;
     ///
     /// let sigma = 1.5;
     ///

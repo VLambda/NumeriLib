@@ -1,5 +1,4 @@
-use crate::special::Gamma;
-use crate::Functions;
+use crate::special::{Gamma, Probability};
 
 /// A module containing functions to work with the Poisson distribution.
 pub struct Poisson;
@@ -22,7 +21,7 @@ impl Poisson {
     /// # Example
     ///
     /// ```
-    /// use mathematica::stats::distr::Poisson;
+    /// use numerilib::stats::distr::Poisson;
     ///
     /// fn main() {
     ///     let k = 7_f64;
@@ -30,12 +29,13 @@ impl Poisson {
     ///
     ///     let pmf = Poisson::pmf(k, lambda);
     ///
+    ///
     ///     println!("PMF at k = {} and lambda = {}: {}", k, lambda, pmf);
     /// }
     /// ```
     /// <hr/>
     pub fn pmf(k: f64, lambda: f64) -> f64 {
-        (lambda.powf(k) * (-lambda).exp()) / Functions::factorial(k)
+        (lambda.powf(k) * (-lambda).exp()) / Probability::factorial(k)
     }
 
     /// Calculates the Cumulative Distribution Function (CDF) of the Poisson Distribution with the Q Regularized Gamma Function.
@@ -54,7 +54,7 @@ impl Poisson {
     /// # Example
     ///
     /// ```
-    /// use mathematica::stats::distr::Poisson;
+    /// use numerilib::stats::distr::Poisson;
     ///
     /// fn main() {
     ///     let k = 7_f64;
@@ -85,7 +85,7 @@ impl Poisson {
     /// # Example
     ///
     /// ```
-    /// use mathematica::stats::distr::Poisson;
+    /// use numerilib::stats::distr::Poisson;
     ///
     /// fn main() {
     ///     let lambda = 8_f64;
@@ -115,7 +115,7 @@ impl Poisson {
     /// # Example
     ///
     /// ```
-    /// use mathematica::stats::distr::Poisson;
+    /// use numerilib::stats::distr::Poisson;
     ///
     /// fn main() {
     ///     let lambda = 8_f64;
@@ -145,7 +145,7 @@ impl Poisson {
     /// # Example
     ///
     /// ```
-    /// use mathematica::stats::distr::Poisson;
+    /// use numerilib::stats::distr::Poisson;
     ///
     /// fn main() {
     ///     let lambda = 8_f64;
@@ -175,7 +175,7 @@ impl Poisson {
     /// # Example
     ///
     /// ```
-    /// use mathematica::stats::distr::Poisson;
+    /// use numerilib::stats::distr::Poisson;
     ///
     /// fn main() {
     ///     let lambda = 8_f64;
@@ -205,7 +205,7 @@ impl Poisson {
     /// # Example
     ///
     /// ```
-    /// use mathematica::stats::distr::Poisson;
+    /// use numerilib::stats::distr::Poisson;
     ///
     /// fn main() {
     ///     let lambda = 8_f64;

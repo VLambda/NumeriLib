@@ -1,8 +1,5 @@
-/*  I gotta give credit where credit is due. I took the Lanczos Approximation from
-   Axect's Lanczos repo at: https://github.com/Axect/Lanczos.git
-*/
-
 use crate::extra::Extra;
+use crate::special::Probability;
 use crate::Functions;
 
 const G: f64 = 5f64;
@@ -36,7 +33,7 @@ impl Gamma {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::special::Gamma;
+    /// use numerilib::special::Gamma;
     ///
     /// let n = 2_f64;
     /// let stirling = Gamma::stirling(n);
@@ -63,7 +60,7 @@ impl Gamma {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::special::Gamma;
+    /// use numerilib::special::Gamma;
     ///
     /// let n = 6_f64;
     /// let lanczos_ln = Gamma::lanczosln(n);
@@ -99,7 +96,7 @@ impl Gamma {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::special::Gamma;
+    /// use numerilib::special::Gamma;
     ///
     /// let n = 6_f64;
     /// let lanczos = Gamma::lanczos(n);
@@ -108,9 +105,7 @@ impl Gamma {
     /// ```
     /// <hr/>
     pub fn lanczos(z: f64) -> f64 {
-        let exp = Gamma::lanczosln(z).exp();
-
-        Extra::round(exp)
+        Self::lanczosln(z).exp()
     }
 
     /// Calculates the incomplete gamma function.
@@ -130,7 +125,7 @@ impl Gamma {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::special::Gamma;
+    /// use numerilib::special::Gamma;
     ///
     /// let bound = 3_f64;
     /// let x = 1_f64;
@@ -141,15 +136,12 @@ impl Gamma {
     /// ```
     /// <hr/>
     pub fn incgamma(bound: f64, x: f64) -> f64 {
-        let mut result = 0_f64;
+        let func = |z: f64| {
+            ((-1_f64).powf(z) * x.powf(bound) * x.powf(z))
+                / ((bound + z) * Probability::factorial(z))
+        };
 
-        for i in 0..99 {
-            result += (((-1_f64).powi(i) * (x).powi(i))
-                / ((bound + i as f64) * Functions::factorial(i as f64)))
-                * x.powf(bound);
-        }
-
-        result
+        Functions::summation(0_f64, 99_f64, func)
     }
 
     /// Calculates the complementary incomplete gamma function.
@@ -169,7 +161,7 @@ impl Gamma {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::special::Gamma;
+    /// use numerilib::special::Gamma;
     ///
     /// let a = 3_f64;
     /// let x = 1_f64;
@@ -180,7 +172,7 @@ impl Gamma {
     /// ```
     /// <hr/>
     pub fn incgammac(bound: f64, x: f64) -> f64 {
-        Gamma::lanczos(bound) - Gamma::incgamma(bound, x)
+        Self::lanczos(bound) - Self::incgamma(bound, x)
     }
 
     /// Calculates the regularized incomplete gamma function.
@@ -200,7 +192,7 @@ impl Gamma {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::special::Gamma;
+    /// use numerilib::special::Gamma;
     ///
     /// let bound = 5_f64;
     /// let x = 2_f64;
@@ -211,7 +203,7 @@ impl Gamma {
     /// ```
     /// <hr/>
     pub fn reggamma(bound: f64, x: f64) -> f64 {
-        Gamma::incgamma(bound, x) / Gamma::lanczos(bound)
+        Self::incgamma(bound, x) / Self::lanczos(bound)
     }
 
     /// Calculates the cumulative distribution function (CDF) for Poisson random variables.
@@ -231,7 +223,7 @@ impl Gamma {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::special::Gamma;
+    /// use numerilib::special::Gamma;
     ///
     /// let bound = 5_f64;
     /// let x = 2_f64;
@@ -242,6 +234,6 @@ impl Gamma {
     /// ```
     /// <hr/>
     pub fn reggammac(bound: f64, x: f64) -> f64 {
-        1_f64 - Gamma::reggamma(bound, x)
+        1_f64 - Self::reggamma(bound, x)
     }
 }

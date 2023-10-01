@@ -18,7 +18,7 @@ impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
     /// # Example
     ///
     /// ```
-    /// use mathematica::Matrix;
+    /// use numerilib::Matrix;
     ///
     /// fn main() {
     ///     let matrix = Matrix::new([
@@ -42,6 +42,10 @@ impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
         Self(elements.iter().map(|row| row.to_vec()).collect())
     }
 
+    pub fn get(&self, row: usize, column: usize) -> f64 {
+        self.0[row - 1][column - 1]
+    }
+
     /// Updates the value at a specific row and column in the matrix.
     ///
     /// # Parameters
@@ -55,7 +59,7 @@ impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
     /// # Example:
     ///
     /// ```
-    /// use mathematica::Matrix;
+    /// use numerilib::Matrix;
     ///
     /// fn main() {
     ///     let mut matrix = Matrix::new([
@@ -103,7 +107,7 @@ impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
     /// # Example:
     ///
     /// ```
-    /// use mathematica::Matrix;
+    /// use numerilib::Matrix;
     ///
     /// fn main() {
     ///     let matrix = Matrix::new([
@@ -174,7 +178,7 @@ impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
     /// # Example:
     ///
     /// ```
-    /// use mathematica::Matrix;
+    /// use numerilib::Matrix;
     ///
     /// fn main() {
     ///     let matrix = Matrix::new([
@@ -228,7 +232,7 @@ impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
     /// # Example:
     ///
     /// ```
-    /// use mathematica::Matrix;
+    /// use numerilib::Matrix;
     ///
     /// fn main() {
     ///     let matrix = Matrix::new([
@@ -265,7 +269,7 @@ impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
     /// # Example
     ///
     /// ```
-    /// use mathematica::Matrix;
+    /// use numerilib::Matrix;
     ///
     /// fn main() {
     ///     let identity_5x5 = Matrix::<5, 5>::identity();
@@ -304,7 +308,7 @@ impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
     /// # Example:
     ///
     /// ```
-    /// use mathematica::Matrix;
+    /// use numerilib::Matrix;
     ///
     /// fn main() {
     ///     let matrix = Matrix::new([
@@ -351,7 +355,7 @@ impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
     /// # Example:
     ///
     /// ```
-    /// use mathematica::Matrix;
+    /// use numerilib::Matrix;
     ///
     /// fn main() {
     ///    let matrix = Matrix::new([
@@ -406,7 +410,7 @@ impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
     /// # Example
     ///
     /// ```
-    /// use mathematica::Matrix;
+    /// use numerilib::Matrix;
     ///
     /// fn main() {
     ///
@@ -464,7 +468,11 @@ impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
     ///
     /// ```
     /// <hr/>
-    pub fn arithmetic<F>(&self, other: &Matrix<ROWS, COLS>, op: F) -> Matrix<ROWS, COLS>
+    pub fn arithmetic<F>(
+        first: &Matrix<ROWS, COLS>,
+        other: &Matrix<ROWS, COLS>,
+        op: F,
+    ) -> Matrix<ROWS, COLS>
     where
         F: Fn(f64, f64) -> f64,
     {
@@ -472,7 +480,7 @@ impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
 
         for i in 0..ROWS {
             for j in 0..COLS {
-                result_matrix[i][j] = op(self[i][j], other[i][j]);
+                result_matrix[i][j] = op(first[i][j], other[i][j]);
             }
         }
 
@@ -488,7 +496,7 @@ impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
     /// # Example:
     ///
     /// ```
-    /// use mathematica::Matrix;
+    /// use numerilib::Matrix;
     ///
     /// fn main() {
     ///     let mut matrix = Matrix::new([

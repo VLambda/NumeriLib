@@ -1,4 +1,4 @@
-use crate::special::Gamma;
+use crate::special::{Gamma, Probability};
 use crate::Functions;
 
 /// Provides methods for calculating polygamma functions.
@@ -20,7 +20,7 @@ impl Polygamma {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::special::Polygamma;
+    /// use numerilib::special::Polygamma;
     ///
     /// let z = 2.0;
     /// let digamma = Polygamma::digamma(z);
@@ -50,7 +50,7 @@ impl Polygamma {
     /// # Example 1 (Digamma):
     ///
     /// ```rust
-    /// use mathematica::special::Polygamma;
+    /// use numerilib::special::Polygamma;
     ///
     /// let degree = 0; // 0 corresponds to the digamma function
     /// let z = 5.0;
@@ -63,7 +63,7 @@ impl Polygamma {
     /// # Example 2:
     ///
     /// ```rust
-    /// use mathematica::special::Polygamma;
+    /// use numerilib::special::Polygamma;
     ///
     /// let degree = 1;
     /// let z = 5.0;
@@ -79,15 +79,13 @@ impl Polygamma {
         } else if degree == 0 {
             return Polygamma::digamma(z);
         } else {
-            let mut result = 0_f64;
+            let func = |x: f64| {
+                (-1_f64).powi(degree + 1)
+                    * Probability::factorial(degree as f64)
+                    * (1_f64 / (z + x).powi(degree + 1))
+            };
 
-            for i in 0..99999 {
-                result += (-1_f64).powi(degree + 1)
-                    * Functions::factorial(degree as f64)
-                    * (1_f64 / (z + i as f64).powi(degree + 1));
-            }
-
-            result
+            Functions::summation(0_f64, 99_f64, func)
         }
     }
 }

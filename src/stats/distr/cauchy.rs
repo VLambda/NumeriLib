@@ -20,7 +20,7 @@ impl Cauchy {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Cauchy;
+    /// use numerilib::stats::distr::Cauchy;
     ///
     /// let location = 0.0;
     /// let scale = 1.0;
@@ -50,7 +50,7 @@ impl Cauchy {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Cauchy;
+    /// use numerilib::stats::distr::Cauchy;
     ///
     /// let location = 0.0;
     /// let scale = 1.0;
@@ -82,7 +82,7 @@ impl Cauchy {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::stats::distr::Cauchy;
+    /// use numerilib::stats::distr::Cauchy;
     ///
     /// let location = 0.0;
     /// let scale = 1.0;

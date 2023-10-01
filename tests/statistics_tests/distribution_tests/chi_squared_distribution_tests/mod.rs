@@ -1,0 +1,9 @@
+mod chi_squared_cdf_tests;
+mod chi_squared_kurtosis_tests;
+mod chi_squared_median_tests;
+mod chi_squared_mode_tests;
+mod chi_squared_pdf_tests;
+mod chi_squared_sd_tests;
+mod chi_squared_skewness_tests;
+mod chi_squared_tailed_cdf_tests;
+mod chi_squared_variance_tests;

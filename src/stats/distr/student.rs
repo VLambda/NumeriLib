@@ -1,4 +1,6 @@
 use crate::special::Beta;
+use crate::Functions;
+use std::sync::atomic::Ordering::SeqCst;
 
 /// A module containing functions to work with the Student's T distribution.
 pub struct Student;
@@ -22,7 +24,7 @@ impl Student {
     /// # Example
     ///
     /// ```
-    /// use mathematica::stats::distr::Student;
+    /// use numerilib::stats::distr::Student;
     ///
     /// fn main() {
     ///     let x = 0.975;
@@ -39,6 +41,16 @@ impl Student {
         let p2 = -((df + 1_f64) / 2_f64);
         let p3 = 1_f64 / (df.sqrt() * Beta::beta(0.5, df / 2_f64));
         p3 * p1.powf(p2)
+    }
+
+    fn beta_cdf(bound: f64, df: f64) -> f64 {
+        if df.is_sign_negative() {
+            return f64::NAN;
+        }
+
+        let limit = df / (bound.powi(2) + df);
+        let p1 = Beta::regincbeta(df / 2_f64, 1_f64 / 2_f64, limit);
+        p1 / 2_f64
     }
 
     /// Calculates the Cumulative Density Function (CDF) of the Student's T Distribution.
@@ -58,7 +70,7 @@ impl Student {
     /// # Example
     ///
     /// ```
-    /// use mathematica::stats::distr::Student;
+    /// use numerilib::stats::distr::Student;
     ///
     /// fn main() {
     ///     let bound = 1_f64;
@@ -76,14 +88,9 @@ impl Student {
         }
 
         if bound <= 0_f64 {
-            let limit = df / (bound.powi(2) + df);
-            let p1 = Beta::regincbeta(df / 2_f64, 1_f64 / 2_f64, limit);
-            p1 / 2_f64
+            Self::beta_cdf(bound, df)
         } else {
-            let limit = bound.powi(2) / (bound.powi(2) + df);
-            let p1 = Beta::regincbeta(1_f64 / 2_f64, df / 2_f64, limit);
-            let p2 = p1 + 1_f64;
-            p2 / 2_f64
+            1_f64 - Self::beta_cdf(-bound, df)
         }
     }
 
@@ -105,7 +112,7 @@ impl Student {
     /// # Example
     ///
     /// ```
-    /// use mathematica::stats::distr::Student;
+    /// use numerilib::stats::distr::Student;
     ///
     /// fn main() {
     ///     let lower = 1_f64;
@@ -125,15 +132,21 @@ impl Student {
             (upper, lower)
         };
 
-        if bound_low <= 0_f64 {
-            let p1 = Self::cdf(bound_low, df);
-            let p2 = Self::cdf(bound_high, df);
-            p1 + p2
-        } else {
-            let p1 = Self::cdf(bound_low, df);
-            let p2 = Self::cdf(bound_high, df);
-            p2 - p1
-        }
+        let p1 = Self::cdf(bound_low, df);
+        let p2 = Self::cdf(bound_high, df);
+        p2 - p1
+    }
+
+    fn upper_inv(area: f64, df: f64) -> f64 {
+        let p1 = df.sqrt();
+        let z1 = df / 2_f64;
+        let z2 = 0.5_f64;
+        let x = 2_f64 * (1_f64 - area);
+        let p2 = Beta::invregincbeta(z1, z2, x);
+        let p3 = 1_f64 / p2;
+        let p4 = p3 - 1_f64;
+        let p5 = p4.sqrt();
+        p1 * p5
     }
 
     /// Calculates the Inverse of the two-tailed Cumulative Density Function (CDF), also known as InvT.
@@ -154,7 +167,7 @@ impl Student {
     /// # Example
     ///
     /// ```
-    /// use mathematica::stats::distr::Student;
+    /// use numerilib::stats::distr::Student;
     ///
     /// fn main() {
     ///     let area = 0.025_f64;
@@ -168,28 +181,12 @@ impl Student {
     /// <hr/>
     pub fn inv(area: f64, df: f64) -> f64 {
         if (0_f64..0.5_f64).contains(&area) {
-            let p1 = -1_f64 * df.sqrt();
-            let z1 = df / 2_f64;
-            let z2 = 0.5_f64;
-            let x = 2_f64 * area;
-            let p2 = Beta::invregincbeta(z1, z2, x);
-            let p3 = 1_f64 / p2;
-            let p4 = p3 - 1_f64;
-            let p5 = p4.sqrt();
-            p1 * p5
+            -Self::upper_inv(1_f64 - area, df)
         } else if area == 0.5_f64 {
             0_f64
         } else if (0.5_f64..1_f64).contains(&area) {
-            let p1 = df.sqrt();
-            let z1 = df / 2_f64;
-            let z2 = 0.5_f64;
-            let x = 2_f64 * (1_f64 - area);
-            let p2 = Beta::invregincbeta(z1, z2, x);
-            let p3 = 1_f64 / p2;
-            let p4 = p3 - 1_f64;
-            let p5 = p4.sqrt();
-            p1 * p5
-        } else if area < 0_f64 {
+            Self::upper_inv(area, df)
+        } else if area <= 0_f64 {
             f64::NEG_INFINITY
         } else {
             f64::INFINITY
@@ -211,7 +208,7 @@ impl Student {
     /// # Example
     ///
     /// ```
-    /// use mathematica::stats::distr::Student;
+    /// use numerilib::stats::distr::Student;
     ///
     /// fn main() {
     ///     let df = 6_f64;
@@ -247,7 +244,7 @@ impl Student {
     /// # Example
     ///
     /// ```
-    /// use mathematica::stats::distr::Student;
+    /// use numerilib::stats::distr::Student;
     ///
     /// fn main() {
     ///     let df = 6_f64;
@@ -260,40 +257,6 @@ impl Student {
     /// <hr/>
     pub fn sd(df: f64) -> f64 {
         Self::variance(df).sqrt()
-    }
-
-    /// Calculates the skewness of the Student's T Distribution.
-    ///
-    /// Skewness measures the asymmetry of the distribution.
-    ///
-    /// # Parameters
-    ///
-    /// - `df`: The degrees of freedom parameter.
-    ///
-    /// # Returns
-    ///
-    /// The skewness of the distribution. Returns NaN if `df` is not greater than 3.
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// use mathematica::stats::distr::Student;
-    ///
-    /// fn main() {
-    ///     let df = 6_f64;
-    ///
-    ///     let skewness = Student::skewness(df);
-    ///
-    ///     println!("Skewness: {}", skewness);
-    /// }
-    /// ```
-    /// <hr/>
-    pub fn skewness(df: f64) -> f64 {
-        if df > 3_f64 {
-            0_f64
-        } else {
-            f64::NAN
-        }
     }
 
     /// Calculates the kurtosis of the Student's T Distribution.
@@ -311,7 +274,7 @@ impl Student {
     /// # Example
     ///
     /// ```
-    /// use mathematica::stats::distr::Student;
+    /// use numerilib::stats::distr::Student;
     ///
     /// fn main() {
     ///     let df = 6_f64;

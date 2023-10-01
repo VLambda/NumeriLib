@@ -1,0 +1,10 @@
+mod binomial_distribution_tests;
+mod cauchy_distribution_tests;
+mod chi_distribution_tests;
+mod chi_squared_distribution_tests;
+mod fisher_distribution_tests;
+mod gaussian_distribution_tests;
+mod geometric_distribution_tests;
+mod hypergeometric_distribution_tests;
+mod poisson_distribution_tests;
+mod student_t_distribution_tests;

@@ -1,0 +1,11 @@
+mod binomial_inverse_cdf_tests;
+mod binomial_kurtosis_tests;
+mod binomial_lower_cdf_tests;
+mod binomial_mean_tests;
+mod binomial_median_tests;
+mod binomial_mode_tests;
+mod binomial_pmf_tests;
+mod binomial_sd_tests;
+mod binomial_skewness_tests;
+mod binomial_upper_cdf_tests;
+mod binomial_variance_tests;

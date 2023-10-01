@@ -22,7 +22,7 @@ impl Beta {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::special::Beta;
+    /// use numerilib::special::Beta;
     ///
     /// fn main() {
     ///     let z1 = 1_f64;
@@ -53,7 +53,7 @@ impl Beta {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::special::Beta;
+    /// use numerilib::special::Beta;
     ///
     /// fn main() {
     ///     let z1 = 8_f64;
@@ -65,7 +65,7 @@ impl Beta {
     /// ```
     /// <hr/>
     pub fn beta(z1: f64, z2: f64) -> f64 {
-        Beta::lnbeta(z1, z2).exp()
+        Self::lnbeta(z1, z2).exp()
     }
 
     /// Calculates the Incomplete Beta function (I_x(z1, z2)).
@@ -83,7 +83,7 @@ impl Beta {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::special::Beta;
+    /// use numerilib::special::Beta;
     ///
     /// fn main() {
     ///     let x = 0.2_f64;
@@ -95,9 +95,9 @@ impl Beta {
     /// }
     /// ```
     /// <hr/>
-    pub fn incbeta(x: f64, z1: f64, z2: f64) -> f64 {
-        let reg = Beta::regincbeta(z1, z2, x);
-        let beta = Beta::beta(z1, z2);
+    pub fn incbeta(z1: f64, z2: f64, x: f64) -> f64 {
+        let reg = Self::regincbeta(z1, z2, x);
+        let beta = Self::beta(z1, z2);
         reg * beta
     }
 
@@ -118,7 +118,7 @@ impl Beta {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::special::Beta;
+    /// use numerilib::special::Beta;
     ///
     /// fn main() {
     ///     let x = 1_f64 / 7_f64;
@@ -135,15 +135,13 @@ impl Beta {
             return f64::INFINITY;
         }
 
-        let mut result = 0_f64;
-
         let y = (x.powf(z1) * (1_f64 - x).powf(z2)) / (z1 * Beta::beta(z1, z2));
 
-        for i in 0..99 {
-            result += (Beta::beta(z1 + 1_f64, i as f64 + 1_f64)
-                / Beta::beta(z1 + z2, i as f64 + 1_f64))
-                * x.powf(i as f64 + 1_f64);
-        }
+        let func = |i: f64| {
+            (Self::beta(z1 + 1_f64, i + 1_f64) / Self::beta(z1 + z2, i + 1_f64)) * x.powf(i + 1_f64)
+        };
+
+        let result = Functions::summation(0_f64, 99_f64, func);
 
         (result + 1_f64) * y
     }
@@ -165,7 +163,7 @@ impl Beta {
     /// # Example
     ///
     /// ```rust
-    /// use mathematica::special::Beta;
+    /// use numerilib::special::Beta;
     ///
     /// fn main() {
     ///     let z1 = 1_f64;
@@ -178,7 +176,7 @@ impl Beta {
     /// ```
     /// <hr/>
     pub fn invregincbeta(z1: f64, z2: f64, x: f64) -> f64 {
-        if !(0_f64..=1_f64).contains(&x) {
+        if !(0_f64..1_f64).contains(&x) {
             return f64::NAN;
         }
 
@@ -187,7 +185,7 @@ impl Beta {
 
         let mut guess = 0.5;
 
-        if x < 1e-1 {
+        if x - 1e-1 <= 1e-6 {
             let mut low = 0.0;
             let mut high = 1.0;
             while high - low > Extra::EPSILON2 {
