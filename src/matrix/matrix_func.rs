@@ -20,14 +20,12 @@ impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
     /// ```
     /// use numerilib::Matrix;
     ///
-    /// fn main() {
-    ///     let matrix = Matrix::new([
-    ///         [1_f64, 2_f64],
-    ///         [3_f64, 4_f64]
-    ///     ]);
+    /// let matrix = Matrix::new([
+    ///     [1_f64, 2_f64],
+    ///     [3_f64, 4_f64]
+    /// ]);
     ///     
-    ///     println!("Matrix:\n {:?}", matrix);
-    /// }
+    /// println!("Matrix:\n {:?}", matrix);
     ///
     /// /*
     ///     Outputs the following:
@@ -61,19 +59,17 @@ impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
     /// ```
     /// use numerilib::Matrix;
     ///
-    /// fn main() {
-    ///     let mut matrix = Matrix::new([
-    ///         [1_f64, 2_f64, 3_f64],
-    ///         [4_f64, 5_f64, 6_f64],
-    ///         [7_f64, 8_f64, 9_f64]
-    ///     ]);
+    /// let mut matrix = Matrix::new([
+    ///     [1_f64, 2_f64, 3_f64],
+    ///     [4_f64, 5_f64, 6_f64],
+    ///     [7_f64, 8_f64, 9_f64]
+    /// ]);
     ///     
-    ///     println!("Matrix:\n {:?}", matrix);    
+    /// println!("Matrix:\n {:?}", matrix);    
     ///
-    ///     matrix.update(2, 2, 10_f64);
+    /// matrix.update(2, 2, 10_f64);
     ///
-    ///     println!("Updated Matrix:\n {:?}", matrix);
-    /// }
+    /// println!("Updated Matrix:\n {:?}", matrix);
     ///
     /// /*
     ///     Outputs the Following:
@@ -109,18 +105,16 @@ impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
     /// ```
     /// use numerilib::Matrix;
     ///
-    /// fn main() {
-    ///     let matrix = Matrix::new([
-    ///         [78_f64, 94_f64, 25_f64, 1_f64],
-    ///         [795_f64, 64_f64, 25_f64, 12_f64],
-    ///         [37_f64, 52_f64, 81_f64, 64_f64],
-    ///         [0_f64, 15_f64, 6_f64, 4_f64]
-    ///     ]);
+    /// let matrix = Matrix::new([
+    ///     [78_f64, 94_f64, 25_f64, 1_f64],
+    ///     [795_f64, 64_f64, 25_f64, 12_f64],
+    ///     [37_f64, 52_f64, 81_f64, 64_f64],
+    ///     [0_f64, 15_f64, 6_f64, 4_f64]
+    /// ]);
     ///     
-    ///     let determinate = matrix.determinant();
+    /// let determinate = matrix.determinant();
     ///
-    ///     println!("Matrix:\n {:?}\nDeterminate of the Matrix: {:?}", matrix, determinate);
-    /// }
+    /// println!("Matrix:\n {:?}\nDeterminate of the Matrix: {:?}", matrix, determinate);
     ///
     /// /*
     ///     Outputs the Following:
@@ -178,20 +172,18 @@ impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
     /// # Example:
     ///
     /// ```
-    /// use numerilib::Matrix;
+    /// use numerilib::Matrix;    
     ///
-    /// fn main() {
-    ///     let matrix = Matrix::new([
-    ///         [78_f64, 94_f64, 25_f64, 1_f64],
-    ///         [795_f64, 64_f64, 25_f64, 12_f64],
-    ///         [37_f64, 52_f64, 81_f64, 64_f64],
-    ///         [0_f64, 15_f64, 6_f64, 4_f64]
-    ///     ]);
+    /// let matrix = Matrix::new([
+    ///     [78_f64, 94_f64, 25_f64, 1_f64],
+    ///     [795_f64, 64_f64, 25_f64, 12_f64],
+    ///     [37_f64, 52_f64, 81_f64, 64_f64],
+    ///     [0_f64, 15_f64, 6_f64, 4_f64]
+    /// ]);
     ///
-    ///     let transposed_matrix = matrix.transpose();
+    /// let transposed_matrix = matrix.transpose();
     ///
-    ///     println!("Matrix:\n{:?}\nTransposed Matrix:\n{:?}", matrix, transposed_matrix)
-    /// }
+    /// println!("Matrix:\n{:?}\nTransposed Matrix:\n{:?}", matrix, transposed_matrix)
     ///
     /// /*
     ///     Outputs the Following:
@@ -234,16 +226,14 @@ impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
     /// ```
     /// use numerilib::Matrix;
     ///
-    /// fn main() {
-    ///     let matrix = Matrix::new([
-    ///         [1_f64, 2_f64],
-    ///         [3_f64, 4_f64]
-    ///     ]);
+    /// let matrix = Matrix::new([
+    ///     [1_f64, 2_f64],
+    ///     [3_f64, 4_f64]
+    /// ]);
     ///
-    ///     let dimensions = matrix.dimensions();
+    /// let dimensions = matrix.dimensions();
     ///
-    ///     println!("Matrix:\n{:?}\nMatrix Dimensions:\n{:?}", matrix, dimensions);
-    /// }
+    /// println!("Matrix:\n{:?}\nMatrix Dimensions:\n{:?}", matrix, dimensions);
     ///
     /// /*
     ///     Outputs the Following:
@@ -271,11 +261,9 @@ impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
     /// ```
     /// use numerilib::Matrix;
     ///
-    /// fn main() {
-    ///     let identity_5x5 = Matrix::<5, 5>::identity();
+    /// let identity_5x5 = Matrix::<5, 5>::identity();
     ///
-    ///     println!("5x5 Identity Matrix:\n{:?}", identity_5x5);
-    /// }
+    /// println!("5x5 Identity Matrix:\n{:?}", identity_5x5);
     ///
     /// /*
     ///     Outputs the Following:
@@ -310,17 +298,15 @@ impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
     /// ```
     /// use numerilib::Matrix;
     ///
-    /// fn main() {
-    ///     let matrix = Matrix::new([
-    ///         [1_f64, 2_f64, 3_f64],
-    ///         [4_f64, 5_f64, 6_f64],
-    ///         [7_f64, 8_f64, 9_f64]
-    ///     ]);
+    /// let matrix = Matrix::new([
+    ///     [1_f64, 2_f64, 3_f64],
+    ///     [4_f64, 5_f64, 6_f64],
+    ///      [7_f64, 8_f64, 9_f64]
+    /// ]);
     ///
-    ///     let cumsum_rows = matrix.cumsumr();
+    /// let cumsum_rows = matrix.cumsumr();
     ///
-    ///     println!("Matrix:\n{:?}\nCumSum of Rows:\n{:?}", matrix, cumsum_rows);
-    /// }
+    /// println!("Matrix:\n{:?}\nCumSum of Rows:\n{:?}", matrix, cumsum_rows);
     ///
     /// /*
     ///     Outputs the Following:
@@ -357,17 +343,15 @@ impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
     /// ```
     /// use numerilib::Matrix;
     ///
-    /// fn main() {
-    ///    let matrix = Matrix::new([
-    ///         [1_f64, 2_f64, 3_f64],
-    ///         [4_f64, 5_f64, 6_f64],
-    ///         [7_f64, 8_f64, 9_f64]
-    ///     ]);
+    /// let matrix = Matrix::new([
+    ///     [1_f64, 2_f64, 3_f64],
+    ///     [4_f64, 5_f64, 6_f64],
+    ///     [7_f64, 8_f64, 9_f64]
+    /// ]);
     ///
-    ///     let cumsum_columns = matrix.cumsumc();
+    /// let cumsum_columns = matrix.cumsumc();
     ///
-    ///     println!("Matrix:\n{:?}\nCumSum of Columns:\n{:?}", matrix, cumsum_columns);  
-    /// }
+    /// println!("Matrix:\n{:?}\nCumSum of Columns:\n{:?}", matrix, cumsum_columns);  
     ///
     /// /*
     ///     Outputs the Following:
@@ -412,25 +396,23 @@ impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
     /// ```
     /// use numerilib::Matrix;
     ///
-    /// fn main() {
+    /// let matrix1 = Matrix::new([
+    ///     [1_f64, 2_f64],
+    ///     [3_f64, 4_f64]
+    /// ]);
     ///
-    ///     let matrix1 = Matrix::new([
-    ///         [1_f64, 2_f64],
-    ///         [3_f64, 4_f64]
-    ///     ]);
+    /// let matrix2 = Matrix::new([
+    ///     [5_f64, 6_f64],
+    ///     [7_f64, 8_f64]
+    /// ]);
     ///
-    ///     let matrix2 = Matrix::new([
-    ///         [5_f64, 6_f64],
-    ///         [7_f64, 8_f64]
-    ///     ]);
+    /// let result_exponentiation = Matrix::arithmetic(&matrix1, &matrix2, |a, b| a.powf(b));
+    /// let result_addition = Matrix::arithmetic(&matrix1, &matrix2, |a, b| a + b);
+    /// let result_subtraction = Matrix::arithmetic(&matrix1, &matrix2, |a, b| a - b);
+    /// let result_multiplication = Matrix::arithmetic(&matrix1, &matrix2, |a, b| a * b);
+    /// let result_division = Matrix::arithmetic(&matrix1, &matrix2, |a, b| a / b);
     ///
-    ///     let result_exponentiation = Matrix::arithmetic(&matrix1, &matrix2, |a, b| a.powf(b));
-    ///     let result_addition = Matrix::arithmetic(&matrix1, &matrix2, |a, b| a + b);
-    ///     let result_subtraction = Matrix::arithmetic(&matrix1, &matrix2, |a, b| a - b);
-    ///     let result_multiplication = Matrix::arithmetic(&matrix1, &matrix2, |a, b| a * b);
-    ///     let result_division = Matrix::arithmetic(&matrix1, &matrix2, |a, b| a / b);
-    ///
-    ///     println!("
+    /// println!("
     ///         Matrix 1:\n{:?}\n
     ///         Matrix 2:\n{:?}\n
     ///         Addition:\n{:?}\n
@@ -498,17 +480,15 @@ impl<const ROWS: usize, const COLS: usize> Matrix<ROWS, COLS> {
     /// ```
     /// use numerilib::Matrix;
     ///
-    /// fn main() {
-    ///     let mut matrix = Matrix::new([
+    /// let mut matrix = Matrix::new([
     ///         [1_f64, 2_f64],
     ///         [3_f64, 4_f64]
-    ///     ]);
+    /// ]);
     ///
-    ///     let exponent = 3_f64;
-    ///     let power_matrix = matrix.power(exponent);
+    /// let exponent = 3_f64;
+    /// let power_matrix = matrix.power(exponent);
     ///
-    ///     println!("Matrix:\n{:?}\nPower Matrix:\n{:?}", matrix, power_matrix);
-    /// }
+    /// println!("Matrix:\n{:?}\nPower Matrix:\n{:?}", matrix, power_matrix);
     ///
     /// /*
     ///     Outputs the Following:
@@ -556,7 +536,7 @@ impl<const ROWS: usize, const COLS: usize> fmt::Debug for Matrix<ROWS, COLS> {
                     write!(f, ", ")?;
                 }
             }
-            write!(f, "]\n")?;
+            writeln!(f, "]")?;
         }
         Ok(())
     }
