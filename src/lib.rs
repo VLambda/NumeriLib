@@ -1,3 +1,4 @@
+mod complex;
 #[allow(clippy::needless_doctest_main)]
 pub(crate) mod extra;
 mod func;
@@ -9,5 +10,6 @@ pub mod special;
 /// modules for calculating Statistical Data
 pub mod stats;
 
+pub use complex::*;
 pub use func::*;
 pub use matrix::*;

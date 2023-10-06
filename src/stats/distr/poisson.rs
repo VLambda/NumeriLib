@@ -23,15 +23,13 @@ impl Poisson {
     /// ```
     /// use numerilib::stats::distr::Poisson;
     ///
-    /// fn main() {
-    ///     let k = 7_f64;
-    ///     let lambda = 8_f64;
+    /// let k = 7_f64;
+    /// let lambda = 8_f64;
     ///
-    ///     let pmf = Poisson::pmf(k, lambda);
+    /// let pmf = Poisson::pmf(k, lambda);
     ///
     ///
-    ///     println!("PMF at k = {} and lambda = {}: {}", k, lambda, pmf);
-    /// }
+    /// println!("PMF at k = {} and lambda = {}: {}", k, lambda, pmf);
     /// ```
     /// <hr/>
     pub fn pmf(k: f64, lambda: f64) -> f64 {
@@ -56,14 +54,12 @@ impl Poisson {
     /// ```
     /// use numerilib::stats::distr::Poisson;
     ///
-    /// fn main() {
-    ///     let k = 7_f64;
-    ///     let lambda = 8_f64;
+    /// let k = 7_f64;
+    /// let lambda = 8_f64;
     ///
-    ///     let cdf = Poisson::cdf(k, lambda);
+    /// let cdf = Poisson::cdf(k, lambda);
     ///
-    ///     println!("CDF at k = {} and lambda = {}: {}", k, lambda, cdf);
-    /// }
+    /// println!("CDF at k = {} and lambda = {}: {}", k, lambda, cdf);
     /// ```
     /// <hr/>
     pub fn cdf(k: f64, lambda: f64) -> f64 {
@@ -87,13 +83,11 @@ impl Poisson {
     /// ```
     /// use numerilib::stats::distr::Poisson;
     ///
-    /// fn main() {
-    ///     let lambda = 8_f64;
+    /// let lambda = 8_f64;
     ///
-    ///     let median = Poisson::median(lambda);
+    /// let median = Poisson::median(lambda);
     ///
-    ///     println!("Median with lambda = {}: {}", lambda, median);
-    /// }
+    /// println!("Median with lambda = {}: {}", lambda, median);
     /// ```
     /// <hr/>
     pub fn median(lambda: f64) -> f64 {
@@ -117,13 +111,11 @@ impl Poisson {
     /// ```
     /// use numerilib::stats::distr::Poisson;
     ///
-    /// fn main() {
-    ///     let lambda = 8_f64;
+    /// let lambda = 8_f64;
     ///
-    ///     let mode = Poisson::mode(lambda);
+    /// let mode = Poisson::mode(lambda);
     ///
-    ///     println!("Mode with lambda = {}: {}", lambda, mode);
-    /// }
+    /// println!("Mode with lambda = {}: {}", lambda, mode);
     /// ```
     /// <hr/>
     pub fn mode(lambda: f64) -> f64 {
@@ -147,13 +139,11 @@ impl Poisson {
     /// ```
     /// use numerilib::stats::distr::Poisson;
     ///
-    /// fn main() {
-    ///     let lambda = 8_f64;
+    /// let lambda = 8_f64;
     ///
-    ///     let sd = Poisson::sd(lambda);
+    /// let sd = Poisson::sd(lambda);
     ///
-    ///     println!("Standard Deviation with lambda = {}: {}", lambda, sd);
-    /// }
+    /// println!("Standard Deviation with lambda = {}: {}", lambda, sd);
     /// ```
     /// <hr/>
     pub fn sd(lambda: f64) -> f64 {
@@ -177,13 +167,11 @@ impl Poisson {
     /// ```
     /// use numerilib::stats::distr::Poisson;
     ///
-    /// fn main() {
-    ///     let lambda = 8_f64;
+    /// let lambda = 8_f64;
     ///
-    ///     let skewness = Poisson::skewness(lambda);
+    /// let skewness = Poisson::skewness(lambda);
     ///
-    ///     println!("Skewness with lambda = {}: {}", lambda, skewness);
-    /// }
+    /// println!("Skewness with lambda = {}: {}", lambda, skewness);
     /// ```
     /// <hr/>
     pub fn skewness(lambda: f64) -> f64 {
@@ -207,13 +195,11 @@ impl Poisson {
     /// ```
     /// use numerilib::stats::distr::Poisson;
     ///
-    /// fn main() {
-    ///     let lambda = 8_f64;
+    /// let lambda = 8_f64;
     ///
-    ///     let kurtosis = Poisson::kurtosis(lambda);
+    /// let kurtosis = Poisson::kurtosis(lambda);
     ///
-    ///     println!("Kurtosis with lambda = {}: {}", lambda, kurtosis);
-    /// }
+    /// println!("Kurtosis with lambda = {}: {}", lambda, kurtosis);
     /// ```
     /// <hr/>
     pub fn kurtosis(lambda: f64) -> f64 {

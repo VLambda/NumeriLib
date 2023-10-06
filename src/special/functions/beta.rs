@@ -24,13 +24,11 @@ impl Beta {
     /// ```rust
     /// use numerilib::special::Beta;
     ///
-    /// fn main() {
-    ///     let z1 = 1_f64;
-    ///     let z2 = 2_f64;
-    ///     let lnbeta = Beta::lnbeta(z1, z2);
+    /// let z1 = 1_f64;
+    /// let z2 = 2_f64;
+    /// let lnbeta = Beta::lnbeta(z1, z2);
     ///
-    ///     println!("Natural Logarithm of Beta({}, {}) is: {}", z1, z2, lnbeta);
-    /// }
+    /// println!("Natural Logarithm of Beta({}, {}) is: {}", z1, z2, lnbeta);
     /// ```
     /// <hr/>
     pub fn lnbeta(z1: f64, z2: f64) -> f64 {
@@ -55,13 +53,11 @@ impl Beta {
     /// ```rust
     /// use numerilib::special::Beta;
     ///
-    /// fn main() {
-    ///     let z1 = 8_f64;
-    ///     let z2 = 7_f64;
-    ///     let beta = Beta::beta(z1, z2);
+    /// let z1 = 8_f64;
+    /// let z2 = 7_f64;
+    /// let beta = Beta::beta(z1, z2);
     ///
-    ///     println!("Beta({}, {}) is: {}", z1, z2, beta);
-    /// }
+    /// println!("Beta({}, {}) is: {}", z1, z2, beta);
     /// ```
     /// <hr/>
     pub fn beta(z1: f64, z2: f64) -> f64 {
@@ -85,14 +81,12 @@ impl Beta {
     /// ```rust
     /// use numerilib::special::Beta;
     ///
-    /// fn main() {
-    ///     let x = 0.2_f64;
-    ///     let z1 = 2.0_f64;
-    ///     let z2 = 3.0_f64;
-    ///     let incbeta = Beta::incbeta(x, z1, z2);
+    /// let x = 0.2_f64;
+    /// let z1 = 2.0_f64;
+    /// let z2 = 3.0_f64;
+    /// let incbeta = Beta::incbeta(x, z1, z2);
     ///
-    ///     println!("Incomplete Beta({}, {}, {}) is: {}", x, z1, z2, incbeta);
-    /// }
+    /// println!("Incomplete Beta({}, {}, {}) is: {}", x, z1, z2, incbeta);
     /// ```
     /// <hr/>
     pub fn incbeta(z1: f64, z2: f64, x: f64) -> f64 {
@@ -120,14 +114,12 @@ impl Beta {
     /// ```rust
     /// use numerilib::special::Beta;
     ///
-    /// fn main() {
-    ///     let x = 1_f64 / 7_f64;
-    ///     let z1 = 1_f64 / 2_f64;
-    ///     let z2 = 3_f64;
-    ///     let regincbeta = Beta::regincbeta(z1, z2, x);
+    /// let x = 1_f64 / 7_f64;
+    /// let z1 = 1_f64 / 2_f64;
+    /// let z2 = 3_f64;
+    /// let regincbeta = Beta::regincbeta(z1, z2, x);
     ///
-    ///     println!("Regularized Incomplete Beta({}, {}, {}) is: {}", z1, z2, x, regincbeta);
-    /// }
+    /// println!("Regularized Incomplete Beta({}, {}, {}) is: {}", z1, z2, x, regincbeta);
     /// ```
     /// <hr/>
     pub fn regincbeta(z1: f64, z2: f64, x: f64) -> f64 {
@@ -165,14 +157,12 @@ impl Beta {
     /// ```rust
     /// use numerilib::special::Beta;
     ///
-    /// fn main() {
-    ///     let z1 = 1_f64;
-    ///     let z2 = 2_f64;
-    ///     let x = 0.590401_f64;
-    ///     let inverse = Beta::invregincbeta(z1, z2, x);
+    /// let z1 = 1_f64;
+    /// let z2 = 2_f64;
+    /// let x = 0.590401_f64;
+    /// let inverse = Beta::invregincbeta(z1, z2, x);
     ///
-    ///     println!("Inverse Regularized Incomplete Beta({}, {}, {}) is: {}", z1, z2, x, inverse);
-    /// }
+    /// println!("Inverse Regularized Incomplete Beta({}, {}, {}) is: {}", z1, z2, x, inverse);
     /// ```
     /// <hr/>
     pub fn invregincbeta(z1: f64, z2: f64, x: f64) -> f64 {

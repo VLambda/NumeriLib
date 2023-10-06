@@ -1,3 +1,3 @@
-mod matrix;
+mod matrix_func;
 
-pub use matrix::*;
+pub use matrix_func::*;

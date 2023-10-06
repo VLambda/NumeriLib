@@ -1,4 +1,3 @@
-use crate::extra::Extra;
 use crate::special::Probability;
 use crate::Functions;
 
@@ -78,7 +77,7 @@ impl Gamma {
             .enumerate()
             .fold(LG5N7[0], |acc, (i, &val)| acc + val / (z + (i + 1) as f64));
 
-        (2f64 * std::f64::consts::PI).sqrt().ln() + s.ln() - base + base.ln() * (z + 0.5)
+        (std::f64::consts::TAU).sqrt().ln() + s.ln() - base + base.ln() * (z + 0.5)
     }
 
     /// Calculates the Gamma function using Lanczos approximation.

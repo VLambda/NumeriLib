@@ -1,4 +1,4 @@
-# Ferrate
+![Alt text](./assets/logo/numerilib_logo_100px.png "NumeriLib Logo")
 ***
 
 A rust mathematics library made to recreate the functions that are present in the TI-84 & 83 line up of calculators, and more.
@@ -7,7 +7,7 @@ A rust mathematics library made to recreate the functions that are present in th
 
 ### Add to your Project:
 ````
-Cargo add ferrate
+Cargo add numerilib
 ````
 
 ### Documentation:

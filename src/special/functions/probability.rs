@@ -120,12 +120,10 @@ impl Probability {
     /// ```rust
     /// use numerilib::special::Probability;
     ///
-    /// fn main() {
-    ///     let n = 6_f64;
-    ///     let factorial = Probability::factorial(n);
+    /// let n = 6_f64;
+    /// let factorial = Probability::factorial(n);
     ///
     ///     println!("6! is: {}", factorial);
-    /// }
     /// ```
     /// <hr/>
     pub fn factorial(n: f64) -> f64 {
@@ -152,13 +150,11 @@ impl Probability {
     /// ```rust
     /// use numerilib::special::Probability;
     ///
-    /// fn main() {
-    ///     let x = 2_f64;
-    ///     let n = 3_f64;
-    ///     let poch = Probability::pochhammer(x, n);
+    /// let x = 2_f64;
+    /// let n = 3_f64;
+    /// let poch = Probability::pochhammer(x, n);
     ///
-    ///     println!("The Rising Factorial of 2^n n=3 is: {}", poch);
-    /// }
+    /// println!("The Rising Factorial of 2^n n=3 is: {}", poch);
     /// ```
     /// <hr/>
     pub fn pochhammer(x: f64, n: f64) -> f64 {
@@ -181,14 +177,12 @@ impl Probability {
     /// ```rust
     /// use numerilib::special::Probability;
     ///
-    /// fn main() {
-    ///     let x = 3_f64;
-    ///     let n = 2_f64;
+    /// let x = 3_f64;
+    /// let n = 2_f64;
     ///
-    ///     let fall = Probability::falling_factorial(x, n);
+    /// let fall = Probability::falling_factorial(x, n);
     ///
-    ///     println!("The Falling Factorial of 3^n where n=2 is: {}", fall);
-    /// }
+    /// println!("The Falling Factorial of 3^n where n=2 is: {}", fall);
     /// ```
     /// <hr/>                                       
     pub fn falling_factorial(x: f64, n: f64) -> f64 {

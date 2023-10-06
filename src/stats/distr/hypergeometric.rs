@@ -26,16 +26,14 @@ impl Hypergeometric {
     /// ```
     /// use numerilib::stats::distr::Hypergeometric;
     ///
-    /// fn main() {
-    ///     let population = 100_f64;
-    ///     let success = 20_f64;
-    ///     let draws = 10_f64;
-    ///     let observed = 4_f64;
+    /// let population = 100_f64;
+    /// let success = 20_f64;
+    /// let draws = 10_f64;
+    /// let observed = 4_f64;
     ///
-    ///     let pmf = Hypergeometric::pmf(population, success, draws, observed);
+    /// let pmf = Hypergeometric::pmf(population, success, draws, observed);
     ///
-    ///     println!("PMF: {}", pmf);
-    /// }
+    /// println!("PMF: {}", pmf);
     /// ```
     /// <hr/>
     pub fn pmf(population: f64, success: f64, draws: f64, observed: f64) -> f64 {
@@ -65,16 +63,14 @@ impl Hypergeometric {
     /// ```
     /// use numerilib::stats::distr::Hypergeometric;
     ///
-    /// fn main() {
-    ///     let population = 100_f64;
-    ///     let success = 20_f64;
-    ///     let draws = 10_f64;
-    ///     let observed = 4_f64;
+    /// let population = 100_f64;
+    /// let success = 20_f64;
+    /// let draws = 10_f64;
+    /// let observed = 4_f64;
     ///
-    ///     let cdf = Hypergeometric::lcdf(population, success, draws, observed);
-    ///
-    ///     println!("CDF: {}", cdf);
-    /// }
+    /// let cdf = Hypergeometric::lcdf(population, success, draws, observed);
+    ///   
+    /// println!("CDF: {}", cdf);
     /// ```
     /// <hr/>
     pub fn lcdf(population: f64, success: f64, draws: f64, observed: f64) -> f64 {
@@ -104,16 +100,14 @@ impl Hypergeometric {
     /// ```
     /// use numerilib::stats::distr::Hypergeometric;
     ///
-    /// fn main() {
-    ///     let population = 100_f64;
-    ///     let success = 20_f64;
-    ///     let draws = 10_f64;
-    ///     let observed = 4_f64;
+    /// let population = 100_f64;
+    /// let success = 20_f64;
+    /// let draws = 10_f64;
+    /// let observed = 4_f64;
     ///
-    ///     let cdf = Hypergeometric::ucdf(population, success, draws, observed);
+    /// let cdf = Hypergeometric::ucdf(population, success, draws, observed);
     ///
-    ///     println!("CDF: {}", cdf);
-    /// }
+    /// println!("CDF: {}", cdf);
     /// ```
     /// <hr/>
     pub fn ucdf(population: f64, success: f64, draws: f64, observed: f64) -> f64 {
@@ -141,15 +135,13 @@ impl Hypergeometric {
     /// ```
     /// use numerilib::stats::distr::Hypergeometric;
     ///
-    /// fn main() {
-    ///     let population = 100_f64;
-    ///     let success = 20_f64;
-    ///     let draws = 10_f64;
+    /// let population = 100_f64;
+    /// let success = 20_f64;
+    /// let draws = 10_f64;
     ///
-    ///     let mean = Hypergeometric::mean(population, success, draws);
+    /// let mean = Hypergeometric::mean(population, success, draws);
     ///
-    ///     println!("Mean: {}", mean);
-    /// }
+    /// println!("Mean: {}", mean);
     /// ```
     /// <hr/>
     pub fn mean(population: f64, success: f64, draws: f64) -> f64 {
@@ -175,15 +167,13 @@ impl Hypergeometric {
     /// ```
     /// use numerilib::stats::distr::Hypergeometric;
     ///
-    /// fn main() {
-    ///     let population = 100_f64;
-    ///     let success = 20_f64;
-    ///     let draws = 10_f64;
+    /// let population = 100_f64;
+    /// let success = 20_f64;
+    /// let draws = 10_f64;
     ///
-    ///     let mode = Hypergeometric::mode(population, success, draws);
+    /// let mode = Hypergeometric::mode(population, success, draws);
     ///
-    ///     println!("Mode: {}", mode);
-    /// }
+    /// println!("Mode: {}", mode);
     /// ```
     /// <hr/>
     pub fn mode(population: f64, success: f64, draws: f64) -> f64 {
@@ -209,15 +199,13 @@ impl Hypergeometric {
     /// ```
     /// use numerilib::stats::distr::Hypergeometric;
     ///
-    /// fn main() {
-    ///     let population = 100_f64;
-    ///     let success = 20_f64;
-    ///     let draws = 10_f64;
+    /// let population = 100_f64;
+    /// let success = 20_f64;
+    /// let draws = 10_f64;
     ///
-    ///     let variance = Hypergeometric::variance(population, success, draws);
+    /// let variance = Hypergeometric::variance(population, success, draws);
     ///
-    ///     println!("Variance: {}", variance);
-    /// }
+    /// println!("Variance: {}", variance);
     /// ```
     /// <hr/>
     pub fn variance(population: f64, success: f64, draws: f64) -> f64 {
@@ -246,15 +234,13 @@ impl Hypergeometric {
     /// ```
     /// use numerilib::stats::distr::Hypergeometric;
     ///
-    /// fn main() {
-    ///     let population = 100_f64;
-    ///     let success = 20_f64;
-    ///     let draws = 10_f64;
+    /// let population = 100_f64;
+    /// let success = 20_f64;
+    /// let draws = 10_f64;
     ///
-    ///     let sd = Hypergeometric::sd(population, success, draws);
+    /// let sd = Hypergeometric::sd(population, success, draws);
     ///
-    ///     println!("Standard Deviation: {}", sd);
-    /// }
+    /// println!("Standard Deviation: {}", sd);
     /// ```
     /// <hr/>
     pub fn sd(population: f64, success: f64, draws: f64) -> f64 {
@@ -280,15 +266,13 @@ impl Hypergeometric {
     /// ```
     /// use numerilib::stats::distr::Hypergeometric;
     ///
-    /// fn main() {
-    ///     let population = 100_f64;
-    ///     let success = 20_f64;
-    ///     let draws = 10_f64;
+    /// let population = 100_f64;
+    /// let success = 20_f64;
+    /// let draws = 10_f64;
     ///
-    ///     let skewness = Hypergeometric::skewness(population, success, draws);
+    /// let skewness = Hypergeometric::skewness(population, success, draws);
     ///
-    ///     println!("Skewness: {}", skewness);
-    /// }
+    /// println!("Skewness: {}", skewness);
     /// ```
     /// <hr/>
     pub fn skewness(population: f64, success: f64, draws: f64) -> f64 {
@@ -318,15 +302,13 @@ impl Hypergeometric {
     /// ```
     /// use numerilib::stats::distr::Hypergeometric;
     ///
-    /// fn main() {
-    ///     let population = 100_f64;
-    ///     let success = 20_f64;
-    ///     let draws = 10_f64;
+    /// let population = 100_f64;
+    /// let success = 20_f64;
+    /// let draws = 10_f64;
     ///
-    ///     let kurtosis = Hypergeometric::kurtosis(population, success, draws);
+    /// let kurtosis = Hypergeometric::kurtosis(population, success, draws);
     ///
-    ///     println!("Kurtosis: {}", kurtosis);
-    /// }
+    /// println!("Kurtosis: {}", kurtosis);
     /// ```
     /// <hr/>
     pub fn kurtosis(population: f64, success: f64, draws: f64) -> f64 {

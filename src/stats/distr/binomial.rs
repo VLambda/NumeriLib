@@ -1,4 +1,3 @@
-use crate::special::Beta;
 use crate::special::Probability;
 use crate::Functions;
 

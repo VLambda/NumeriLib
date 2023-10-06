@@ -21,15 +21,13 @@ impl Gaussian {
     /// ```rust
     /// use numerilib::stats::distr::Gaussian;
     ///
-    /// fn main() {
-    ///     let x_value = 0.5;
-    ///     let mean = 0.0;
-    ///     let sd = 1.0;
+    /// let x_value = 0.5;
+    /// let mean = 0.0;
+    /// let sd = 1.0;
     ///
-    ///     let normalpdf = Gaussian::pdf(x_value, mean, sd);
+    /// let normalpdf = Gaussian::pdf(x_value, mean, sd);
     ///
-    ///     println!("PDF at x = {}: {}", x_value, normalpdf);
-    /// }
+    /// println!("PDF at x = {}: {}", x_value, normalpdf);
     /// ```
     /// <hr/>
     pub fn pdf(

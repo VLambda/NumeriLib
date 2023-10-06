@@ -1,6 +1,4 @@
 use crate::special::Beta;
-use crate::Functions;
-use std::sync::atomic::Ordering::SeqCst;
 
 /// A module containing functions to work with the Student's T distribution.
 pub struct Student;
@@ -26,14 +24,12 @@ impl Student {
     /// ```
     /// use numerilib::stats::distr::Student;
     ///
-    /// fn main() {
-    ///     let x = 0.975;
-    ///     let df = 6_f64;
+    /// let x = 0.975;
+    /// let df = 6_f64;
     ///
-    ///     let tpdf = Student::pdf(x, df);
+    /// let tpdf = Student::pdf(x, df);
     ///
-    ///     println!("PDF at x = {}: {}", x, tpdf);
-    /// }
+    /// println!("PDF at x = {}: {}", x, tpdf);
     /// ```
     /// <hr/>
     pub fn pdf(x: f64, df: f64) -> f64 {
@@ -72,14 +68,12 @@ impl Student {
     /// ```
     /// use numerilib::stats::distr::Student;
     ///
-    /// fn main() {
-    ///     let bound = 1_f64;
-    ///     let df = 6_f64;
+    /// let bound = 1_f64;
+    /// let df = 6_f64;
     ///
-    ///     let tcdf = Student::cdf(bound, df);
+    /// let tcdf = Student::cdf(bound, df);
     ///
-    ///     println!("CDF at bound = {}: {}", bound, tcdf);
-    /// }
+    /// println!("CDF at bound = {}: {}", bound, tcdf);
     /// ```
     /// <hr/>
     pub fn cdf(bound: f64, df: f64) -> f64 {
@@ -114,15 +108,13 @@ impl Student {
     /// ```
     /// use numerilib::stats::distr::Student;
     ///
-    /// fn main() {
-    ///     let lower = 1_f64;
-    ///     let upper = 1.96;
-    ///     let df = 6_f64;
+    /// let lower = 1_f64;
+    /// let upper = 1.96;
+    /// let df = 6_f64;
     ///
-    ///     let tcdf = Student::tailcdf(lower, upper, df);
+    /// let tcdf = Student::tailcdf(lower, upper, df);
     ///
-    ///     println!("Two-tailed CDF between {} and {}: {}", lower, upper, tcdf);
-    /// }
+    /// println!("Two-tailed CDF between {} and {}: {}", lower, upper, tcdf);
     /// ```
     /// <hr/>
     pub fn tailcdf(lower: f64, upper: f64, df: f64) -> f64 {
@@ -169,14 +161,12 @@ impl Student {
     /// ```
     /// use numerilib::stats::distr::Student;
     ///
-    /// fn main() {
-    ///     let area = 0.025_f64;
-    ///     let df = 63_f64;
+    /// let area = 0.025_f64;
+    /// let df = 63_f64;
     ///
-    ///     let inverse_t = Student::inv(area, df);
+    /// let inverse_t = Student::inv(area, df);
     ///
-    ///     println!("Inverse of two-tailed CDF with area {}: {}", area, inverse_t);
-    /// }
+    /// println!("Inverse of two-tailed CDF with area {}: {}", area, inverse_t);
     /// ```
     /// <hr/>
     pub fn inv(area: f64, df: f64) -> f64 {
@@ -210,13 +200,11 @@ impl Student {
     /// ```
     /// use numerilib::stats::distr::Student;
     ///
-    /// fn main() {
-    ///     let df = 6_f64;
+    /// let df = 6_f64;
     ///
-    ///     let variance = Student::variance(df);
+    /// let variance = Student::variance(df);
     ///
-    ///     println!("Variance: {}", variance);
-    /// }
+    /// println!("Variance: {}", variance);
     /// ```
     /// <hr/>
     pub fn variance(df: f64) -> f64 {
@@ -246,13 +234,11 @@ impl Student {
     /// ```
     /// use numerilib::stats::distr::Student;
     ///
-    /// fn main() {
-    ///     let df = 6_f64;
+    /// let df = 6_f64;
     ///
-    ///     let sd = Student::sd(df);
+    /// let sd = Student::sd(df);
     ///
-    ///     println!("Standard Deviation: {}", sd);
-    /// }
+    /// println!("Standard Deviation: {}", sd);
     /// ```
     /// <hr/>
     pub fn sd(df: f64) -> f64 {
@@ -276,13 +262,11 @@ impl Student {
     /// ```
     /// use numerilib::stats::distr::Student;
     ///
-    /// fn main() {
-    ///     let df = 6_f64;
+    /// let df = 6_f64;
     ///
-    ///     let kurtosis = Student::kurtosis(df);
+    /// let kurtosis = Student::kurtosis(df);
     ///
-    ///     println!("Kurtosis: {}", kurtosis);
-    /// }
+    /// println!("Kurtosis: {}", kurtosis);
     /// ```
     /// <hr/>
     pub fn kurtosis(df: f64) -> f64 {

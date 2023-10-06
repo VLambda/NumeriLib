@@ -22,14 +22,12 @@ impl Functions {
     ///
     /// use numerilib::Functions;
     ///
-    /// fn main() {
-    ///     let function = |x: f64| x.powi(2);
-    ///     let x = 2;
+    /// let function = |x: f64| x.powi(2);
+    /// let x = 2;
     ///
-    ///     let derivative = Functions::derivative(function, x);
+    /// let derivative = Functions::derivative(function, x);
     ///
-    ///     println!("The Derivative of x^2 at x=2 is: {}", derivative);
-    /// }
+    /// println!("The Derivative of x^2 at x=2 is: {}", derivative);
     /// ```
     /// <hr/>
     pub fn derivative<F: Fn(f64) -> f64>(f: F, x: impl Into<f64> + Copy) -> f64 {
@@ -61,16 +59,14 @@ impl Functions {
     /// ```rust
     /// use numerilib::Functions;
     ///
-    /// fn main() {
-    ///     let lower_bound = 0_f64;
-    ///     let upper_bound = 6_f64;
-    ///     let intervals = 6_f64;
-    ///     let function = |x: f64| x.powi(2);
+    /// let lower_bound = 0_f64;
+    /// let upper_bound = 6_f64;
+    /// let intervals = 6_f64;
+    /// let function = |x: f64| x.powi(2);
     ///
-    ///     let integral = Functions::right_riemann(function, lower_bound, upper_bound, intervals);
+    /// let integral = Functions::right_riemann(function, lower_bound, upper_bound, intervals);
     ///
-    ///     println!("The Integral of x^2 at [0,6] is: {}", integral)
-    /// }
+    /// println!("The Integral of x^2 at [0,6] is: {}", integral)
     /// ```
     /// <hr/>
     pub fn right_riemann<F: Fn(f64) -> f64>(
@@ -100,16 +96,14 @@ impl Functions {
     /// ```rust
     /// use numerilib::Functions;
     ///
-    /// fn main() {
-    ///     let lower_bound = 0_f64;
-    ///     let upper_bound = 6_f64;
-    ///     let intervals = 6_f64;
-    ///     let function = |x: f64| x.powi(2);
+    /// let lower_bound = 0_f64;
+    /// let upper_bound = 6_f64;
+    /// let intervals = 6_f64;
+    /// let function = |x: f64| x.powi(2);
     ///
-    ///     let integral = Functions::left_riemann(function, lower_bound, upper_bound, intervals);
+    /// let integral = Functions::left_riemann(function, lower_bound, upper_bound, intervals);
     ///
-    ///     println!("The Integral of x^2 at [0,6] is: {}", integral)
-    /// }
+    /// println!("The Integral of x^2 at [0,6] is: {}", integral)
     /// ```
     /// <hr/>
     pub fn left_riemann<F: Fn(f64) -> f64>(
@@ -139,16 +133,14 @@ impl Functions {
     /// ```rust
     /// use numerilib::Functions;
     ///
-    /// fn main() {
-    ///     let lower_bound = 0_f64;
-    ///     let upper_bound = 6_f64;
-    ///     let intervals = 6_f64;
-    ///     let function = |x: f64| x.powi(2);
+    /// let lower_bound = 0_f64;
+    /// let upper_bound = 6_f64;
+    /// let intervals = 6_f64;
+    /// let function = |x: f64| x.powi(2);
     ///
-    ///     let integral = Functions::midpoint_riemann(function, lower_bound, upper_bound, intervals);
+    /// let integral = Functions::midpoint_riemann(function, lower_bound, upper_bound, intervals);
     ///
-    ///     println!("The Integral of x^2 at [0,6] is: {}", integral)
-    /// }
+    /// println!("The Integral of x^2 at [0,6] is: {}", integral)
     /// ```
     ///
     pub fn midpoint_riemann<F: Fn(f64) -> f64>(
@@ -178,16 +170,14 @@ impl Functions {
     /// ```rust
     /// use numerilib::Functions;
     ///
-    /// fn main() {
-    ///     let lower_bound = 0_f64;
-    ///     let upper_bound = 6_f64;
-    ///     let intervals = 6_f64;
-    ///     let function = |x: f64| x.powi(2);
+    /// let lower_bound = 0_f64;
+    /// let upper_bound = 6_f64;
+    /// let intervals = 6_f64;
+    /// let function = |x: f64| x.powi(2);
     ///
-    ///     let integral = Functions::trapezoid(function, lower_bound, upper_bound, intervals);
+    /// let integral = Functions::trapezoid(function, lower_bound, upper_bound, intervals);
     ///
-    ///     println!("The Integral of x^2 at [0,6] is: {}", integral)
-    /// }
+    /// println!("The Integral of x^2 at [0,6] is: {}", integral)
     /// ```
     /// <hr/>
     pub fn trapezoid<F: Fn(f64) -> f64>(
@@ -217,16 +207,14 @@ impl Functions {
     /// ```rust
     /// use numerilib::Functions;
     ///
-    /// fn main() {
-    ///     let lower_bound = 0_f64;
-    ///     let upper_bound = 6_f64;
-    ///     let intervals = 6_f64;
-    ///     let function = |x: f64| x.powi(2);
+    /// let lower_bound = 0_f64;
+    /// let upper_bound = 6_f64;
+    /// let intervals = 6_f64;
+    /// let function = |x: f64| x.powi(2);
     ///
-    ///     let integral = Functions::simpson(function, lower_bound, upper_bound, intervals);
+    /// let integral = Functions::simpson(function, lower_bound, upper_bound, intervals);
     ///
-    ///     println!("The Integral of x^2 at [0,6] is: {}", integral)
-    /// }
+    /// println!("The Integral of x^2 at [0,6] is: {}", integral)
     /// ```
     /// <hr/>
     pub fn simpson<F: Fn(f64) -> f64>(
@@ -255,15 +243,13 @@ impl Functions {
     /// ```rust
     /// use numerilib::Functions;
     ///
-    /// fn main() {
-    ///     let lower_bound = 0_f64;
-    ///     let upper_bound = 6_f64;
-    ///     let function = |x: f64| x.powi(2);
+    /// let lower_bound = 0_f64;
+    /// let upper_bound = 6_f64;
+    /// let function = |x: f64| x.powi(2);
     ///
-    ///     let integral = Functions::boole_rule(function, lower_bound, upper_bound);
+    /// let integral = Functions::boole_rule(function, lower_bound, upper_bound);
     ///
-    ///     println!("The Integral of x^2 at [0,6] is: {}", integral)
-    /// }
+    /// println!("The Integral of x^2 at [0,6] is: {}", integral)
     /// ```
     /// <hr/>
     pub fn boole_rule<F: Fn(f64) -> f64>(function: F, lower_limit: f64, upper_limit: f64) -> f64 {
@@ -288,16 +274,14 @@ impl Functions {
     /// ```rust
     /// use numerilib::Functions;
     ///
-    /// fn main() {
-    ///     let lower_bound = 0_f64;
-    ///     let upper_bound = 6_f64;
-    ///     let tolerance = 1e-12;
-    ///     let function = |x: f64| x.powi(2);
+    /// let lower_bound = 0_f64;
+    /// let upper_bound = 6_f64;
+    /// let tolerance = 1e-12;
+    /// let function = |x: f64| x.powi(2);
     ///
-    ///     let integral = Functions::adaptive_quadrature(function, lower_bound, upper_bound, tolerance);
+    /// let integral = Functions::adaptive_quadrature(function, lower_bound, upper_bound, tolerance);
     ///
-    ///     println!("The Integral of x^2 at [0,6] is: {}", integral)
-    /// }
+    /// println!("The Integral of x^2 at [0,6] is: {}", integral)
     /// ```
     /// <hr/>
     pub fn adaptive_quadrature<F: Fn(f64) -> f64>(
@@ -326,15 +310,13 @@ impl Functions {
     /// ```rust
     /// use numerilib::Functions;
     ///
-    /// fn main() {
-    ///     let start = 0_f64;
-    ///     let limit = 9_f64;
-    ///     let function = |x: f64| 3_f64;
+    /// let start = 0_f64;
+    /// let limit = 9_f64;
+    /// let function = |x: f64| 3_f64;    
     ///
-    ///     let summation = Functions::summation(start, limit, function);
+    /// let summation = Functions::summation(start, limit, function);    ///
     ///
-    ///     println!("The summation of the constant 3 from [0,9] is: {}", summation);
-    /// }
+    /// println!("The summation of the constant 3 from [0,9] is: {}", summation);
     /// ```
     ///
     /// # Example #2: Function
@@ -342,15 +324,13 @@ impl Functions {
     /// ```rust
     /// use numerilib::Functions;
     ///
-    /// fn main() {
-    ///     let start = 4.5;
-    ///     let limit = 100_f64;
-    ///     let function = |x: f64| 1_f64 / x;
+    /// let start = 4.5;    
+    /// let limit = 100_f64;    
+    /// let function = |x: f64| 1_f64 / x;
     ///
-    ///     let summation = Functions::summation(start, limit, function);
+    /// let summation = Functions::summation(start, limit, function);
     ///
-    ///     println!("The summation of the function 1/x from [4.5,100] is: {}", summation);
-    /// }
+    /// println!("The summation of the function 1/x from [4.5,100] is: {}", summation);
     /// ```
     /// <hr/>
     pub fn summation<F: Fn(f64) -> f64>(start: f64, limit: f64, f: F) -> f64 {
@@ -382,15 +362,13 @@ impl Functions {
     /// ```rust
     /// use numerilib::Functions;
     ///
-    /// fn main() {
-    ///     let start = 2_f64;
-    ///     let limit = 7_f64;
-    ///     let f = |x: f64| 3_f64;
+    /// let start = 2_f64;
+    /// let limit = 7_f64;
+    /// let f = |x: f64| 3_f64;
     ///
-    ///     let product_series = Functions::product(start, limit, f);
+    /// let product_series = Functions::product(start, limit, f);
     ///
-    ///     println!("The Product Series of the Constant 3 from [2,7] is: {}", product_series);
-    /// }
+    /// println!("The Product Series of the Constant 3 from [2,7] is: {}", product_series);
     /// ```
     ///
     /// # Example #2: Function
@@ -398,15 +376,13 @@ impl Functions {
     /// ```rust
     /// use numerilib::Functions;
     ///
-    /// fn main() {
-    ///     let start = 3_f64;
-    ///     let limit = 7_f64;
-    ///     let function = |x: f64| x.powi(2);
+    /// let start = 3_f64;
+    /// let limit = 7_f64;
+    /// let function = |x: f64| x.powi(2);
     ///
-    ///     let summation = Functions::product(start, limit, function);
+    /// let summation = Functions::product(start, limit, function);
     ///
-    ///     println!("The Product Series of the Function x^2 from [3,7] is: {}", summation);
-    /// }
+    /// println!("The Product Series of the Function x^2 from [3,7] is: {}", summation);
     /// ```
     /// <hr/>
     pub fn product<F: Fn(f64) -> f64>(start: f64, limit: f64, f: F) -> f64 {
@@ -437,13 +413,11 @@ impl Functions {
     /// ```rust
     /// use numerilib::Functions;
     ///
-    /// fn main() {
-    ///     let x = 1.5_f64;
-    ///     let function = |x: f64| x.powi(2) - 2_f64;
-    ///     let newton = Functions::newmet(x, function);
+    /// let x = 1.5_f64;
+    /// let function = |x: f64| x.powi(2) - 2_f64;
+    /// let newton = Functions::newmet(x, function);
     ///
-    ///     println!("Using Newton's Method we can approximate the root of x^2-2 with a guess of 1.5 as: {}", newton);
-    /// }
+    /// println!("Using Newton's Method we can approximate the root of x^2-2 with a guess of 1.5 as: {}", newton);
     /// ```
     /// <hr/>
     pub fn newmet<F: Fn(f64) -> f64>(mut guess: f64, func: F) -> f64 {
