@@ -18,7 +18,7 @@ To install NumeriLib, simply add the following line to your `Cargo.toml` file:
 ...
 
 [dependencies]
-numeri_lib = "0.1.0"
+numerilib = "0.1.0"
 
 ...
 ```
