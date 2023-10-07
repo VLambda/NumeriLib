@@ -1,9 +1,0 @@
-[book]
-authors = ["Vedang Vivek Dicholkar"]
-language = "en"
-multilingual = false
-src = "src"
-title = "docs"
-
-[output.html]
-mathjax-support = true
