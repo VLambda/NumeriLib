@@ -86,3 +86,8 @@
 11. The Future of `ferrate`, `vml`, and `rusty_stats`:
     * `ferrate` v0.0.4 will be the last release of `ferrate`. It will be yanked on the next release of `numerilib`.
     * `vml` and `rusty_stats` are currently yanked.
+
+***
+
+## Closing Notes
+I hope the wait was worth it. NumeriLib is now much more fleshed out and has a lot more functionality. I hope you enjoy using it as much as I enjoyed making it. If you like my work, please leave a Star on the GitHub Repo. It really helps me out. Thank you for your support and I hope you have a great day. -VLambda

@@ -6,7 +6,7 @@ edition = "2021"
 license-file = "LICENSE"
 description = "A Rust Mathematics Library"
 readme = "CratesREADME.md"
-repository = "https://github.com/VLambda/ferrate.git"
+repository = "https://github.com/VLambda/numerilib.git"
 
 [dependencies]
 
