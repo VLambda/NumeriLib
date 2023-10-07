@@ -1,11 +1,4 @@
-<!--suppress ALL -->
-<p align="center">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="./assets/logo/numerilib_logo_100px_dark_mode.png">
-      <source media="(prefers-color-scheme: light)" srcset="./assets/logo/numerilib_logo_100px_light_mode.png">
-      <img alt="NumeriLib Logo">
-    </picture>
-</p>
+<img src="./assets/logo/numerilib_logo_100px_light_mode.png">
 
 ***
 
