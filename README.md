@@ -8,6 +8,7 @@
 </p>
 
 ***
+
 <div align="center">
 
 ![Static Badge](https://img.shields.io/badge/mdbook-282d3f?style=for-the-badge&logo=mdbook&logoColor=white&link=vlambda.github.io)
@@ -16,6 +17,7 @@
 ![Static Badge](https://img.shields.io/badge/docs.rs-282d3f?style=for-the-badge&logo=rust&logoColor=white&link=docs.rs%2Fnumerilib)
 
 </div>
+
 ***
 
 
