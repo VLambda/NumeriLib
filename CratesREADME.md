@@ -8,13 +8,17 @@
 </p>
 
 ***
-![Static Badge](https://img.shields.io/badge/Docs.rs-E69138?style=for-the-badge&logo=rust&logoColor=white&link=docs.rs%2Fnumerilib)
+![Static Badge](https://img.shields.io/badge/mdbook-282d3f?style=for-the-badge&logo=mdbook&logoColor=white&link=vlambda.github.io)
+![Static Badge](https://img.shields.io/badge/v0.1.0-282d3f?style=for-the-badge&logo=rust&logoColor=white&label=crates.io&labelColor=%23161923&link=crates.io%2Fcrates%2Fnumerilib)
+![Static Badge](https://img.shields.io/badge/BSD_3--Clause-282d3f?style=for-the-badge&logo=bsd&logoColor=white&label=License&labelColor=%23161923&link=github.com%2FVLambda%2FNumeriLib%2Fblob%2Fmain%2FLICENSE)
+![Static Badge](https://img.shields.io/badge/docs.rs-282d3f?style=for-the-badge&logo=rust&logoColor=white&link=docs.rs%2Fnumerilib)
 ***
 
 
 ### Table of Content
 * [What is NumeriLib](#what-is-numerilib)
 * [Adding to your Project](#add-to-your-project)
+* [Documentation](#documentation)
 
 ***
 
@@ -36,7 +40,13 @@ Or, you can add it via the command line:
 ```bash
 cargo add numerilib
 ```
+***
 
 ### Documentation:
-<a href="https://docs.rs/numerilib/" target="_blank">Doc.rs</a>
+
+There are 2 websites you can go to get documentation for NumeriLib. The NumeriLib Book and the Documentation on Doc.rs. The Book explains each function, but is still behind when it comes to showcasing all the functions in this library. The Doc.rs documentation is more up to date and has more examples, but does not explain each function nearly as in depth.
+
+#### <a href="https://docs.rs/numerilib/" target="_blank">Doc.rs</a>
+
+#### <a href="https://vlambda.github.io/" target="_blank">NumeriLib Book</a>
 ***
