@@ -11,12 +11,10 @@
 
 <div align="center">
 
-[![mdbook](https://img.shields.io/badge/mdbook-282d3f?style=for-the-badge&logo=mdbook&logoColor=white&link=vlambda.github.io)](https://vlambda.github.io/)
-    
-[![Static Badge](https://img.shields.io/badge/mdbook-282d3f?style=for-the-badge&logo=mdbook&logoColor=white&link=vlambda.github.io)](vlambda.github.io)
-![Static Badge](https://img.shields.io/badge/v0.1.0-282d3f?style=for-the-badge&logo=rust&logoColor=white&label=crates.io&labelColor=%23161923&link=crates.io%2Fcrates%2Fnumerilib)
-![Static Badge](https://img.shields.io/badge/BSD_3--Clause-282d3f?style=for-the-badge&logo=bsd&logoColor=white&label=License&labelColor=%23161923&link=github.com%2FVLambda%2FNumeriLib%2Fblob%2Fmain%2FLICENSE)
-![Static Badge](https://img.shields.io/badge/docs.rs-282d3f?style=for-the-badge&logo=rust&logoColor=white&link=docs.rs%2Fnumerilib)
+[![Static Badge](https://img.shields.io/badge/mdbook-282d3f?style=for-the-badge&logo=mdbook&logoColor=white&link=vlambda.github.io)](https://vlambda.github.io/)
+[![Static Badge](https://img.shields.io/badge/v0.1.2-282d3f?style=for-the-badge&logo=rust&logoColor=white&label=crates.io&labelColor=%23161923&link=crates.io%2Fcrates%2Fnumerilib)](https://crates.io/crates/numerilib/)
+[![Static Badge](https://img.shields.io/badge/BSD_3--Clause-282d3f?style=for-the-badge&logo=bsd&logoColor=white&label=License&labelColor=%23161923&link=github.com%2FVLambda%2FNumeriLib%2Fblob%2Fmain%2FLICENSE)](./LICENSE)
+[![Static Badge](https://img.shields.io/badge/docs.rs-282d3f?style=for-the-badge&logo=rust&logoColor=white&link=docs.rs%2Fnumerilib)](https://docs.rs/numerilib/0.1.2/numerilib/)
 
 </div>
 
